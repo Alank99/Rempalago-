@@ -1,10 +1,10 @@
-# arbolizcs
+# Arbolizcs
 
 ### Repositorio de git hub del equipo 4
 
-#### Matriculas y nombres de los intregrantes
+#### Matrículas y nombres de los intregrantes
 
-1.-Alejandro Fernandez del Valle Herrera A01024998 
+1.-Alejandro Fernández del Valle Herrera A01024998 
 
 2.-Oswaldo Ilhuicatzi Mendizábal A01781988
 
