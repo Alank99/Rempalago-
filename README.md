@@ -13,3 +13,7 @@
 4.-Alan Anthony Hernández Pérez A01783347
 
 5.-Mario Ignacio Frías Pina A01782559
+
+# Información Adicional
+
+[Link a la presentación en Canva](https://www.canva.com/design/DAFf2cwCfPs/fW2g8WvVpFw1t5SWsDyleQ/edit?utm_content=DAFf2cwCfPs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
