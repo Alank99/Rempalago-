@@ -1,69 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Trompo : MonoBehaviour
 {
-    [SerializeField] GameObject trompo;
-    [SerializeField] GameObject player;
-    [SerializeField] float knockback;
-    [SerializeField] float maxSpeed;
+    [SerializeField] GameObject png;
+    [Header("Spin y Daño del trompo")]
+    [Tooltip("Cuanto giro pierde el trompo cuando un enemigo entra en contacto con él")]
+    [SerializeField] float SpinLoss;
+    [Tooltip("Multiplicador de daño la velocidad del trompo con su giro")]
+    [SerializeField] float SpinMult;
+    [Tooltip("Tiempo que tarda en reducirse el giro del trompo")]
+    [SerializeField] float slowdown;
 
-    private bool shot = false;
-    private float startTime;
-    private GameObject nuevoTrompo;
+
+    private float SpinSpeed;
+    private float time_since_slow;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        time_since_slow = Time.unscaledTime;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        float held = heldButton() * 3;
-
-        //maxima velocidad
-        if (held > maxSpeed)
-            held = maxSpeed;
-    
-        if (held != 0.0f && !shot)
+        if (Time.unscaledTime - time_since_slow >= slowdown)
         {
-            shot = true;
-            shoot(held);
+            time_since_slow = Time.unscaledTime;
+            SpinSpeed -= 1;
         }
-
-        if (shot && Math.Abs(nuevoTrompo.transform.position.x - player.transform.position.x) < 2)
-            if (Input.GetKey("mouse 1"))
-            {
-                shot = false;
-                Destroy(nuevoTrompo);
-            }
-
-
+        if (SpinSpeed <= 0)
+        {
+            this.GetComponent<Rigidbody2D>().freezeRotation = false;
+            png.GetComponent<Animator>().SetBool("Spin", false);
+        }
     }
 
-    // Shoot es llamado cuando quiere usar el trompo el jugador
-    void shoot(float speed)
+    //Colisiones con enemigos
+    void OnCollisionEnter2D(Collision2D col)
     {
-        Vector3 shootDirection;
-        Vector3 initalPosition;
-
-        shootDirection = Input.mousePosition;
-        shootDirection.z = 0.0f;
-        shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-        shootDirection = shootDirection - player.transform.position;
-        
-        initalPosition = player.transform.position;
-        initalPosition.x += Math.Sign(shootDirection.x);
-
-        nuevoTrompo = Instantiate(trompo, initalPosition, Quaternion.identity);
-        nuevoTrompo.GetComponent<Rigidbody2D>().velocity = shootDirection * speed;
+        if (SpinSpeed > 0 && col.gameObject.tag == "Enemy")
+        {
+            SpinSpeed -= SpinLoss;
+            col.gameObject.GetComponent<Enemigos>().addDamage((int)SpinSpeed);
+            //this.GetComponent<CircleCollider2D>().enabled = false;
+        }
     }
 
-    //Regresa cuanto tiempo fue presionado un boton
-    float heldButton()
+    //Velocidad inicial del trompo
+    public void setSpinSpeed(float speed)
     {
-        if (Input.GetKeyDown("mouse 0"))
-            startTime = Time.time;
-        else if(Input.GetKeyUp("mouse 0"))
-            return (Time.time - startTime);
-        return(0.0f);
+        SpinSpeed = speed * SpinMult;
     }
 }
