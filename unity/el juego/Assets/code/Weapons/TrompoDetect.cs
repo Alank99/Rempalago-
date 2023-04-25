@@ -9,7 +9,6 @@ public class TrompoDetect : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag.Equals("Trompo")){
             Player.pickup();
-            Debug.Log("Enter");
         }
     }
 }
