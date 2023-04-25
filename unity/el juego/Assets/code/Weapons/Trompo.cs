@@ -38,7 +38,9 @@ public class Trompo : MonoBehaviour
         }
     }
 
-    //Colisiones con enemigos
+    /// <summary>
+    /// Colisiones con enemigos
+    /// </summary>
     void OnCollisionEnter2D(Collision2D col)
     {
         if (SpinSpeed > 0 && col.gameObject.tag == "Enemy")
@@ -49,7 +51,9 @@ public class Trompo : MonoBehaviour
         }
     }
 
-    //Velocidad inicial del trompo
+    /// <summary>
+    /// Velocidad inicial del trompo
+    /// </summary>
     public void setSpinSpeed(float speed)
     {
         SpinSpeed = speed * SpinMult;

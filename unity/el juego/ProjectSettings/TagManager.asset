@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - Enemy
+  - Trompo
   layers:
   - Default
   - TransparentFX
