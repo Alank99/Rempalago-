@@ -10,6 +10,8 @@ public class ControladorTrompo : MonoBehaviour
     [SerializeField] GameObject trompo;
     [SerializeField] GameObject player;
     [SerializeField] RectTransform chargebar;
+    [Tooltip("Tienes la espada?")]
+    public bool activa;
 
     [Header("Caracteristicas del trompo creado")]
     [Tooltip("Maximo tiempo que puede cargar el trompo")]
@@ -31,14 +33,17 @@ public class ControladorTrompo : MonoBehaviour
 
     void Update()
     {
-        //Dibujar la barra de carga de color rojo si no puedes lanzarlo todavia
-        if ((Time.time - startDelay) > pickupDelay)
-            color.color = new Color(0,255,0,255);
-        else
-            color.color = new Color(255,0,0,255);
+        if (activa)
+        {
+            //Dibujar la barra de carga de color rojo si no puedes lanzarlo todavia
+            if ((Time.time - startDelay) > pickupDelay)
+                color.color = new Color(0,255,0,255);
+            else
+                color.color = new Color(255,0,0,255);
 
-        if (!shot && startTime != 0.0f)
-            printchargeBar(Time.time - startTime);
+            if (!shot && startTime != 0.0f)
+                printchargeBar(Time.time - startTime);
+        }
     }
 
     /// <summary>
@@ -124,31 +129,34 @@ public class ControladorTrompo : MonoBehaviour
     /// Cada vez que el boton del trompo es presionado o soltado
     /// </summary>
     private void OnAttackTrompo(InputValue state){
-        float held = 0.0f;
-        
-        if (!shot)
+        if (activa)
         {
-            //Si el boton empieza a ser presionado
-            if (state.Get<float>() >= 0.5f)
+            float held = 0.0f;
+            
+            if (!shot)
             {
-                startTime = Time.time;
-                held = 0.0f;
+                //Si el boton empieza a ser presionado
+                if (state.Get<float>() >= 0.5f)
+                {
+                    startTime = Time.time;
+                    held = 0.0f;
+                }
+                //Si el boton deja de ser presionado
+                else
+                {
+                    held = Time.time - startTime;
+                    startTime = 0.0f;
+                    chargebar.localScale = new Vector2(0, 1f);
+                }
+
+                if (held > maxSpeed)
+                    held = maxSpeed;
+
+                if (held != 0.0f && (Time.time - startDelay) > pickupDelay)
+                    shoot(held * chargepersec);
             }
-            //Si el boton deja de ser presionado
             else
-            {
-                held = Time.time - startTime;
-                startTime = 0.0f;
-                chargebar.localScale = new Vector2(0, 1f);
-            }
-
-            if (held > maxSpeed)
-                held = maxSpeed;
-
-            if (held != 0.0f && (Time.time - startDelay) > pickupDelay)
-                shoot(held * chargepersec);
+                pickup();
         }
-        else
-            pickup();
     }
 }

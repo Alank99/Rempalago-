@@ -8,14 +8,16 @@ public class Espada : MonoBehaviour
     [Header("Referencias a prefabs")]
     [Tooltip("Animador de la espada")]
     [SerializeField] GameObject espada;
-    [Tooltip("Dibujar la espada siempre o no?")]
+    [Tooltip("Tienes la espada?")]
+    public bool activa;
 
     private float direction = 0.6f;
 
     // Update is called once per frame
     void Update()
     {
-        UpdatePosition();
+        if (activa)
+            UpdatePosition();
     }
 
     /// <summary>
@@ -39,23 +41,21 @@ public class Espada : MonoBehaviour
         espada.transform.position = position;
 
         if (espada.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Swing"))
-        {
-            //color.material.color = new Color(0,255,0,0);
             espada.GetComponent<Animator>().SetBool("Swing?", false);
-        }
     }
 
     /// <summary>
     /// Inicia la animacion de la espada
     /// </summary>
     private void OnAttackSword(InputValue state){
-        if (direction > 0)
-            espada.GetComponent<Animator>().SetBool("Left?", false);
-        else
-            espada.GetComponent<Animator>().SetBool("Left?", true);
+        if (activa)
+        {
+            if (direction > 0)
+                espada.GetComponent<Animator>().SetBool("Left?", false);
+            else
+                espada.GetComponent<Animator>().SetBool("Left?", true);
 
-        //color.material.color = new Color(0,255,0,255);
-        espada.GetComponent<Animator>().SetBool("Swing?", true);
-
+            espada.GetComponent<Animator>().SetBool("Swing?", true);
+        }
     }
 }

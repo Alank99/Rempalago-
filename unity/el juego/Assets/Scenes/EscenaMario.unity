@@ -130,6 +130,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 229594675724115900, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 229594675724115902, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 229594675732378583, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275165430430410163, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885403102379472044, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707170125947443819, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: activa
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7235632917236300092, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -177,6 +201,10 @@ PrefabInstance:
     - target: {fileID: 7235632917236300093, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
       propertyPath: m_Name
       value: MundoBase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8583456048786534065, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: activa
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
