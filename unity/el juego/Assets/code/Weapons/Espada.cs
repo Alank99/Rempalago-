@@ -9,7 +9,6 @@ public class Espada : MonoBehaviour
     [Tooltip("Animador de la espada")]
     [SerializeField] GameObject espada;
     [Tooltip("Dibujar la espada siempre o no?")]
-    [SerializeField] SpriteRenderer color;
 
     private float direction = 0.6f;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class ControladorTrompo : MonoBehaviour
@@ -23,12 +24,21 @@ public class ControladorTrompo : MonoBehaviour
     private float startDelay;
     private GameObject nuevoTrompo;
 
+    [Tooltip("Renderer de la barra de carga")]
+    [SerializeField] Graphic color;
+
     /// Update is called once per frame
 
     void Update()
-    {        
+    {
+        //Dibujar la barra de carga de color rojo si no puedes lanzarlo todavia
+        if ((Time.time - startDelay) > pickupDelay)
+            color.color = new Color(0,255,0,255);
+        else
+            color.color = new Color(255,0,0,255);
+
         if (!shot && startTime != 0.0f)
-                printchargeBar(Time.time - startTime);
+            printchargeBar(Time.time - startTime);
     }
 
     /// <summary>
@@ -51,6 +61,7 @@ public class ControladorTrompo : MonoBehaviour
 
             nuevoTrompo = Instantiate(trompo, initalPosition, Quaternion.identity);
             nuevoTrompo.GetComponent<Rigidbody2D>().velocity = shootDirection * speed;
+            nuevoTrompo.GetComponent<Rigidbody2D>().velocity += player.GetComponent<Rigidbody2D>().velocity;
             
             //Calcular daño inicial
             nuevoTrompo.GetComponent<Trompo>().setSpinSpeed(speed);

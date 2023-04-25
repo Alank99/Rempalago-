@@ -5361,6 +5361,7 @@ MonoBehaviour:
   maxSpeed: 2
   chargepersec: 1.5
   pickupDelay: 1
+  color: {fileID: 8914206523985337569}
 --- !u!114 &5713605500733794791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5374,7 +5375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   espada: {fileID: 7441511091783107517}
-  color: {fileID: 7441511091758084052}
 --- !u!1 &6880477117721924853
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,11 +5520,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8e6b1d95a91e7841a362c52933d9db5, type: 3}
---- !u!212 &7441511091758084052 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 6899450186246103190, guid: c8e6b1d95a91e7841a362c52933d9db5, type: 3}
-  m_PrefabInstance: {fileID: 4105677070555483970}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7441511091783107512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6899450186254355706, guid: c8e6b1d95a91e7841a362c52933d9db5, type: 3}
@@ -5632,6 +5627,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0588b91aa0d825148a6284584d1f220c, type: 3}
+--- !u!114 &8914206523985337569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2093606282527488888, guid: 0588b91aa0d825148a6284584d1f220c, type: 3}
+  m_PrefabInstance: {fileID: 7401776252095178649}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8914206523985337574 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2093606282527488895, guid: 0588b91aa0d825148a6284584d1f220c, type: 3}
