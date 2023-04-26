@@ -95,12 +95,13 @@ public class ControladorTrompo : MonoBehaviour
         Vector3 new_pos;
 
         new_pos = Camera.main.WorldToScreenPoint(player.transform.position);
-        new_pos.x -= 50;
-        new_pos.y += 30;
+        new_pos.x -= 20;
+        new_pos.y += 40;
         chargebar.position = new_pos;
 
         if (charge > maxSpeed)
             charge = maxSpeed;
+
         Vector2 length = new Vector2(charge / maxSpeed, 1f);
 
         chargebar.localScale = length;
