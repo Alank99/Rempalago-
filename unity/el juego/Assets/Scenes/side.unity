@@ -6838,6 +6838,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1717455091937431718, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2887624222005900760, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.405
@@ -6845,6 +6849,10 @@ PrefabInstance:
     - target: {fileID: 2887624222005900760, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.751
+      objectReference: {fileID: 0}
+    - target: {fileID: 4059301651321023080, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4434327614525884863, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6934,6 +6942,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7331649098938508577, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7380535657139867480, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.034808118
@@ -6965,6 +6977,14 @@ PrefabInstance:
     - target: {fileID: 8600169045189550360, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665670054010219549, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665670054010219549, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8754709537391247352, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalRotation.w
