@@ -93,7 +93,14 @@ public class playerController : MonoBehaviour
         double Hp=saveload.player_estatus.health_p;
     }
 
-    private void OnTriggerEnter2D(Collision2D col) {
+    // no puedes usar un collision 2d!!! necesitas tener un collider2d para un trigger. El collider es cuando no es trigger
+    // private void OnTriggerEnter2D(Collision2D col) {
+    //     if(col.gameObject.tag == "cheackpoint"){
+    //         saveGame();
+    //     }
+    // }
+
+    private void OnTriggerEnter2D(Collider2D col) {
         if(col.gameObject.tag == "cheackpoint"){
             saveGame();
         }
