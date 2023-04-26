@@ -47,6 +47,9 @@ public class playerController : MonoBehaviour
     private void Start() {
         playerRB = gameObject.GetComponent<Rigidbody2D>();
         grounded = true;
+        if(saveload.savedgame){
+            loadGame();
+        }
     }
 
     public void TouchGrass(){
@@ -70,7 +73,33 @@ public class playerController : MonoBehaviour
         if (playerRB.velocity.x <  -maxSpeedX){
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
         }
+
+        if (Input.GetKeyDown(KeyCode.P)) loadGame();
+        
+        if (Input.GetKeyDown(KeyCode.O)) saveGame();        
     }
+
+    //guardar partida
+    //a modificar los punto de vida?
+    public void saveGame(){
+        saveload.player_estatus.position = transform.position;
+        saveload.player_estatus.health_p = 100;
+        saveload.savedgame = true;
+    }
+
+    //cargar partida
+    public void loadGame(){
+        transform.position = saveload.player_estatus.position;
+        double Hp=saveload.player_estatus.health_p;
+    }
+
+    private void OnTriggerEnter2D(Collision2D col) {
+        if(col.gameObject.tag == "cheackpoint"){
+            saveGame();
+        }
+    }
+
+
 
     /// <summary>
     /// Utilizado por el player controller, regresa que tanto esta movido algo
