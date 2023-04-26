@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class ControladorTrompo : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class ControladorTrompo : MonoBehaviour
     [SerializeField] GameObject trompo;
     [SerializeField] GameObject player;
     [SerializeField] RectTransform chargebar;
+    [Tooltip("Tienes la espada?")]
+    public bool activa;
 
     [Header("Caracteristicas del trompo creado")]
     [Tooltip("Maximo tiempo que puede cargar el trompo")]
@@ -22,29 +26,29 @@ public class ControladorTrompo : MonoBehaviour
     private float startDelay;
     private GameObject nuevoTrompo;
 
-    // Update is called once per frame
+    [Tooltip("Renderer de la barra de carga")]
+    [SerializeField] Graphic color;
+
+    /// Update is called once per frame
+
     void Update()
     {
-        float held = 0.0f;
-        
-        if (!shot)
+        if (activa)
         {
-            held = heldButton();
-            if (held > maxSpeed)
-                held = maxSpeed;
-            
-            if (startTime != 0.0f)
+            //Dibujar la barra de carga de color rojo si no puedes lanzarlo todavia
+            if ((Time.time - startDelay) > pickupDelay)
+                color.color = new Color(0,255,0,255);
+            else
+                color.color = new Color(255,0,0,255);
+
+            if (!shot && startTime != 0.0f)
                 printchargeBar(Time.time - startTime);
-
-            if (held != 0.0f && (Time.time - startDelay) > pickupDelay)
-                shoot(held * chargepersec);
         }
-
-        if (shot && Input.GetKey("mouse 0"))
-            pickup();
     }
 
-    // Shoot es llamado cuando quiere usar el trompo el jugador
+    /// <summary>
+    /// Shoot es llamado cuando quiere usar el trompo el jugador
+    /// </summary>
     void shoot(float speed)
     {
             Vector3 shootDirection;
@@ -62,13 +66,16 @@ public class ControladorTrompo : MonoBehaviour
 
             nuevoTrompo = Instantiate(trompo, initalPosition, Quaternion.identity);
             nuevoTrompo.GetComponent<Rigidbody2D>().velocity = shootDirection * speed;
+            nuevoTrompo.GetComponent<Rigidbody2D>().velocity += player.GetComponent<Rigidbody2D>().velocity;
             
             //Calcular daño inicial
             nuevoTrompo.GetComponent<Trompo>().setSpinSpeed(speed);
     }
 
-    //Pickup es llamado al querer recoger el trompo
-    void pickup()
+    /// <summary>
+    /// Pickup es llamado al querer recoger el trompo
+    /// </summary>
+    public void pickup()
     {
         if (Mathf.Abs(nuevoTrompo.transform.position.x - player.transform.position.x) < 3 
         &&  Mathf.Abs(nuevoTrompo.transform.position.y - player.transform.position.y) < 3)
@@ -79,7 +86,9 @@ public class ControladorTrompo : MonoBehaviour
         }
     }
 
-    //printchargeBar es llamado al tener apretado el boton de disparo para imprimir la barra de disparo
+    /// <summary>
+    /// printchargeBar es llamado al tener apretado el boton de disparo para imprimir la barra de disparo
+    /// </summary>
     void printchargeBar(float charge)
     {
         //Mover la barra arriba del jugador
@@ -97,7 +106,9 @@ public class ControladorTrompo : MonoBehaviour
         chargebar.localScale = length;
     }
 
-    //Regresa cuanto tiempo fue presionado un boton
+    /// <summary>
+    /// Regresa cuanto tiempo fue presionado un boton
+    /// </summary>
     float heldButton()
     {
         if (Input.GetKeyDown("mouse 0"))
@@ -112,5 +123,40 @@ public class ControladorTrompo : MonoBehaviour
             return (charge);
         }
         return(0.0f);
+    }
+    
+    /// <summary>
+    /// Cada vez que el boton del trompo es presionado o soltado
+    /// </summary>
+    private void OnAttackTrompo(InputValue state){
+        if (activa)
+        {
+            float held = 0.0f;
+            
+            if (!shot)
+            {
+                //Si el boton empieza a ser presionado
+                if (state.Get<float>() >= 0.5f)
+                {
+                    startTime = Time.time;
+                    held = 0.0f;
+                }
+                //Si el boton deja de ser presionado
+                else
+                {
+                    held = Time.time - startTime;
+                    startTime = 0.0f;
+                    chargebar.localScale = new Vector2(0, 1f);
+                }
+
+                if (held > maxSpeed)
+                    held = maxSpeed;
+
+                if (held != 0.0f && (Time.time - startDelay) > pickupDelay)
+                    shoot(held * chargepersec);
+            }
+            else
+                pickup();
+        }
     }
 }
