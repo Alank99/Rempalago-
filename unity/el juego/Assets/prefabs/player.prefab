@@ -4886,7 +4886,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000059604645, y: 0.35138226}
+  m_Offset: {x: 0.000000059604645, y: 0.27}
   m_Size: {x: 0.41737902, y: 1.6527643}
   m_Direction: 0
 --- !u!1 &6352466119219620172
@@ -5267,6 +5267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c397cfde45f1ae1dbbe38b09eb014af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAnim: {fileID: 6917545721027118582}
   maxSpeedX: 15
   airtimeControlReduction: 0.3
   sensitivity: {x: 4000, y: 0}

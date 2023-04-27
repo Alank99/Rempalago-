@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour
 {
     [Header("Referencias")]
     Rigidbody2D playerRB;
+    public Animator playerAnim;
 
     [Header("Movimiento lateral")]
 
@@ -54,6 +55,7 @@ public class playerController : MonoBehaviour
 
     public void TouchGrass(){
         grounded = true;
+        playerAnim.SetTrigger("fall");
         stopJump();
     }
     public void StopTouchGrass(){
@@ -117,6 +119,10 @@ public class playerController : MonoBehaviour
 
         if (movement.x == 0){
             playerRB.velocity = new Vector2(playerRB.velocity.x/2, playerRB.velocity.y);
+            playerAnim.SetBool("walkLeft", false);
+        }
+        else {
+            playerAnim.SetBool("walkLeft", true);
         }
 
         if (grounded){
@@ -130,6 +136,7 @@ public class playerController : MonoBehaviour
     /// <returns></returns>
     IEnumerator jumpController(){
         jumping = true;
+        playerAnim.SetTrigger("jump");
         // la x se mantiene para que no interferimos con ella
         playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
         playerRB.gravityScale = initialGravity;
@@ -164,6 +171,7 @@ public class playerController : MonoBehaviour
     /// </summary>
     private void stopJump(){
         StopCoroutine("jumpController");
+        playerAnim.ResetTrigger("jump");
         playerRB.gravityScale = finalGravity;
     }
 
