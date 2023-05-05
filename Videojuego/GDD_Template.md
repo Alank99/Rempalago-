@@ -4,8 +4,7 @@
 
 ---
 
-##### **Copyright notice / author information / boring legal stuff nobody likes**
-
+### Authors
 
 - Alejandro Fernández del Valle Herrera **A01024998**
 
@@ -17,6 +16,14 @@
 
 - Mario Ignacio Frías Pina **A01782559**
 
+> Copyright $\copyright$  2023 Ig-Drasil
+
+>    This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+>
+>    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+>
+>    You should have received a copy of the GNU General Public License along with this program.  If not, see https://www.gnu.org/licenses/.    
+
 ##
 ## _Index_
 
@@ -24,8 +31,6 @@
 
 - [**Quimera**](#quimera)
   - [_Game Design Document_](#game-design-document)
-        - [**Copyright notice / author information / boring legal stuff nobody likes**](#copyright-notice--author-information--boring-legal-stuff-nobody-likes)
-  - [](#)
   - [_Index_](#index)
   - [_Game Design_](#game-design)
     - [**Summary**](#summary)
@@ -124,18 +129,33 @@ The play should be having a similar experience to what a child would feel when g
 ### **Screens**
 
 1. Title Screen
-    1. Options
-2. Level Select
-3. Game
-    1. Inventory
-    2. Assessment / Next Level
-4. End Credits
+    1. Play game
+    2. General Options
+    3. Exit game
+2. Game
+    1. Assessment / Next Level
+    2. Death screen
+3. End Credits
 
 _(example)_
 
 ### **Controls**
 
-How will the player interact with the game? Will they be able to choose the controls? What kind of in-game events are they going to be able to trigger, and how? (e.g. pressing buttons, opening doors, etc.)
+- Movement
+    - Lateral Movement
+        - Using A and D with keyboard, or the left stick for a gamepad
+    - Jumping
+        - Using space with keyboard, or the a button on a gamepad: hold
+	    to jump higher. 
+    - Dash
+        - Using shift with keyboard, or the x key on a gamepad
+- Weapons
+    - Using Weapons
+        - Left click with keyboard, or tight trigger with a gamepad
+    - Aiming Weapons
+        - Aiming with the mouse in the screen with keyboard, or aiming with right stick with gamepad
+    - Changing Weapons
+        - Right click with keyboard, or left trigger with gamepad
 
 ### **Mechanics**
 
@@ -388,38 +408,49 @@ Pressure plates will have the ability to move objects in game, spawn new object 
 
 ## _Level Design_
 
----
-
-_(Note : These sections can safely be skipped if they&#39;re not relevant, or you&#39;d rather go about it another way. For most games, at least one of them should be useful. But I&#39;ll understand if you don&#39;t want to use them. It&#39;ll only hurt my feelings a little bit.)_
-
 ### **Themes**
 
 1. Forest
     1. Mood
         1. Dark, calm, foreboding
-  2. Objects
-        1. _Ambient_
-            1. Fireflies
-            2. Beams of moonlight
-            3. Tall grass
-        2. _Interactive_
-            1. Wolves
-            2. Goblins
-            3. Rocks
-2. Castle
-    1. Mood
-        1. Dangerous, tense, active
     2. Objects
         1. _Ambient_
-            1. Rodents
-            2. Torches
-            3. Suits of armor
+            1. Tall Trees
+            2. Falling Leaves
+            3. Flowers
+            4. Bushes
         2. _Interactive_
-            1. Guards
-            2. Giant rats
-            3. Chests
-
-_(example)_
+            1. False floor
+2. Town
+    1. Mood
+        1. Secure, light up, night
+    2. Objects
+        1. _Ambient_
+            1. Houses
+            2. Tavern
+            3. StreetLights
+            4. Street
+		    5. Trash cans
+        2. _Interactive_
+            1. BiciTaxi
+            2. Townsfolk
+                1. Mariachi
+                2. Catrinas
+3. Underground Sewer
+    1. Mood
+        1. Dark, gross, scary
+    2. Objects
+        1. _Ambient_
+            1. Dirt
+            2. Dripstone
+            3. Rats
+            4. Fumes
+  		    5. Water
+        2. _Interactive_
+            1. Nahuales
+		    2. Mummies of Guanajuato
+            3. Toxic water
+            4. Boss
 
 ### **Game Flow**
 
@@ -439,37 +470,28 @@ _(example)_
 
 ### **Abstract Classes / Components**
 
-1. BasePhysics
-    1. BasePlayer
-    2. BaseEnemy
-    3. BaseObject
-2. BaseObstacle
-3. BaseInteractable
-
-_(example)_
+1. BasePlayer
+    1. PlayerController
+    2. GroundDetection
+2. SaveAndLoad
+    1. saveload
+3. Teleport
+    1. TPsystem
+4. Weapon
+    1. Hurtbox
+    2. Balero
+    3. ControladorTrompo
+    4. Espada
+    5. Trompo
+    6. TrompoDetect
+5. UI
+    1. HealthManager
+6. BaseEnemy
 
 ### **Derived Classes / Component Compositions**
 
-1. BasePlayer
-    1. PlayerMain
-    2. PlayerUnlockable
-2. BaseEnemy
-    1. EnemyWolf
-    2. EnemyGoblin
-    3. EnemyGuard (may drop key)
-    4. EnemyGiantRat
-    5. EnemyPrisoner
-3. BaseObject
-    1. ObjectRock (pick-up-able, throwable)
-    2. ObjectChest (pick-up-able, throwable, spits gold coins with key)
-    3. ObjectGoldCoin (cha-ching!)
-    4. ObjectKey (pick-up-able, throwable)
-4. BaseObstacle
-    1. ObstacleWindow (destroyed with rock)
-    2. ObstacleWall
-    3. ObstacleGate (watches to see if certain buttons are pressed)
-5. BaseInteractable
-    1. InteractableButton
+1. BaseEnemy
+    1. Enemy1
 
 _(example)_
 
@@ -485,19 +507,33 @@ What kind of graphic style are you going for? Cartoony? Pixel-y? Cute? How, spec
 
 Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), are great for teaching the player how to play through trial and error, instead of scripting a lengthy tutorial. What kind of visual feedback are you going to use to let the player know they&#39;re interacting with something? That they \*can\* interact with something?
 
+#### Assets Examples
+
+
+
+#### Backgrounds Examples
+
+
+
 ### **Graphics Needed**
 
 1. Characters
-    1. Human-like
-        1. Goblin (idle, walking, throwing)
-        2. Guard (idle, walking, stabbing)
-        3. Prisoner (walking, running)
+    1. Human/player
+        1. Mariachis
+        2. Catrinas
+        3. Player / Alex
+        4. Cholo
+        5. Bartender
+        6. Horse
+        7. Axolotl
     2. Other
-        1. Wolf (idle, walking, running)
-        2. Giant Rat (idle, scurrying)
+        1. Xoloitzcuintle
+        2. Rats
+        3. Ropavejero
+        4. Bicitaxi
 2. Blocks
     1. Dirt
-    2. Dirt/Grass
+    2. Dirt / Grass
     3. Stone Block
     4. Stone Bricks
     5. Tiled Floor
@@ -505,19 +541,13 @@ Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), a
     7. Weathered Stone Bricks
 3. Ambient
     1. Tall Grass
-    2. Rodent (idle, scurrying)
+    2. Trash Cans
     3. Torch
     4. Armored Suit
     5. Chains (matching Weathered Stone Bricks)
-    6. Blood stains (matching Weathered Stone Bricks)
 4. Other
-    1. Chest
-    2. Door (matching Stone Bricks)
-    3. Gate
-    4. Button (matching Weathered Stone Bricks)
-
-_(example)_
-
+    3. Tramps
+    4. Pressure plates
 
 ## _Sounds/Music_
 
