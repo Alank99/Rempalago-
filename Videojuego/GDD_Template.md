@@ -169,10 +169,6 @@ Thanks to the limited air mobility, the player will have to be very careful when
 The jump will use a graph to be able to jump high, or you can make a short jump by releasing the space bar early, cutting its momentum and increasing its level of relative gravity.
 
 
-Para saltar el jugador va a tener que presionar “Espacio”.
-
-El salto usará una gráfica para poder brincar alto, o bien puede hacer un brinco corto soltando la barra espaciadora temprano, cortando su momentum y aumentando su nivel de gravedad relativa.
-
 ![Alt text](img/jump1.png)
 
 ###### Dodge
@@ -261,8 +257,6 @@ The doge is described above, but it will be useful when trying to avoid enemies,
 
 ###### Candy (temporary buffs)
 
-Los enemigos van a tirar dulces de forma aleatoria. Estos dulces si te los comes te dan un pequeño buff temporal. Es decir, te suben tus stats de forma temporal, entrando en algún tipo de “in the zone”. No puedes guardarlos, tan pronto los comes, te ponen intenso.
-
 Enemies will drop random loot such as candy and coins. This candy will give a temporary buff to the player. The buff will be applied based on the type of candy, adding a temporary damage multiplier tol be the following types:
 
 - Speed
@@ -271,7 +265,7 @@ Enemies will drop random loot such as candy and coins. This candy will give a te
 
 This will make swarms less difficult to clear, and rewarding aggressive gameplay.
 
-This will also make players feel more “In the zone”, clearing hoards, and making the player feel a rush when 
+This will also make players feel more “In the zone”, clearing hoards, and making the player feel a rush when they do.
 
 ![Alt text](img/candy.png)
 
