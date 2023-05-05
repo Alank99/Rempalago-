@@ -137,8 +137,6 @@ The play should be having a similar experience to what a child would feel when g
     2. Death screen
 3. End Credits
 
-_(example)_
-
 ### **Controls**
 
 - Movement
@@ -159,246 +157,300 @@ _(example)_
 
 ### **Mechanics**
 
+To assure a better experience for the player the game relies on various mechanics. In this section we will start with the active mechanics, the ones that the player does directly, then we will follow with the passive ones, elements of the game where the player does not have to do anything).
 
-Our game has various mechanics that you will need for the player to have a better experience. In this section, we will define active mechanics (that is, what the user will be able to do directly) as well as passive mechanics (elements of the game where the player does not have to do anything). 
 
 #### Mecánicas activas
 
+
 ##### Movement
+
 
 ###### Side to side movement
 
-The player will be able to move left and right with the keys "a" and "d" respectively. To be able to move more realistically, the player will be able to use a movement considering momentum, that is, it will take a while to stop, and the faster the player goes, the longer it will take to stop.
+
+The player will be able to move left and right with the keys "a" and "d" respectively. 
+
+
+To be able to move more realistically this movement will consider momentum, that is, it will take a while to stop, and the faster the player goes, the longer it will take to stop.
+
 
 ![Alt text](img/move1.png)
 
+
 ###### Air movement
 
-While the player is in the air, he will have a more limited movement, that is, he will be able to make small corrections, but the movement will not be as fluid as when he is touching the ground. 
 
-While you are in the air you will not be able to recharge your movements. That is, if you jump and then hit, you will not be able to hit again until you touch the floor again.
+While the player is in the air, they will have a more limited movement, they will be able to make small corrections, but the movement will not be as fluid as when they are touching the ground.
 
 
-###### Jumps 
-The player will have a simple jump. It will be able to jump every time it touches the ground, and it will only be regained by touching the ground once again. 
+While in the air the player will not be able to recharge movements. If they jump and then hit, they will not be able to hit again until they touch the floor again.
 
-His jump may be considered "high" because it will help the player to be able to climb the height with which the game is planned. 
 
-Thanks to the limited air mobility, the player will have to be very careful when jumping. To jump the player will have to press "Space". 
 
-The jump will use a graph to be able to jump high, or you can make a short jump by releasing the space bar early, cutting its momentum and increasing its level of relative gravity.
+
+###### Jumps
+To jump the player will have to press "Space".
+The player will have a simple jump. Every time they touch the ground, it will only be regained by touching the ground once again.
+Thanks to the limited air mobility, the player will have to be very careful when jumping. 
+By realizing the space bar early the jump will be shorter, cutting the momentum and increasing the level of relative gravity. By holding it the jump will be higher.
 
 
 ![Alt text](img/jump1.png)
 
+
 ###### Dodge
+To doge, the player will click the “CTRL” key.
+To help the player navigate, and provide them with an advantage, the player will get a doge action. This action will throw the player slightly backwards and upwards in the opposite direction to the one they are facing. This action can also allow the player to gain speed in order to evade an attacking enemy.
 
-To help the player navigate, and provide him with an advantage if he knows the mechanics of the game well, the player will get a doge action. This action will throw the player slightly backwards and upwards in the opposite direction to the one they are walking towards. This action can also allow the player to give the player speed needed to evade an attacking enemy. 
 
-To doge, the player can use “CTRL”
 
-Close range attack
-
-If the player tries to attack close range, the player can use a wooden snake as a whip. The statistics that will be considered when the player hits an enemy are as follows: 
-
-- knockback
-- velocity 
-- damage 
-- Recharge time 
-- Range distance 
-
-This weapon will be able to make area attack. To activate it, "Right click"
 
 ![Alt text](img/doge.png)
 
+
 ##### Combat
 
-###### Short distance attack
 
-If the player tries to attack close range, the player can use a wooden snake as a whip. The statistics that will be considered when the player hits an enemy are as follows: 
+### Close ranged attack
+This weapon will be able to make area attacks. To activate it the player will use the right click.
+In order to attack in close proximity the player can use a wooden snake as a whip. 
+The statistics are the following:
+- Knockback
+- Velocity
+- Damage
+- Recharge time
+- Range distance
 
-1. knockback
-1. velocity 
-1. damage 
-1. Recharge time 
-1. Range distance 
 
-This weapon will be able to make area attack. To activate it, "Right click"
+###### Mid ranged attack
+To activate it the player will use the left click.
+To attack at medium distance the user will be able to use a balero to hit someone. The balero is going to be thrown, yet it will stay attached to the player. It has a limit of enemies that it is able to hit at a time. It will be very similar to the way you would throw a chain in other games. 
+The statistics are the following:
+1. Knockback
+1. Velocity
+1. Weight
+1. Damage
+1. Recharge time
+1. Range distance
+1. Maximum of enemies attacked
 
-![Alt text](img/att1.png)
 
-###### Mid distance attack
+Once thrown, the balero will return to the player to allow him to throw it again. 
 
-To attack at medium distance, the user will be able to use a “trompo” to hit someone. The “trompo” is going to be thrown as an object (but it will stay attached to the player), and it will have a limit of enemies that it will be able to hit. It will be very similar to the way you would throw a chain in other games. The statistics you will use are as follows: 
-
-1. knockback 
-1. velocity
-1. weight 
-1. damage 
-1. Recharge time 
-1. Range distance 
-1. max enemies attacked 
-
-Once thrown, the “trompo” will return to the player to allow him to throw it again. To activate it, "Left click"
 
 ![Alt text](img/att2.png)
 
-###### Long distance attack. 
 
-So that the player can defend himself from a distance, he will be granted a top that will serve as a projectile. The top is going to stay rolling, and it will damage the enemies as long as it has speed to roll. The top is going to be thrown, and it will function as an independent object. The only way to get it back is to grab it again by getting closer to it. The statistics you will use are as follows: 
+###### Long distance attack.
+To activate it the player will use "central mouse".
+To allow the player to have a defense from a distance, they will be granted a top that will serve as a projectile.
+The top is going to stay rolling, and it will damage the enemies as long as it has speed to roll. 
+The top will be thrown, and it will function as an independent object. The only way to get it back is to grab it again by getting closer to it. 
+The statistics are the following:
+1. Knockback
+1. Personal knockback
+1. Velocity
+1. Weight
+1. Damage
+1. Recharge time
+1. Range distance
+1. Maximum of enemies attacked
+1. Speed when throwing
 
-1. knockback 
-1. Personal knockback 
-1. velocity 
-1. weight 
-1. damage 
-1. Recharge time 
-1. Range distance 
-1. max enemies attacked 
-1. Speed when throwing 
-
-To activate it, "central mouse"
 
 ![Alt text](img/att3.png)
 
+
 ##### Defense Mechanics
 
+
 ###### Cloth doll (shield)
+To activate it the player will hold the "Z" key.
+The cloth doll is a typical doll that will fill the role of protecting Alex during dreams. 
+It can be used at any moment, and it will completely nullify any damage, but it will break in the process. This means that the doll will be a one use item, so the player will have to be careful when they use it, specially because they will have a maximum capacity of 5. They also aren’t cheap, either by being rare items on the field or by being expensive.
 
-The cloth doll is a typical doll that will fill the role of protecting you during your dreams. It can be used at any moment, and it will completely nullify any damage, but it will break in the process. This means that the doll will be a one use item, protecting the player from any attack, but they have to be careful when they use it, because they will have a max capacity of 5. They also don’t come cheap, either by being rare items on the field, or by being expensive. 
-
-The key to activate is “Z” (hold)
 
 ###### Dodge
+To doge, the player will click the “CTRL” key.
+In order to avoid enemies the player will be able to use the dodge mechanic.
 
-The doge is described above, but it will be useful when trying to avoid enemies, reducing the damage taken.
+
+To help the player navigate, and provide them with an advantage, the player will get a doge action. This action will throw the player slightly backwards and upwards in the opposite direction to the one they are facing. This action can also allow the player to gain speed in order to evade an attacking enemy.
+
 
 ##### Mecánicas de buffs
 
+
 ###### Candy (temporary buffs)
-
-Enemies will drop random loot such as candy and coins. This candy will give a temporary buff to the player. The buff will be applied based on the type of candy, adding a temporary damage multiplier tol be the following types:
-
+Enemies will drop random loot such as candy and coins. The candy will give a temporary buff to the player. This buff will be applied based on the type of candy, adding a temporary damage multiplier. 
+There will be the following types:
 - Speed
 - Attack
 - Damage
 
-This will make swarms less difficult to clear, and rewarding aggressive gameplay.
 
-This will also make players feel more “In the zone”, clearing hoards, and making the player feel a rush when they do.
+This will make swarms easier to clear and make players feel more in the zone, clearing hoards, and giving the player a rush and a rewarding feeling when they do so.
+
 
 ![Alt text](img/candy.png)
 
-###### Food (health regen)
 
-The only way you will be able to regain health is through consuming food items. The food can be bought at the ropaviajeros, and will allow you to buy a max of 10 items. After buying food, the player will be able to eat one of the food items, gaining 20 HP per food item (2 full heals). 
+###### Food (health regeneration)
+The player can consume one food item by pressing “E”.
+The only way you will be able to regain health is through consuming food items. 
+The food can be bought at the ropavejero. Allowing a maximum of 10 items to be bought. After buying food the player will be able to eat it, gaining 20 HP per food item (2 full heals).
 
-The player can consume one food item by pressing “E”
 
 ![Alt text](img/food.png)
 
+
 ###### Muñecas quitapenas (permanent buffs)
 
-Once you get a doll, it gets added as skill points. When pressing “I”, you open an inventory that allows you to click on what you want to upgrade. Once upgraded, there is no going back.
+
+Once you get a doll it gets added as skill points. When pressing “I”, you open an inventory that allows you to click on what you want to upgrade. Once upgraded, there is no going back.
+
 
 ![Alt text](img/doll1.png)
 
+
 ##### Mecánicas de inventario y contadores
+
 
 ###### Cambio de armas
 
-When making a weapon better, you can choose to affect one of the weapons to make it better. Depending on what gets chosen, the color of the weapon will change (based on an rgb value or something like that)
+
+When upgrading a weapon one of them can be chosen to be improved. Depending on what gets chosen, the color of the weapon will change.
+
 
 ###### Life meter
+The player will always have a visible life meter. This will display the percentage of life remaining (from 0 to 100). 
+To make the character feel like they have progressed, armor stats will increase.
 
-The player will always have its life meter visible. This will display the percentage of life remaining (from 0 to 100). This will not change. To make the character feel like he has progressed, armor stats will increase.
 
 ###### Coin system
+Chocolate coins will be used as currency. 
+When an enemy gets defeated a counter will go up, and an animation will show the coins going into the player.
 
-We will use chocolate coins as the currency to buy items. When an enemy gets defeated, a counter will go up, and the animation of the player will show the coins going into the player.
 
 ###### Doll counter
+Cloth dolls get used only when being activated while using shields. This will get displayed as a counter.
 
-There will be a counter for cloth dolls. Cloth dolls get used only when being activated while using shields. This will get displayed as a counter.
 
 ###### Mecánicas de comercio
 
-Once you find a “Ropaviajeros”, known because the cri cri song plays. You can exchange the in-game currency to get certain items. Items will be picked at random, and will only refresh once the ropaviajeros decides to move location. The ropaviajero changes location at random on certain chosen points, ans will not appear for a certain amount of time. THe point of the ropaviajeros is that once you find him, it will be at random how long he stays, I mean, he is not part of your life, he needs to get going to pay the bills.
+
+Once you find a ropavejero, acknowledged because the Cri Cri song by the same name plays. You can use the in-game currency to buy certain items. Items will be picked at random and will only refresh once the ropavejero decides to move location. 
+The ropavejero changes location at random on certain chosen points, and will not appear for a certain amount of time. The point of the ropavejero is that once you find him the amount of time he will stay is random, he needs to get going to pay the bills.
+
 
 ##### Item shop
+When interacting with the ropavejero a UI will open. This will let the player choose between different items. The player can buy them there, or leave them. Once they are bought they will get added to the player’s inventory.
 
-When interacting with the ropaviajeros, a UI will open. This will let you choose between different items. You can buy them there, or leave it. Once you buy it, it gets added to your inventory.
 
 ###### Items the shopkeeper can give
+
 
 - Life
 - Dolls
 - Weapon upgrades
 
+
 #### Mecánicas pasivas
+
 
 ##### Item drops
 
-Item drops will use an SQL table, where we can give a random amount of drops based on how the player interacts. This means that, any monster will get a category, and it will drop a random amount of items based on the progression and a loot table.
+
+Item drops will use an SQL table where there is a random amount of drops based on how the player interacts. This means that monsters will get a category, and it will drop a random amount of items based on the progression and loot table.
+
 
 The player will then be able to get any amount.
 
+
 ![Alt text](img/random.png)
+
 
 ###### Bicitaxi (save / fast travel)
 
-The Bicitaxi will be the only place where you can save the game. After saving, you can use it for fast travel. Any unlocked bicitaxi will allow you to go to it. They will be placed along the map at specific locations.
+
+The bicitaxi will be the only place where you can save the game. After saving it can be used for fast travel. Any unlocked bicitaxi will allow so. They will be placed along the map at specific locations.
+
 
 ![Alt text](img/vicitaxi.png)
 
-###### NPC 
 
-NPC’s will be used only as worldbuilding, making the world more alive on the overworld. 
+###### NPC
 
-They will take lines from a db, and it will loop through the chat options. To make the characters also helpful, we will try to use 
+
+NPC’s will be used only as worldbuilding, making the world feel more alive.
+
+
+They will take lines from a database, looping through the chat options.
+
 
 ![Alt text](img/npc1.png)
 ![Alt text](img/npc2.png)
 
-#### Cam movement
 
-To move the camera, we will use cinemachine. This will let you Look forward when running around, allowing the player to see what will come next. The camera will also have a smooth dampening to help users with diverse eye problems feel more comfortable.
+#### Camera movement
+
+
+To move the camera, we will use cinemachine. This will allow the player to look forward when running around so they can see what will come next. The camera will also have a smooth dampening to help users with diverse eye problems feel more comfortable.
+
 
 ![Alt text](img/cinemachine.png)
 
+
 #### Enemies
+
 
 There will be 3 types of enemies:
 
-- The beginners
-- The medium
+
+- The common
+- The mid tier
 - The boss
 
-##### Beginners
 
-This enemies are easy to kill. Their AI will be focused on just walking to the player, and the main objective is to give the player a challenge based on swarms.
+##### Common
+
+
+These enemies are easy to kill. Their AI will be focused on just walking to the player and their main objective is to give the player a challenge based on swarms.
+
 
 ##### Mid tier
 
-These enemies will have the ability to try to get close and make better combat. The enemies that are considered mid tier will have better base stats, and will be considered as a challenge by just themselves.
+
+These enemies will have the ability to try to get close and make better combat. The enemies that are considered mid tier will have better base stats and will be considered as a challenge by themselves.
+
 
 ###### Bosses
 
-Each boss will have their own mechanics. THe mechanics are described on how the boss will move.
+
+Each boss will have their own mechanics. The mechanics are described on how the boss will move.
+
 
 #### Environment
 
-The environment will have various traps and tricks that you will be able to overcome.
+
+The environment will have various traps and tricks that serve as passable obstacles.
+
 
 ##### Traps
 
-In some places, there will be places where you can fall through the ground. The ground will be a slightly different color, but other than that, it will be almost the same.
+
+There will be places where you can fall through the ground. The ground will be a slightly different color, but other than that, it will be the same.
+
 
 ##### Pressure plates
 
-Some places will be achievable by using pressure plates. You can activate them by using enemies, yourself, or your toys.
 
-Pressure plates will have the ability to move objects in game, spawn new object or set actions.
+Some places will be reachable by using pressure plates. They can be activated by using enemies, the player themselves, or toys.
+
+
+Pressure plates will have the ability to move objects in game, spawn new objects or set actions.
+
 
 ## _Level Design_
 
@@ -448,15 +500,25 @@ Pressure plates will have the ability to move objects in game, spawn new object 
 
 ### **Game Flow**
 
-1. Player starts in forest
-2. Pond to the left, must move right
-3. To the right is a hill, player jumps to traverse it (&quot;jump&quot; taught)
-4. Player encounters castle - door&#39;s shut and locked
-5. There&#39;s a window within jump height, and a rock on the ground
-6. Player picks up rock and throws at glass (&quot;throw&quot; taught)
-7. … etc.
+1. The player starts in the forest
+2. Starts walking to his right to fall into a trap.  
+3. When they fall into the trap they enter the tutorial
+4. At the end of the tutorial gets the doge 
+5. Go back to the forest to jump over the trap and get to the city.
+6. The NPC gives the player a start on how to progress.
+7. Goes to the sewers
+8. Pass the sewers after defeating the enemies and mini-bosses.
+9. Arrives with the weeping woman to defeat the enemies.
+10. Unlock the Charro Negro zone.
+11. Confronts the Charro
+12. End
 
-_(example)_
+#### Map examples
+
+<img src="img\Boceto_Mapa1.jpg" width="50%">
+<img src="img\Boceto_Mapa2.jpg" width="50%">
+<img src="img\Boceto_Mapa3.jpg" width="50%">
+<img src="img\Boceto_OpenWorld.jpg" width="50%">
 
 ## _Development_
 
@@ -485,9 +547,9 @@ _(example)_
 ### **Derived Classes / Component Compositions**
 
 1. BaseEnemy
-    1. Enemy1
-
-_(example)_
+    1. BeginnerEnemy
+    2. MediumEnemy
+    3. BossEnemy
 
 ## _Graphics_
 
@@ -495,19 +557,28 @@ _(example)_
 
 ### **Style Attributes**
 
-What kinds of colors will you be using? Do you have a limited palette to work with? A post-processed HSV map/image? Consistency is key for immersion.
+The graphic style of the game is cartoony, the colors used are from a vibrant color palette, the game uses mainly raster graphics from open graphics libraries and some custom-made graphics assets.
 
-What kind of graphic style are you going for? Cartoony? Pixel-y? Cute? How, specifically? Solid, thick outlines with flat hues? Non-black outlines with limited tints/shades? Emphasize smooth curvatures over sharp angles? Describe a set of general rules depicting your style here.
+The textures will feature solid, thick outlines and smooth curvatures that complete a more hand-drawn style. We opted out of a pixelated style in favor of this one, this will change the process of animating the models to using the unity animating studio.
 
-Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), are great for teaching the player how to play through trial and error, instead of scripting a lengthy tutorial. What kind of visual feedback are you going to use to let the player know they&#39;re interacting with something? That they \*can\* interact with something?
+The inspiration for the games style is mainly hollow knight, this cartoony style lends itself to detailed backgrounds and fluid animations.
+
+For our interactive elements we strive to have a simple and clear UI, where the player can feel that their actions are being represented in game, and that they know how to use their tools to progress through the game.
 
 #### Assets Examples
 
-
+<img src="img\quitapenas_gris.png" width="200" height="200">
+<img src="img\Calaverita.png" width="200" height="200">
+<img src="img\alexFront.png" width="200" height="300">
+<img src="img\alexSide.png" width="200" height="300">
 
 #### Backgrounds Examples
 
-
+<img src="img\Background.png" width="400" height="200">
+<img src="img\Cartoon_Forest_BG_04.png" width="400" height="200">
+<img src="img\City1.png" width="400" height="200">
+<img src="img\City2_pale.png" width="400" height="200">
+<img src="img\City4_pale.png" width="400" height="200">
 
 ### **Graphics Needed**
 
@@ -549,73 +620,77 @@ Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), a
 
 ### **Style Attributes**
 
-Again, consistency is key. Define that consistency here. What kind of instruments do you want to use in your music? Any particular tempo, key? Influences, genre? Mood?
+Our music will have two different styles between the two worlds that Alex travels through.
 
-Stylistically, what kind of sound effects are you looking for? Do you want to exaggerate actions with lengthy, cartoony sounds (e.g. mario&#39;s jump), or use just enough to let the player know something happened (e.g. mega man&#39;s landing)? Going for realism? You can use the music style as a bit of a reference too.
-
- Remember, auditory feedback should stand out from the music and other sound effects so the player hears it well. Volume, panning, and frequency/pitch are all important aspects to consider in both music _and_ sounds - so plan accordingly!
+First, in the human world there will be some Mexican music and a lively mood throughout, Then, once Alex goes to a level where there is danger the music will reflect this change and become instrumental and serious.
 
 ### **Sounds Needed**
 
 1. Effects
-    1. Soft Footsteps (dirt floor)
-    2. Sharper Footsteps (stone floor)
-    3. Soft Landing (low vertical velocity)
-    4. Hard Landing (high vertical velocity)
-    5. Glass Breaking
-    6. Chest Opening
-    7. Door Opening
+    1. Walking
+    2. Doge
+    3. Kill (take damage)
+    4. Monsters Noises (mummies, mystical and else)
+    5. Swing
+    6. Random people murmuring
+    7. A hmmm sound
+    8. Talaches moving
+    9. Boss noises
 2. Feedback
-    1. Relieved &quot;Ahhhh!&quot; (health)
-    2. Shocked &quot;Ooomph!&quot; (attacked)
-    3. Happy chime (extra life)
-    4. Sad chime (died)
-
-_(example)_
+    1. candy eaten
+    2. healed
+    3. low health
+    4. open inventory
+    5. picked up top
+    6. coin up sound
+    7. protected by doll (something getting broken)
 
 ### **Music Needed**
 
-1. Slow-paced, nerve-racking &quot;forest&quot; track
-2. Exciting &quot;castle&quot; track
-3. Creepy, slow &quot;dungeon&quot; track
-4. Happy ending credits track
-5. Rick Astley&#39;s hit #1 single &quot;Never Gonna Give You Up&quot;
-
-_(example)_
-
+1. Intro song for the forest
+1. Ambient sound that makes you feel anxious
+3. Ambient sound for the city
+4. Cri cri’s “la gran ciudad” for the ropa viajeros
+5. Intense boss music
+6. Really badly sang “Matalas” by Alex
+7. Cumbias for the bicitaxi
+8. “El mariachi loco” for the mariachi NPC
 
 ## _Schedule_
 
 ---
 
-_(define the main activities and the expected dates when they should be finished. This is only a reference, and can change as the project is developed)_
-
-1. develop base classes
-    1. base entity
-        1. base player
-        2. base enemy
-        3. base block
-  2. base app state
-        1. game world
-        2. menu world
-2. develop player and basic block classes
-    1. physics / collisions
-3. find some smooth controls/physics
-4. develop other derived classes
-    1. blocks
-        1. moving
-        2. falling
-        3. breaking
-        4. cloud
-    2. enemies
-        1. soldier
-        2. rat
-        3. etc.
-5. design levels
-    1. introduce motion/jumping
-    2. introduce throwing
-    3. mind the pacing, let the player play between lessons
-6. design sounds
-7. design music
-
-_(example)_
+1. Documentation
+    1. User Stories
+    2. Product Backlog
+    3. UML Diagrams
+        1. ER Diagram
+        2. Use Case Diagram
+2. Development of Base Classes
+    1. Entities
+        1. Player
+        2. Enemy
+        3. Interactive Objects
+    2. States
+        1. World
+        2. UI
+3. Development of basic mechanics
+    1. Movement
+    2. Weapons
+    3. UI
+    4. Enemies
+4. Level Design
+    1. Sketch making
+    2. Tileset selection
+    3. Tile palette making
+    4. Map making
+    5. Backgrounds
+5. Development of Derived Classes
+    1. Enemies
+        1. Basic
+        2. Medium
+        3. Boss
+    2. Interactive
+        1. Traps
+        2. Pressure plates
+6. Sound and music design
