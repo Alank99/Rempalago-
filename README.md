@@ -18,4 +18,6 @@
 
 [Link a la presentación en Canva](https://www.canva.com/design/DAFf2cwCfPs/fW2g8WvVpFw1t5SWsDyleQ/edit?utm_content=DAFf2cwCfPs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
-carpeta de drive: [Link del drive](https://drive.google.com/drive/folders/1JlB9i8ggP32uPRWqMJf-arurpgSmGTnA?usp=share_link)
+[Link a Carpeta de Google Drive](https://drive.google.com/drive/folders/1JlB9i8ggP32uPRWqMJf-arurpgSmGTnA?usp=share_link)
+
+[Link a Trello](https://trello.com/b/hLOBSsiz/principal)
