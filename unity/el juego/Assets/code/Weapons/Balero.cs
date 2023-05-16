@@ -5,13 +5,12 @@ using UnityEngine.InputSystem;
 
 public class Balero : MonoBehaviour
 {
-[Header("Referencias a prefabs")]
+    [Header("Referencias a prefabs")]
+    [SerializeField] Transform posicionInicial;
     [Tooltip("Animador del balero")]
     [SerializeField] GameObject balero;
     [Tooltip("Tienes el balero?")]
     public bool activa;
-
-    private float direction = 0.6f;
 
     // Update is called once per frame
     void Update()
@@ -26,7 +25,7 @@ public class Balero : MonoBehaviour
     void UpdatePosition()
     {
         Vector3 position;
-        position = this.transform.position;
+        position = posicionInicial.position;
 
         //No Cambiar de direccion el balero mientras en el estado de animacion te mueves
         if (balero.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
@@ -38,14 +37,7 @@ public class Balero : MonoBehaviour
 
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             balero.transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
-
-            if (dir.x > 0)
-                direction = 0.6f;
-            else if (dir.x < 0)
-                direction = -0.6f;
         }
-        position.x += direction;
-        position.y += 0.5f;
         balero.transform.position = position;
 
         if (balero.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Swing"))

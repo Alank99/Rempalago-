@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Espada : MonoBehaviour
 {
     [Header("Referencias a prefabs")]
+    [SerializeField] Transform posicionInicial;
     [Tooltip("Animador de la espada")]
     [SerializeField] GameObject espada;
     [Tooltip("Tienes la espada?")]
@@ -26,18 +27,8 @@ public class Espada : MonoBehaviour
     void UpdatePosition()
     {
         Vector3 position;
-        position = this.transform.position;
+        position = posicionInicial.position;
 
-        //No Cambiar de direccion la espada mientras en el estado de animacion te mueves
-        if (espada.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
-        {
-            if (this.GetComponent<playerController>().movement.x > 0)
-                direction = 0.6f;
-            else if (this.GetComponent<playerController>().movement.x < 0)
-                direction = -0.6f;
-        }
-        position.x += direction;
-        position.y += 0.5f;
         espada.transform.position = position;
 
         if (espada.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Swing"))
