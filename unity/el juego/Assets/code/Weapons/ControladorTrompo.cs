@@ -10,6 +10,7 @@ public class ControladorTrompo : MonoBehaviour
     [SerializeField] GameObject trompo;
     [SerializeField] GameObject player;
     [SerializeField] RectTransform chargebar;
+    [SerializeField] Transform posicionInicial;
     [Tooltip("Tienes la espada?")]
     public bool activa;
 
@@ -59,9 +60,9 @@ public class ControladorTrompo : MonoBehaviour
             shootDirection = Input.mousePosition;
             shootDirection.z = 0.0f;
             shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-            shootDirection = shootDirection - player.transform.position;
+            shootDirection = shootDirection - posicionInicial.position;
             
-            initalPosition = player.transform.position;
+            initalPosition = posicionInicial.position;
             initalPosition.x += Mathf.Sign(shootDirection.x);
 
             nuevoTrompo = Instantiate(trompo, initalPosition, Quaternion.identity);
@@ -93,11 +94,20 @@ public class ControladorTrompo : MonoBehaviour
     {
         //Mover la barra arriba del jugador
         Vector3 new_pos;
+        Vector3 velocity = Vector3.zero;
 
         new_pos = Camera.main.WorldToScreenPoint(player.transform.position);
         new_pos.x -= 20;
         new_pos.y += 40;
-        chargebar.position = new_pos;
+        
+        //El objeto se teletransporta arriba del jugador
+        //chargebar.position = new_pos;
+
+        //El objeto se mueve cerca del jugador
+        //chargebar.position = Vector3.SmoothDamp(chargebar.position, new_pos, ref velocity, 0.1f);
+
+        //El objeto se mueve de forma mas limpia al jugador
+        chargebar.position = Vector3.SmoothDamp(chargebar.position, new_pos, ref velocity, 0.02f);
 
         if (charge > maxSpeed)
             charge = maxSpeed;
