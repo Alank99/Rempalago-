@@ -47,7 +47,6 @@ public abstract class genericMonster : MonoBehaviour
     }
 
     IEnumerator randomJumps(){
-        Debug.Log("le jump");
         while (alive){
             // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
             //     Debug.Log("Changind dir");
@@ -76,12 +75,14 @@ public abstract class genericMonster : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.collider.CompareTag("Player")){
+            Debug.Log("Se corre esto");
             giveDamage(other.gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")){
+            Debug.Log("Se corre esto");
             giveDamage(other.gameObject);
         }
 
