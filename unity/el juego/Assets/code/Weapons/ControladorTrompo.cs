@@ -47,20 +47,16 @@ public class ControladorTrompo : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Shoot es llamado cuando quiere usar el trompo el jugador
     /// </summary>
     void shoot(float speed)
     {
-            Vector3 shootDirection;
+            Vector2 shootDirection = playerController.mousePosVector(posicionInicial.position);
             Vector3 initalPosition;
 
             shot = true;
-
-            shootDirection = Input.mousePosition;
-            shootDirection.z = 0.0f;
-            shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-            shootDirection = shootDirection - posicionInicial.position;
             
             initalPosition = posicionInicial.position;
             initalPosition.x += Mathf.Sign(shootDirection.x);
