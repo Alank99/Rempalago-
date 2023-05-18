@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Trompo
   - background
+  - PlayerRadius
   layers:
   - Default
   - TransparentFX
