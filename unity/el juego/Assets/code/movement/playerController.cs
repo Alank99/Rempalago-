@@ -38,6 +38,11 @@ public class playerController : MonoBehaviour
 
     public AnimationCurve jumpCurve;
 
+    [Header("Cosas para el dash")]
+    public float dashTime;
+    public Vector2 dashForce;
+    private float lastDogeTime;
+
     [Header("Estadísticas del sistema")]
 
     public bool grounded;
@@ -103,11 +108,29 @@ public class playerController : MonoBehaviour
     // }
 
     private void OnTriggerEnter2D(Collider2D col) {
-        if(col.gameObject.tag == "cheackpoint"){
+        if(col.gameObject.tag == "cheackpoint"){ // Se escribe checkpoint
             saveGame();
         }
     }
 
+
+    /// <summary>
+    /// Se ejecuta cuando se presiona el botón de Doge
+    /// 
+    /// Hace un doge si no ha hecho uno recientemente
+    /// </summary>
+    /// <param name="value"></param>
+    public void OnDoge(InputValue value){
+        if (Time.time - lastDogeTime > dashTime){
+            lastDogeTime = Time.time;
+            var force = new Vector2(
+                playerController.mousePosVector(transform.position).x < 0? // if mouse is left jump right
+                    dashForce.x // true
+                    : -dashForce.x // false
+                , dashForce.y);
+            playerRB.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
 
 
     /// <summary>
@@ -189,5 +212,15 @@ public class playerController : MonoBehaviour
             // Aquí es cuando se termina el brinco
             stopJump();
         }
+    }
+
+    
+    /// <summary>
+    /// gets the current mouse pos, and returns the vector from the point of reference to the mouse
+    /// </summary>
+    /// <param name="pointOfReference">The point that is being looked at</param>
+    /// <returns></returns>
+    public static Vector2 mousePosVector(Vector2 pointOfReference){
+        return (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - pointOfReference;
     }
 }

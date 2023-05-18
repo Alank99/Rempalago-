@@ -5301,6 +5301,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  dashTime: 1
+  dashForce: {x: 50, y: 5}
   grounded: 1
   jumping: 1
   elapsed: 0.09279251
