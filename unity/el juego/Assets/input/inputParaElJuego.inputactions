@@ -49,6 +49,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CambiarArma",
+                    "type": "Value",
+                    "id": "a317e285-3382-48bf-a956-9eccd0b56302",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Doge",
+                    "type": "Button",
+                    "id": "ff8de0c9-408f-49bc-9646-a04b254940ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -220,7 +238,7 @@
                 {
                     "name": "",
                     "id": "410410a3-4c51-49b7-b472-4cd2f09df504",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -231,11 +249,33 @@
                 {
                     "name": "",
                     "id": "52538515-6bfc-4e38-975c-a1eff4ee38d3",
-                    "path": "<Mouse>/middleButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "AttackBalero",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fe67df5-aefb-4e03-9cba-c0d0a7048808",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CambiarArma",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "744f12fd-63f3-4057-89c1-c849d41af013",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Doge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

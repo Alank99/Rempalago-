@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -16,11 +17,6 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthAmount <= 0)
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
-
         if (Input.GetKeyDown(KeyCode.Return))
         {
             TakeDamage(20);
@@ -35,6 +31,11 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(float damage){
         healthAmount -= damage;
         healthBar.fillAmount = healthAmount / 100f;
+
+        if (healthAmount <= 0)
+        {
+            SceneManager.LoadScene(0); // TODO: Osvald cambiar a la escena de muerte
+        }
     }
 
     public void Heal(float healingAmount){
