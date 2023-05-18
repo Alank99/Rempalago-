@@ -21,6 +21,11 @@ public abstract class genericMonster : MonoBehaviour
     public Vector2 waitTime;
 
     bool alive = true;
+    /// <summary>
+    /// Define si el mounstro se encuentra activo o no. 
+    /// </summary>
+    /// <value></value>
+    public bool active { get; private set; } = false;
 
     public int health { get; private set; }
 
@@ -28,6 +33,7 @@ public abstract class genericMonster : MonoBehaviour
 
     // get rb reference from self on start
     protected void StartMonster() {
+        active = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         monsterHasActivated();
@@ -74,27 +80,27 @@ public abstract class genericMonster : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.collider.CompareTag("Player")){
-            Debug.Log("Se corre esto");
+        Debug.Log($"Llegamos aca {other.collider.tag}");
+        if (other.collider.tag == "PlayerCollider"){
             giveDamage(other.gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player")){
-            Debug.Log("Se corre esto");
+        if (other.tag == "PlayerCollider"){
             giveDamage(other.gameObject);
         }
 
-        if (other.CompareTag("PlayerRadius")){
+        if (other.tag == "PlayerRadius"){
             StartMonster();
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("PlayerRadius")){
+        if (other.tag == "PlayerRadius"){
             monsterHasDeactivated();
             StopAllCoroutines();
+            active = false;
         }
     }
 

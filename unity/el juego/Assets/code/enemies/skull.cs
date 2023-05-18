@@ -6,12 +6,13 @@ public class skull : genericMonster
 {
     public GameObject player;
     private void Update() {
-        targetPos = player.transform.position;
+        if (active)
+            targetPos = player.transform.position;
     }
     private void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
-        StartMonster();
+        
     }
 
     public override void giveDamage(GameObject player)
