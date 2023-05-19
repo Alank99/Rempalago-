@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ChangeWeapon : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class ChangeWeapon : MonoBehaviour
     [SerializeField] ControladorTrompo Trompo;
     [SerializeField] Balero Balero;
     [SerializeField] Espada Espada;
+
+    [Header("Referencias a imagenes del arma actual")]
+    [SerializeField] Image arma; 
+    [SerializeField] Sprite ImgTrompo;
+    [SerializeField] Sprite ImgBalero;
+    [SerializeField] Sprite ImgEspada;
+
 
     private int actual = 0;
     private float lastUpdate;
@@ -32,16 +40,19 @@ public class ChangeWeapon : MonoBehaviour
             if(actual == 0){
                 Trompo.activa = false;
                 Balero.activa = true;
+                arma.sprite = ImgBalero;
                 actual = 1;
             }
             else if(actual == 1){
                 Balero.activa = false;
                 Espada.activa = true;
+                arma.sprite = ImgEspada;
                 actual = 2;
             }
             else if(actual == 2){
                 Espada.activa = false;
                 Trompo.activa = true;
+                arma.sprite = ImgTrompo;
                 actual = 0;
             }
             lastUpdate = Time.time;
@@ -52,18 +63,21 @@ public class ChangeWeapon : MonoBehaviour
             {
                 Trompo.activa = false;
                 Espada.activa = true;
+                arma.sprite = ImgEspada;
                 actual = 2;
             }
             else if (actual == 1)
             {
                 Balero.activa = false;
                 Trompo.activa = true;
+                arma.sprite = ImgTrompo;
                 actual = 0;
             }
             else if (actual == 2)
             {
                 Espada.activa = false;
                 Balero.activa = true;
+                arma.sprite = ImgBalero;
                 actual = 1;
             }
             lastUpdate = Time.time;
