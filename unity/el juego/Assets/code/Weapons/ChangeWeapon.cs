@@ -24,6 +24,7 @@ public class ChangeWeapon : MonoBehaviour
     void start()
     {
         lastUpdate = Time.time;
+        arma.sprite = ImgTrompo;
     }
 
     /// <summary>
