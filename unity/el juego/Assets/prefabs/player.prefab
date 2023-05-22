@@ -5328,7 +5328,7 @@ MonoBehaviour:
   maxSpeed: 2
   chargepersec: 1.5
   pickupDelay: 1
-  color: {fileID: 0}
+  color: {fileID: 4479486319982720992, guid: 727bbcdd5ba549d4e9ea2ccd29b7fa8e, type: 3}
 --- !u!114 &5713605500733794791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5374,6 +5374,10 @@ MonoBehaviour:
   Trompo: {fileID: 1401936707592167131}
   Balero: {fileID: 3123757823823211009}
   Espada: {fileID: 5713605500733794791}
+  arma: {fileID: 0}
+  ImgTrompo: {fileID: 21300000, guid: 98117c2929dc78842a8d6286d6f6d7e6, type: 3}
+  ImgBalero: {fileID: 21300000, guid: ac420fa05a440044080cc180a621761f, type: 3}
+  ImgEspada: {fileID: 21300000, guid: 8df4dda6303e90d49a8d7d256b52fc00, type: 3}
 --- !u!1 &6880477117721924853
 GameObject:
   m_ObjectHideFlags: 0
