@@ -52,6 +52,7 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
+
     IEnumerator randomJumps(){
         while (alive){
             // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
@@ -63,6 +64,20 @@ public abstract class genericMonster : MonoBehaviour
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
             
             yield return new WaitForSeconds(Random.Range(waitTime.x, waitTime.y));
+        }
+    }
+
+    IEnumerator randomWalk(){
+        while (alive){
+            // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
+            //     Debug.Log("Changind dir");
+            //     currentLock = currentLock == pos1 ? pos2 : pos1;
+            // }
+
+            var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
+            rb.velocity =  moveTowards;
+            
+            yield return new WaitFixedUpdate();
         }
     }
 

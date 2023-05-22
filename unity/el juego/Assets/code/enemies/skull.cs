@@ -22,11 +22,11 @@ public class skull : genericMonster
 
     public override void monsterHasActivated()
     {
-        Debug.Log("mounstro activado");
+        Debug.Log("Monstruo activado");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("mounstro desactivado");
+        Debug.Log("Monstruo desactivado");
     }
 }
