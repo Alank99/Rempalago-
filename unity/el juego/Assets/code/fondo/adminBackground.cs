@@ -11,24 +11,27 @@ public class adminBackground : MonoBehaviour
     }
     
     public void changebackground(int newsbackground){
+        Debug.Log("Sirve");
         StartCoroutine("cambiar", newsbackground);
     }
 
     IEnumerator cambiar(int id){
-        while(backgrounds[id].color.a < 0.99f ){
-            backgrounds[id].color =  new Color(1f,1f,1f, backgrounds[id].color.a + 0.003f * Time.deltaTime);
-            yield return new WaitForEndOfFrame();
+        if (backgrounds[id] != active) {
+            while(backgrounds[id].color.a < 0.99f ){
+                backgrounds[id].color =  new Color(1f,1f,1f, backgrounds[id].color.a + 0.3f * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+
+            backgrounds[id].color =  new Color(1f,1f,1f,1f);
+
+            while(active.color.a > 0.01f ){
+                active.color =  new Color(1f,1f,1f, active.color.a - 0.3f * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+
+            active.color =  new Color(1f,1f,1f,1f);
+            active = backgrounds[id];
         }
-
-         backgrounds[id].color =  new Color(1f,1f,1f,1f);
-
-        while(active.color.a > 0.01f ){
-            active.color =  new Color(1f,1f,1f, active.color.a - 0.003f * Time.deltaTime);
-            yield return new WaitForEndOfFrame();
-        }
-
-        active.color =  new Color(1f,1f,1f,1f);
-        active = backgrounds[id];
     }
     
 }
