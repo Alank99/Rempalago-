@@ -5680,6 +5680,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &958976054 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6352466119741789885, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+  m_PrefabInstance: {fileID: 1273779001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &981944578 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7185440060107127983, guid: 39f9b734faf6792499ffd45f0b20cf17, type: 3}
@@ -15533,15 +15538,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6506387154227087959, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.05
+      value: -14.65
       objectReference: {fileID: 0}
     - target: {fileID: 6506387154227087959, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67000026
+      value: -2.0299997
       objectReference: {fileID: 0}
     - target: {fileID: 8374228655109190146, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_Name
       value: cam
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058142244138226378, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 958976054}
+    - target: {fileID: 9058142244138226379, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058142244138226379, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.0299997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
