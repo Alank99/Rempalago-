@@ -77,7 +77,7 @@ public abstract class genericMonster : MonoBehaviour
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
             rb.velocity =  moveTowards;
             
-            yield return new WaitFixedUpdate();
+           yield return new WaitForEndOfFrame();
         }
     }
 
@@ -93,6 +93,12 @@ public abstract class genericMonster : MonoBehaviour
             killSelf();
         }
     }
+
+    public void giveDamage(GameObject player)
+        {
+            Debug.Log("Le hemos pegado al jugador!!!!");
+            takeDamage(1);
+        }
 
     private void OnCollisionEnter2D(Collision2D other) {
         Debug.Log($"Llegamos aca {other.collider.tag}");

@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class skull : genericMonster
 {
+
+    private float distance;
+
     public GameObject player;
     private void Update() {
+
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
+
         if (active)
-            targetPos = player.transform.position;
+            if (distance <10)
+                targetPos = player.transform.position;
+            else
+                targetPos = transform.position;
     }
     private void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
-        
     }
 
     public override void giveDamage(GameObject player)
