@@ -6813,6 +6813,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3178402866090116358, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+      propertyPath: m_TagString
+      value: Transition
+      objectReference: {fileID: 0}
     - target: {fileID: 3680692106527617654, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: active
       value: 
