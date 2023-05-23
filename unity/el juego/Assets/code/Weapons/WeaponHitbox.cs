@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EspadaHurtbox : MonoBehaviour
+public class WeaponHitbox : MonoBehaviour
 {
     [SerializeField] int damage;
 
@@ -13,7 +13,10 @@ public class EspadaHurtbox : MonoBehaviour
     {
         if (col.CompareTag("Enemy"))
         {
-            col.GetComponent<Enemigos>().addDamage(damage);
+            try {
+            col.GetComponent<genericMonster>().takeDamage(damage);
+            }
+            catch{}
         }
     }
 }

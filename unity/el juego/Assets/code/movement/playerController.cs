@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour
 {
     [Header("Referencias")]
     Rigidbody2D playerRB;
+    public Transform playerSprites;
     public Animator playerAnim;
 
     [Header("Movimiento lateral")]
@@ -16,6 +17,8 @@ public class playerController : MonoBehaviour
     public float airtimeControlReduction;
     public Vector2 sensitivity;
     public Vector2 initialPushWhenGrounded;
+
+    public float spriteScale;
 
     [Header("Cosas para el brinco")]
 
@@ -75,10 +78,12 @@ public class playerController : MonoBehaviour
 
         if (playerRB.velocity.x >  maxSpeedX){
             playerRB.velocity = new Vector2(maxSpeedX, playerRB.velocity.y);
+            playerSprites.localScale = new Vector3(-spriteScale,spriteScale,spriteScale);
         }
 
         if (playerRB.velocity.x <  -maxSpeedX){
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
+            playerSprites.localScale = new Vector3(spriteScale,spriteScale,spriteScale);
         }
 
         if (Input.GetKeyDown(KeyCode.P)) loadGame();
