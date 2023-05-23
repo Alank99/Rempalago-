@@ -9,6 +9,8 @@ TagManager:
   - Trompo
   - background
   - PlayerRadius
+  - PlayerCollider
+  - coin
   layers:
   - Default
   - TransparentFX
