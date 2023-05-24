@@ -12,7 +12,7 @@ public class elevador : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         Debug.Log("triggered" + other.gameObject.tag);
-        if(other.gameObject.tag == "PlayerCollider"){
+        if(other.gameObject.tag == "Player"){
             Debug.Log("Starting...");
             anim.SetTrigger("Iniciador");
         }
