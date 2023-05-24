@@ -29,7 +29,8 @@ public class adminBackground : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
 
-            active.color =  new Color(1f,1f,1f,1f);
+            active.color =  new Color(1f,1f,1f,0f);
+
             active = backgrounds[id];
         }
     }
