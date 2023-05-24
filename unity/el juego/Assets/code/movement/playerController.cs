@@ -20,6 +20,8 @@ public class playerController : MonoBehaviour
 
     public float spriteScale;
 
+    public float healthAmount = 100f;
+
     [Header("Cosas para el brinco")]
 
     /// <summary>

@@ -20,6 +20,8 @@ public abstract class genericMonster : MonoBehaviour
     public float jumpForce;
     public Vector2 waitTime;
 
+    public HealthManager HealthManager;
+
     bool alive = true;
     /// <summary>
     /// Define si el mounstro se encuentra activo o no. 
@@ -31,8 +33,11 @@ public abstract class genericMonster : MonoBehaviour
 
     public MonsterTargetingType monsterTargetMethod;
 
+    public float damage;
+
     // get rb reference from self on start
     protected void StartMonster() {
+
         active = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
 
@@ -83,8 +88,7 @@ public abstract class genericMonster : MonoBehaviour
 
     private void killSelf(){
         alive = false;
-        Destroy(this);
-        Debug.Log("I'M DEAD");
+        Destroy(transform.parent.gameObject);
     }
 
     public void takeDamage(int damage){
@@ -95,22 +99,18 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
-    public void giveDamage(GameObject player)
-        {
-            Debug.Log("Le hemos pegado al jugador!!!!");
-            takeDamage(1);
-        }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log($"Llegamos aca {other.collider.tag}");
+        Debug.Log($"Mostro toco a {other.collider.tag}");
         if (other.collider.tag == "PlayerCollider"){
-            giveDamage(other.gameObject);
+            HealthManager health = other.gameObject.GetComponent<HealthManager>();
+            health.TakeDamage(damage);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "PlayerCollider"){
-            giveDamage(other.gameObject);
+            //giveDamage(other.gameObject);
         }
 
         if (other.tag == "PlayerRadius"){
@@ -125,11 +125,12 @@ public abstract class genericMonster : MonoBehaviour
             active = false;
         }
     }
-
-    public abstract void giveDamage(GameObject player);
+    
     public abstract void monsterHasActivated();
     public abstract void monsterHasDeactivated();
 }
+
+//obtener health con jugador
 
 
 public enum MonsterTargetingType{

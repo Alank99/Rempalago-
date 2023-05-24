@@ -5,30 +5,30 @@ using UnityEngine;
 public class skull : genericMonster
 {
 
-    private float distance;
+    public HealthManager HealthManager;
+
+    public float distance;
 
     public GameObject player;
-    private void Update() {
+    public void Update() {
 
         distance = Vector2.Distance(transform.position, player.transform.position);
+        // Debug.Log("Distance from skull: " + distance); 
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
 
-        if (active)
-            if (distance <10)
+        if (player != null && active)
+            if (distance <13)
                 targetPos = player.transform.position;
             else
                 targetPos = transform.position;
     }
-    private void Start() {
+
+    public void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
-    }
-
-    public override void giveDamage(GameObject player)
-    {
-        Debug.Log("Le hemos pegado al jugador!!!!");
+        damage = 5;
     }
 
     public override void monsterHasActivated()

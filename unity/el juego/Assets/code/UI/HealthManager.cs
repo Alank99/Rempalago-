@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class HealthManager : MonoBehaviour
 {
     public Image healthBar;
-    public float healthAmount = 100f;
+    public playerController player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +18,6 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            TakeDamage(20);
-        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -29,19 +26,21 @@ public class HealthManager : MonoBehaviour
     }
 
     public void TakeDamage(float damage){
-        healthAmount -= damage;
-        healthBar.fillAmount = healthAmount / 100f;
+        player.healthAmount -= damage;
+        healthBar.fillAmount = player.healthAmount / 100f;
 
-        if (healthAmount <= 0)
+        if (player.healthAmount <= 0)
         {
             SceneManager.LoadScene(0); // TODO: Osvald cambiar a la escena de muerte
         }
+
+        Debug.Log("Health: " + player.healthAmount);
     }
 
     public void Heal(float healingAmount){
-        healthAmount += healingAmount;
-        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+        player.healthAmount += healingAmount;
+        player.healthAmount = Mathf.Clamp(player.healthAmount, 0, 100);
 
-        healthBar.fillAmount = healthAmount / 100f;
+        healthBar.fillAmount = player.healthAmount / 100f;
     }
 }
