@@ -11,6 +11,7 @@ TagManager:
   - PlayerRadius
   - PlayerCollider
   - coin
+  - Transition
   layers:
   - Default
   - TransparentFX
