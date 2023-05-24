@@ -62,11 +62,11 @@
                 {
                     "name": "Doge",
                     "type": "Button",
-                    "id": "ff8de0c9-408f-49bc-9646-a04b254940ba",
+                    "id": "5f720f8e-d24c-4ed0-a995-c77a49cfb060",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -270,11 +270,11 @@
                 },
                 {
                     "name": "",
-                    "id": "744f12fd-63f3-4057-89c1-c849d41af013",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "451da502-072d-45e3-8b6f-d3850575790a",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Doge",
                     "isComposite": false,
                     "isPartOfComposite": false
