@@ -12152,7 +12152,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: isActivated
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: gameObjectToSetActive
@@ -12164,7 +12164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: canActivateTags.Array.data[0]
-      value: Player
+      value: PlayerCollider
       objectReference: {fileID: 0}
     - target: {fileID: 1738244557791611621, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: m_Name
@@ -24807,19 +24807,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: isActivated
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
+      propertyPath: gameObjectMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: gameObjectToSetActive
       value: 
       objectReference: {fileID: 1057501626}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
+      propertyPath: triggeredBy.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: canActivateTags.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: canActivateTags.Array.data[0]
-      value: Player
+      value: PlayerCollider
       objectReference: {fileID: 0}
     - target: {fileID: 1738244557791611621, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: m_Name
@@ -26153,11 +26161,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6352466119741789885, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.62
+      value: -35.14
       objectReference: {fileID: 0}
     - target: {fileID: 6352466119741789885, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6
+      value: -2.01
       objectReference: {fileID: 0}
     - target: {fileID: 6352466119741789885, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -38964,7 +38972,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: isActivated
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: gameObjectMode
@@ -38980,7 +38988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1162263015854746712, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: canActivateTags.Array.data[0]
-      value: Player
+      value: PlayerCollider
       objectReference: {fileID: 0}
     - target: {fileID: 1738244557791611621, guid: e6bb6e445614adee48578e3df4292cd5, type: 3}
       propertyPath: m_Name
@@ -39448,6 +39456,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1682179375 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6779009390507056312, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
+  m_PrefabInstance: {fileID: 3865001509283113510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1682179379
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682179375}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.9655571, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6.275304, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1686885579
 GameObject:
   m_ObjectHideFlags: 0
@@ -39714,7 +39753,7 @@ GameObject:
   - component: {fileID: 1697634145}
   m_Layer: 0
   m_Name: Mossy - FloatingPlatforms_9
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41622,11 +41661,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6506387154227087959, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.62
+      value: -35.14
       objectReference: {fileID: 0}
     - target: {fileID: 6506387154227087959, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6000003
+      value: -2.0099998
       objectReference: {fileID: 0}
     - target: {fileID: 8374228655109190146, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_Name
@@ -41638,11 +41677,11 @@ PrefabInstance:
       objectReference: {fileID: 958976054}
     - target: {fileID: 9058142244138226379, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.62
+      value: -35.14
       objectReference: {fileID: 0}
     - target: {fileID: 9058142244138226379, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6000003
+      value: -2.0099998
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88272d29d7525d3ec8badaee44160638, type: 3}
@@ -135068,11 +135107,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4033991122235320802, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.69
+      value: -10.72
       objectReference: {fileID: 0}
     - target: {fileID: 4033991122235320802, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -94.35
+      value: -94.39
       objectReference: {fileID: 0}
     - target: {fileID: 4033991122235320802, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_LocalPosition.z
@@ -135108,15 +135147,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4228990659173068651, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_Size.x
-      value: 5.104957
+      value: 5.1049576
       objectReference: {fileID: 0}
     - target: {fileID: 4228990659173068651, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_Size.y
       value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 4228990659173068651, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4228990659173068651, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_Offset.x
-      value: 2.052478
+      value: 2.0524778
       objectReference: {fileID: 0}
     - target: {fileID: 5010334703451213047, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_Enabled
@@ -135141,6 +135184,10 @@ PrefabInstance:
     - target: {fileID: 6779009390507056312, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
       propertyPath: m_Name
       value: Plataforma_alcantarilla
+      objectReference: {fileID: 0}
+    - target: {fileID: 6779009390507056312, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
+      propertyPath: m_TagString
+      value: ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31831727b1fd04f4daf98100d8eb2c16, type: 3}
