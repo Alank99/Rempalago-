@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4855870698718614164}
   - component: {fileID: 7515079427180714566}
   - component: {fileID: 6254697608151512813}
+  - component: {fileID: 9110816594442787816}
   m_Layer: 0
   m_Name: elevador
   m_TagString: Untagged
@@ -68,6 +69,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+--- !u!50 &9110816594442787816
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724884996114979178}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7325941108455991916
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +187,7 @@ GameObject:
   - component: {fileID: 9025415967557224452}
   m_Layer: 0
   m_Name: Elevador
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
