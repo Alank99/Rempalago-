@@ -5,8 +5,6 @@ using UnityEngine;
 public class skull : genericMonster
 {
 
-    public HealthManager HealthManager;
-
     public float distance;
 
     public GameObject player;

@@ -20,8 +20,6 @@ public abstract class genericMonster : MonoBehaviour
     public float jumpForce;
     public Vector2 waitTime;
 
-    public HealthManager HealthManager;
-
     bool alive = true;
     /// <summary>
     /// Define si el mounstro se encuentra activo o no. 
@@ -33,7 +31,7 @@ public abstract class genericMonster : MonoBehaviour
 
     public MonsterTargetingType monsterTargetMethod;
 
-    public float damage;
+    public int damage;
 
     // get rb reference from self on start
     protected void StartMonster() {
@@ -102,9 +100,10 @@ public abstract class genericMonster : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         Debug.Log($"Mostro toco a {other.collider.tag}");
-        if (other.collider.tag == "PlayerCollider"){
-            HealthManager health = other.gameObject.GetComponent<HealthManager>();
-            health.TakeDamage(damage);
+        if (other.collider.tag == "Player"){
+            HealthManager health_manager = other.gameObject.GetComponent<HealthManager>();
+            health_manager.TakeDamage(damage);
+            Debug.Log($"Player health: {health_manager.health}");
         }
     }
 

@@ -5,8 +5,6 @@ using UnityEngine;
 public class mummy : genericMonster
 {
 
-    public HealthManager HealthManager;
-
     public float distance;
 
     public GameObject player;

@@ -8,6 +8,7 @@ public class HealthManager : MonoBehaviour
 {
     public Image healthBar;
     public playerController player;
+    public int health = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -25,22 +26,22 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage){
-        player.healthAmount -= damage;
-        healthBar.fillAmount = player.healthAmount / 100f;
+    public void TakeDamage(int damage){
+        health -= damage;
+        healthBar.fillAmount = health / 100;
 
-        if (player.healthAmount <= 0)
+        if (health <= 0)
         {
             SceneManager.LoadScene(0); // TODO: Osvald cambiar a la escena de muerte
         }
 
-        Debug.Log("Health: " + player.healthAmount);
+        Debug.Log("Health: " + health);
     }
 
-    public void Heal(float healingAmount){
-        player.healthAmount += healingAmount;
-        player.healthAmount = Mathf.Clamp(player.healthAmount, 0, 100);
+    public void Heal(int healingAmount){
+        health += healingAmount;
+        health = Mathf.Clamp(health, 0, 100);
 
-        healthBar.fillAmount = player.healthAmount / 100f;
+        healthBar.fillAmount = health / 100;
     }
 }
