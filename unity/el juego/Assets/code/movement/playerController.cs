@@ -47,6 +47,8 @@ public class playerController : MonoBehaviour
     public float dashTime;
     public Vector2 dashForce;
     private int hasDash = 1;
+    //1=left, 0=right
+    private int moving_left = 0;
 
     [Header("Estadísticas del sistema")]
 
@@ -123,18 +125,16 @@ public class playerController : MonoBehaviour
 
 
     /// <summary>
-    /// Se ejecuta cuando se presiona el botón de Doge
-    /// 
-    /// Hace un doge si no ha hecho uno recientemente
+    /// Se ejecuta cuando se presiona el botón de Dodge y se regenera al tocar el piso
     /// </summary>
     /// <param name="value"></param>
-    public void OnDoge(InputValue value){
+    public void OnDoge(){
         Vector2 force = new Vector2(0, 0);
         //Checa si toco el piso antes del dash
         if (hasDash == 1){
-            if (playerRB.velocity.x > 0)
+            if (moving_left == 0 && playerRB.velocity.x != 0)
                 force.x = dashForce.x;
-            else if (playerRB.velocity.x < 0)
+            else if (moving_left == 1 && playerRB.velocity.x != 0)
                 force.x = -dashForce.x;
 
             //Checa si hay algo en la direccion de la fuerza
@@ -153,6 +153,11 @@ public class playerController : MonoBehaviour
     /// <param name="value"></param>
     public void OnMove(InputValue value){
         movement = value.Get<Vector2>();
+
+        if (movement.x > 0)
+            moving_left = 0;
+        else if (movement.x < 0)
+            moving_left = 1;
 
         if (movement.x == 0){
             playerRB.velocity = new Vector2(playerRB.velocity.x/2, playerRB.velocity.y);

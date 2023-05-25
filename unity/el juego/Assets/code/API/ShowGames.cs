@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 [System.Serializable]
-public class player
+public class playthrough
 {
     public int player_id;
+    public int playtime;
+    public int completed;
     public int checkpoint_id;
     public int money;
     public int health;
-    public float attack;
-    public float speed;
     public int espada;
     public int balero;
     public int trompo;
@@ -21,30 +21,27 @@ public class player
 }
 
 [System.Serializable]
-public class playerList
+public class playthroughList
 {
-    public List<player> players;
+    public List<playthrough> playthroughs;
 }
 
-public class Playdata : MonoBehaviour
+public class ShowGames : MonoBehaviour
 {
     [SerializeField] string url;
     [SerializeField] string EP;
-    [SerializeField] Text errorText;
+        [SerializeField] Text errorText;
 
-    private playerList allplayers;
-    public player myPlayer;
+    public playthroughList allplaythroughs;
 
+
+    // Start is called before the first frame update
     void Start()
     {
-        GetPlayerData();
+        StartCoroutine(QueryPlaythroughs());
     }
 
-    public void GetPlayerData(){
-        StartCoroutine(QueryPlayerData());
-    }
-
-    IEnumerator QueryPlayerData()
+    IEnumerator QueryPlaythroughs()
     {
         using (UnityWebRequest www = UnityWebRequest.Get(url + EP))
         {
@@ -55,13 +52,19 @@ public class Playdata : MonoBehaviour
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"players\":" + www.downloadHandler.text + "}";
-                allplayers = JsonUtility.FromJson<playerList>(jsonString);
-                myPlayer = allplayers.players[0];
+                allplaythroughs = JsonUtility.FromJson<playthroughList>(jsonString);
                 if (errorText != null) errorText.text = "";
             } else {
                 Debug.Log("Error: " + www.error);
                 if (errorText != null) errorText.text = "Error: " + www.error;
             }
         }
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
