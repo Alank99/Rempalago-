@@ -370,6 +370,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7298000639871146084, guid: 619e39f2573b872cbbef1ccd9f783a65, type: 3}
+      propertyPath: waitTime.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298000639871146084, guid: 619e39f2573b872cbbef1ccd9f783a65, type: 3}
       propertyPath: monsterTargetMethod
       value: 0
       objectReference: {fileID: 0}
@@ -843,8 +847,9 @@ MonoBehaviour:
   maxSpeedX: 3
   Force: 4
   jumpForce: 0
-  waitTime: {x: 1.5, y: 0}
+  waitTime: {x: 1, y: 0}
   monsterTargetMethod: 0
+  damage: 0
   distance: 0
   player: {fileID: 0}
 --- !u!1001 &1490621450
