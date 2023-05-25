@@ -142,7 +142,7 @@ CREATE TABLE `playthrough` (
   `first_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `last_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `playtime` int unsigned NOT NULL DEFAULT '0',
-  `completed` tinyint(1) NOT NULL DEFAULT '0',
+  `completed` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`play_id`),
   UNIQUE KEY `player_id_UN` (`player_id`),
   KEY `fk_user_id_playthrough` (`user_id`),
