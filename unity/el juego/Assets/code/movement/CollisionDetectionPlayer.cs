@@ -1,0 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CollisionDetectionPlayer : MonoBehaviour
+{
+    private void OnTriggerEnter2D(Collider2D col) {
+        if(col.tag == "coin"){
+            CoinCounter.instance.IncreaseCoins(col.GetComponent<Coins>().value);
+            Destroy(col.gameObject);
+        }
+    }
+}

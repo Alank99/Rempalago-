@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour
 {
     [Header("Referencias")]
     Rigidbody2D playerRB;
+    public Transform playerSprites;
     public Animator playerAnim;
 
     [Header("Movimiento lateral")]
@@ -16,6 +17,8 @@ public class playerController : MonoBehaviour
     public float airtimeControlReduction;
     public Vector2 sensitivity;
     public Vector2 initialPushWhenGrounded;
+
+    public float spriteScale;
 
     [Header("Cosas para el brinco")]
 
@@ -41,7 +44,7 @@ public class playerController : MonoBehaviour
     [Header("Cosas para el dash")]
     public float dashTime;
     public Vector2 dashForce;
-    private float lastDogeTime;
+    private int hasDash = 1;
 
     [Header("Estadísticas del sistema")]
 
@@ -75,11 +78,14 @@ public class playerController : MonoBehaviour
 
         if (playerRB.velocity.x >  maxSpeedX){
             playerRB.velocity = new Vector2(maxSpeedX, playerRB.velocity.y);
+            playerSprites.localScale = new Vector3(-spriteScale,spriteScale,spriteScale);
         }
 
         if (playerRB.velocity.x <  -maxSpeedX){
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
+            playerSprites.localScale = new Vector3(spriteScale,spriteScale,spriteScale);
         }
+        if (grounded && hasDash == 0) hasDash = 1;
 
         if (Input.GetKeyDown(KeyCode.P)) loadGame();
         
@@ -121,17 +127,23 @@ public class playerController : MonoBehaviour
     /// </summary>
     /// <param name="value"></param>
     public void OnDoge(InputValue value){
-        if (Time.time - lastDogeTime > dashTime){
-            lastDogeTime = Time.time;
-            var force = new Vector2(
-                playerController.mousePosVector(transform.position).x < 0? // if mouse is left jump right
-                    dashForce.x // true
-                    : -dashForce.x // false
-                , dashForce.y);
-            playerRB.AddForce(force, ForceMode2D.Impulse);
+        Vector2 force = new Vector2(0, 0);
+        //Checa si toco el piso antes del dash
+        if (hasDash == 1){
+            if (playerRB.velocity.x > 0)
+                force.x = dashForce.x;
+            else if (playerRB.velocity.x < 0)
+                force.x = -dashForce.x;
+
+            //Checa si hay algo en la direccion de la fuerza
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, force, Mathf.Abs(force.x), LayerMask.GetMask("Ground"));
+            if (hit.collider!= null)
+                playerRB.MovePosition(new Vector2(hit.point.x, playerRB.position.y));
+            else
+                playerRB.MovePosition(playerRB.position + force * Time.deltaTime);
+            hasDash = 0;
         }
     }
-
 
     /// <summary>
     /// Utilizado por el player controller, regresa que tanto esta movido algo

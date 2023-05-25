@@ -68,7 +68,8 @@ public abstract class genericMonster : MonoBehaviour
 
     private void killSelf(){
         alive = false;
-        Destroy(transform.parent.gameObject);
+        Destroy(this);
+        Debug.Log("I'M DEAD");
     }
 
     public void takeDamage(int damage){

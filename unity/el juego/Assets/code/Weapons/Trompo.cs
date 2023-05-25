@@ -46,8 +46,10 @@ public class Trompo : MonoBehaviour
         if (SpinSpeed > 0 && col.gameObject.tag == "Enemy")
         {
             SpinSpeed -= SpinLoss;
-            col.gameObject.GetComponent<Enemigos>().addDamage((int)SpinSpeed);
-            //this.GetComponent<CircleCollider2D>().enabled = false;
+            try {
+            col.gameObject.GetComponent<genericMonster>().takeDamage((int)SpinSpeed);
+            }
+            catch{}
         }
     }
 
