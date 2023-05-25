@@ -11,14 +11,19 @@ public class Espada : MonoBehaviour
     [SerializeField] GameObject espada;
     [Tooltip("Tienes la espada?")]
     public bool activa;
-
-    private float direction = 0.6f;
+    int direction = 1;
 
     // Update is called once per frame
     void Update()
     {
         if (activa)
+        {
+            if (this.GetComponent<Rigidbody2D>().velocity.x > 0)
+                direction = 1;
+            else if (this.GetComponent<Rigidbody2D>().velocity.x < 0)
+                direction = 0;
             UpdatePosition();
+        }
     }
 
     /// <summary>
@@ -26,10 +31,7 @@ public class Espada : MonoBehaviour
     /// </summary>
     void UpdatePosition()
     {
-        Vector3 position;
-        position = posicionInicial.position;
-
-        espada.transform.position = position;
+        espada.transform.position = posicionInicial.position;
 
         if (espada.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsTag("Swing"))
             espada.GetComponent<Animator>().SetBool("Swing?", false);
@@ -41,11 +43,10 @@ public class Espada : MonoBehaviour
     private void OnAttackSword(InputValue state){
         if (activa)
         {
-            if (direction > 0)
+            if (direction == 1)
                 espada.GetComponent<Animator>().SetBool("Left?", false);
             else
                 espada.GetComponent<Animator>().SetBool("Left?", true);
-
             espada.GetComponent<Animator>().SetBool("Swing?", true);
         }
     }
