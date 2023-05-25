@@ -114,3 +114,22 @@ CREATE VIEW top_weapons AS
 	SELECT weapon.name Weapon, weapon_type.name Type, weapon.kills Kills
 	FROM game.weapon INNER JOIN game.weapon_type USING (type_id)
     ORDER BY weapon.kills;
+    
+-- View of most active players
+
+CREATE VIEW active_players AS
+SELECT user.name UserName, COUNT(playthrough.play_id) TotalPlaythroughs
+FROM game.user
+INNER JOIN game.playthrough ON user.user_id = playthrough.user_id
+GROUP BY user.user_id
+ORDER BY TotalPlaythroughs DESC;
+
+-- View of the less active players
+
+CREATE VIEW inactive_players AS
+SELECT user.name UserName, COUNT(playthrough.play_id) TotalPlaythroughs
+FROM game.user
+LEFT JOIN game.playthrough ON user.user_id = playthrough.user_id
+GROUP BY user.user_id
+HAVING TotalPlaythroughs = 0
+ORDER BY TotalPlaythroughs;
