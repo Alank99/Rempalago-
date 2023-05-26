@@ -1,3 +1,4 @@
+-- Active: 1681846904940@@127.0.0.1@3306@game
 -- Creation of database
 DROP SCHEMA IF EXISTS game;
 CREATE SCHEMA game;
@@ -133,3 +134,9 @@ LEFT JOIN game.playthrough ON user.user_id = playthrough.user_id
 GROUP BY user.user_id
 HAVING TotalPlaythroughs = 0
 ORDER BY TotalPlaythroughs;
+
+CREATE VIEW V_user_playthrough AS
+Select play_id, P.user_id, P.player_id, P.first_created, last_updated, playtime, completed, checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash, name, email, password, U.first_created AS user_first_created from playthrough as P
+LEFT JOIN `user` as U ON U.user_id = P.user_id
+LEFT JOIN `player` as PL On P.player_id = PL.player_id
+ORDER BY P.last_updated;
