@@ -8,25 +8,25 @@ public class HealthManager : MonoBehaviour
 {
     public Image healthBar;
     public playerController player;
+    public int MaxHealth = 100;
     public int health = 100;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        health = MaxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Heal(5);
         }
     }
 
-    public void TakeDamage(int damage){
+    public void recieveDamage(int damage){
         health -= damage;
         healthBar.fillAmount = health / 100;
 
