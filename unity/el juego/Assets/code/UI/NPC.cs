@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NPC : MonoBehaviour
 {
     public GameObject dialogo;
-    public Text DialogoTexto;
+    public TMP_Text DialogoTexto;
     public string[] nuevo_dialogo;
     private int indice;
     public float wordSpeed;
     public bool playerIsClose;
+    public GameObject contButton;
 
     // Update is called once per frame
     void Update()
@@ -26,6 +28,11 @@ public class NPC : MonoBehaviour
                 dialogo.SetActive(true);
                 StartCoroutine(Typing());
             }
+        }
+
+        if(DialogoTexto.text == nuevo_dialogo[indice])
+        {
+            contButton.SetActive(true);
         }
     }
 
@@ -48,6 +55,7 @@ public class NPC : MonoBehaviour
 
     public void NextLine()
     {
+        contButton.SetActive(false);
         if (indice < nuevo_dialogo.Length - 1)
         {
             indice++;
