@@ -17,7 +17,7 @@ public class skull : genericMonster
         float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
 
         if (player != null && active)
-            if (distance <13)
+            if (distance <10)
                 targetPos = player.transform.position;
             else
                 targetPos = transform.position;
@@ -31,11 +31,11 @@ public class skull : genericMonster
 
     public override void monsterHasActivated()
     {
-        Debug.Log("Monstruo activado");
+        Debug.Log("Calavera activada");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("Monstruo desactivado");
+        Debug.Log("Calavera desactivada");
     }
 }
