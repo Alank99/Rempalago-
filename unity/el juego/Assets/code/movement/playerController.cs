@@ -232,7 +232,6 @@ public class playerController : MonoBehaviour
             stopJump();
         }
     }
-
     
     /// <summary>
     /// gets the current mouse pos, and returns the vector from the point of reference to the mouse
