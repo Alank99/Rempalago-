@@ -98,6 +98,14 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Le hizo daño al player");
+            HealthManager.healthSingleton.receiveDamage(damage);
+        }
+    }
 /*
     private void OnCollisionEnter2D(Collision2D other) 
     {

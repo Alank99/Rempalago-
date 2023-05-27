@@ -6,13 +6,12 @@ public class damager : MonoBehaviour
 {
 
     public int damage;
-    public HealthManager healthManager;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCollider")
         {
-            healthManager.recieveDamage(damage);
+            HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
 }

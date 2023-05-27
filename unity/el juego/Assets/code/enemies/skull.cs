@@ -26,7 +26,6 @@ public class skull : genericMonster
     public void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
-        damage = 5;
     }
 
     public override void monsterHasActivated()

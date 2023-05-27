@@ -10,7 +10,6 @@ public class callAdmin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Transition"){
-            Debug.Log("Collision");
             admin.changebackground(id);
         }
     }
