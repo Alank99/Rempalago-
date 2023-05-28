@@ -36,53 +36,53 @@ Es necesario decidir donde crear llaves foráneas (foreign keys) y que atributos
 
 # Parte 1: Tablas
 
-Las tablas que elaboramos fueron las siguientes:
+Las tablas que se elaboraron fueron las siguientes:
 
 ## Checkpoint
 
-Se usa para poder cargar del *playthrough* de un jugador. Esta también sirve para guardar el estado de un jugador para que el jugador puede continuar desde aquí.
+Se usa para poder cargar de *playthrough* de un jugador. Esta también sirve para guardar el estado de un jugador para que puede continuar desde aquí.
 
 ## Enemy
 
-Se usa para poder guardar los tipos de enemigos y las cantidades de daño que usan. De esta forma se puede observar que enemigos son demasiado débiles, y cuales son muy fuertes.
+Se usa para poder guardar los tipos de enemigos y las cantidades de daño que causan. De esta forma se puede observar que enemigos son demasiado débiles y cuales son muy fuertes.
 
 ## Level
 
 Permite separar el mapa y ubicar en que partes se encuentran los jugadores.
 
-Como tal no es funcional, y podría hacerse sin el, pero es mejor ya que nos permite organizar las cosas de forma correcta.
+A pesar de que no es funcional perite organizar las cosas de forma correcta.
 
 ## Loot
 
-Nos permite definir objetos que se puede caer de un enemigo, cofre, o donde sea. El objeto consigue sus propiedades de aquí.
+Permite definir objetos que se puede caer de un enemigo o cofre. El objeto consigue sus propiedades de aquí.
 
 ## Loot_MTM
 
-La tabla de relación mucho a mucho para loot, permite definir que es lo que demos de tirar, y en que cantidad para cada tipo de objeto. 
+La tabla de relación muchos a muchos para loot permite definir que es lo que se debe tirar y en que cantidad para cada tipo de objeto. 
 
 ## Loot_table
 
-Permite definir una lista de objetos que puede tirar una enemigo. Esta lista requiere del uso de una tabla intermedia many to many.
+Permite definir una lista de objetos que puede tirar una enemigo. Esta lista requiere del uso de una tabla intermedia muchos a muchos.
 
 ## Player
 
-Se usa para definir estadísticas sobre el jugador. Se crea un jugador por cada Playthrough que se cre.
+Se usa para definir estadísticas sobre el jugador. Se crea un jugador por cada *playthrough* que se cree.
 
 ## Playthrough 
 
-Guarda estadísticas del juego. Similar a Player, pero sobre las acciones y ocurrencias del Juego en vez del jugador.
+Guarda estadísticas del juego. Similar a *player*, pero sobre las acciones y ocurrencias del juego en vez del jugador.
 
 ## User 
 
-Guarda la información de un usuario (nombre, usuario, password, etc...)
+Guarda la información de un usuario (nombre, usuario, password, etc...).
 
 ## Weapon
 
-Guarda los valores de un arma. define sus estadísticas necesarias.
+Guarda los valores de un arma y define sus estadísticas necesarias.
 
 ## Weapon_type
 
-Para mantener la forma normal tercera, se separa el tipo de arma de Weapon. Existen 3 tipos de arma. 
+Para mantener la forma normal tercera se separa el tipo de arma de Weapon. Existen 3 tipos de arma. 
 
 ## Parte 1.1: Forma Normal 
 
@@ -131,26 +131,25 @@ Para las estadísticas de la página web.
 Con esta vista los jugadores pueden ver las estrategias mas usadas, esto facilita que nuevos jugadores tengan menos dificultad, comparando que armas son mejores y para cuales valen la pena ahorrar.
 
 # Parte 3 : Laves foráneas
-
+Las llaver foráneas utilizadas fueron las siguientes:
 
 ### id_level en enemy
-Se crea esta llave foránea de forma entero, con la finalidad para saber en donde poder organizar a los enemigos, de donde aparecerán. 
+Se crea esta llave foránea de forma entero con la finalidad de poder organizar las apariciones de los enemigos.
 
 ### id_level en checkpoint
-Se crea esta llave foránea de forma entero, para saber que lugar del mundo se encuentra. 
+Se crea esta llave foránea de forma entero para saber que lugar del mundo se encuentra el *checkpoint*. 
 
 ### checkpoint_id en player
-
-para saber en donde el jugador hizo su ultimo checkpoint.
+Esta llave tiene la finalidad de ubicar en donde el jugador hizo su ultimo checkpoint.
 
 ### user_id en playtrough
-Para conocer al usuario que se paso esa partida.
+Se utiliza para conocer al usuario que se paso esa partida.
 
 ### player_id en fallthrough
-Conocer cual fue el jugador que se paso la partida.
+Se utiliza para conocer cual fue el jugador que se paso la partida.
 
 ### type_id en weapon
-Conocer el tipo de la arma.
+Es útil para conocer el tipo de la arma.
 
 
 # Parte 4: instrucciones de MySql que usamos 
@@ -161,4 +160,4 @@ Conocer el tipo de la arma.
 
 `CREATE` > Crea las tablas de MySQL.
 
-`DROP` > Se usa para borrar una base de datos. La usamos solo al regenerar el schema.
+`DROP` > Se usa para borrar una base de datos. Solo se utilizó al regenerar el schema.
