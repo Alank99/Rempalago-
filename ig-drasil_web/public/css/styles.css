@@ -387,7 +387,7 @@ button,
 [type=button],
 [type=reset],
 [type=submit] {
-  -webkit-appearance: button;
+-webkit-appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -2054,7 +2054,7 @@ progress {
   -webkit-margin-end: 0.75rem;
           margin-inline-end: 0.75rem;
   color: #212529;
-  background-color: #e9ecef;
+  background-color: #101011;
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
