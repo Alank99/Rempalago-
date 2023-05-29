@@ -3,6 +3,7 @@
 import express from 'express'
 import mysql from 'mysql2/promise'
 import fs from 'fs'
+import * as buffs from './endpointBuffs.js' 
 
 const app = express()
 const port = 5000
@@ -19,6 +20,8 @@ async function connectToDB()
         database:'game'
     })
 }
+
+buffs.addEndpointsBuffs(app);
 
 app.get('/api/get_player/:id', async (request, response)=>{
     let connection = null
