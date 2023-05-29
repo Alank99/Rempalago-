@@ -87,7 +87,12 @@ public abstract class genericMonster : MonoBehaviour
 
     private void killSelf(){
         alive = false;
-        Destroy(transform.parent.gameObject);
+        StartCoroutine(dieDelay());
+    }
+
+    IEnumerator dieDelay() {
+        yield return new WaitForSecondsRealtime(1);
+        Destroy(this.gameObject);
     }
 
     public void takeDamage(int damage){

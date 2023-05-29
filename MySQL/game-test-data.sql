@@ -43,9 +43,8 @@ INSERT INTO enemy VALUES(1, "slime", 0, 3, 10, 1, 1, 1),
 (2, "nahual", 5, 3, 10, 1, 1, 12),
 (3, "caravera", 10, 1, 10, 19, 1, 15),
 (4, "momia", 20, 1, 10, 20, 5, 20),
-(5, "charro negro", 6, 100, 10, 1, 12, 50),
-(6, "llorona", 1, 4, 45, 50, 15, 100),
-;
+(5, "charro negro", 6, 3, 10, 1, 12, 50),
+(6, "llorona", 1, 4, 45, 50, 15, 100);
 COMMIT;
 
 -- type_id, name
@@ -67,7 +66,7 @@ INSERT INTO weapon VALUES(1, "basic sword", 1, 0, 1),
 (7, "balero de metal", 10, 15, 2),
 (8, "tormpo de madera", 5, 0, 3),
 (9, "tormpo de madera", 5, 0, 3),
-(10, "tormpo de madera", 5, 0, 1),;
+(10, "tormpo de madera", 5, 0, 1);
 COMMIT;
 
 -- player_id, checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash
@@ -86,23 +85,23 @@ COMMIT;
 
 -- play_id, user_id, player_id, first_created, last_updated, playtime, completed
 SET AUTOCOMMIT=0;
-INSERT INTO playthrough VALUES(1, 1, 1, NOW(), NOW(), 10, 0)
-(2, 2, 1, NOW(), NOW(), 10, 0),
-(3, 3, 1, NOW(), NOW(), 20, 0),
-(4, 4, 1, NOW(), NOW(), 30, 0),
-(5, 5, 1, NOW(), NOW(), 45, 0),
-(6, 6, 1, NOW(), NOW(), 50, 0),
-(7, 7, 1, NOW(), NOW(), 70, 0),
-(8, 8, 1, NOW(), NOW(), 84, 0),
-(9, 9, 1, NOW(), NOW(), 50, 0),
-(10, 10, 1, NOW(), NOW(), 20, 0);
+INSERT INTO playthrough VALUES(1, 1, 1, NOW(), NOW(), 10, 0),
+(2, 1, 2, NOW(), NOW(), 10, 0),
+(3, 1, 3, NOW(), NOW(), 20, 0),
+(4, 1, 4, NOW(), NOW(), 30, 0),
+(5, 1, 5, NOW(), NOW(), 45, 0),
+(6, 1, 6, NOW(), NOW(), 50, 0),
+(7, 1, 7, NOW(), NOW(), 70, 0),
+(8, 1, 8, NOW(), NOW(), 84, 0),
+(9, 1, 9, NOW(), NOW(), 50, 0),
+(10, 1, 10, NOW(), NOW(), 20, 0);
 COMMIT;
 
 -- id,name,modifier
 SET AUTOCOMMIT=0;
 INSERT INTO loot VALUES(1, "coin",3),
 (2, "dulce",2),
-(1, "quitapena",3);
+(3, "quitapena",3);
 COMMIT;
 
 -- id, level
