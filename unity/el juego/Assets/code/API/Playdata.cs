@@ -4,32 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-[System.Serializable]
-public class player
-{
-    public int player_id;
-    public int checkpoint_id;
-    public int money;
-    public int health;
-    public float attack;
-    public float speed;
-    public int espada;
-    public int balero;
-    public int trompo;
-    public int dash;
-
-}
-
-[System.Serializable]
-public class playerList
-{
-    public List<player> players;
-}
-
 public class Playdata : MonoBehaviour
 {
     [SerializeField] string url;
     [SerializeField] string EP;
+    public string myPlayerID;
     [SerializeField] Text errorText;
 
     private playerList allplayers;
@@ -46,7 +25,7 @@ public class Playdata : MonoBehaviour
 
     IEnumerator QueryPlayerData()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(url + EP))
+        using (UnityWebRequest www = UnityWebRequest.Get(url + EP + myPlayerID))
         {
             yield return www.SendWebRequest();
 

@@ -140,10 +140,30 @@ public class playerController : MonoBehaviour
             //Checa si hay algo en la direccion de la fuerza
             RaycastHit2D hit = Physics2D.Raycast(transform.position, force, Mathf.Abs(force.x), LayerMask.GetMask("Ground"));
             if (hit.collider!= null)
-                playerRB.MovePosition(new Vector2(hit.point.x, playerRB.position.y));
+                StartCoroutine(MoveFunction(hit.point));
             else
-                playerRB.MovePosition(playerRB.position + force * Time.deltaTime);
+                StartCoroutine(MoveFunction(playerRB.position + force * Time.deltaTime)); 
+
             hasDash = 0;
+        }
+    }
+
+    IEnumerator MoveFunction(Vector2 newPosition)
+    {
+        float timeSinceStarted = 0f;
+        while (true)
+        {
+            timeSinceStarted += Time.deltaTime;
+            playerRB.MovePosition(Vector3.Lerp(playerRB.position, newPosition, timeSinceStarted));
+
+            // If the object has arrived, stop the coroutine
+            if ((Vector3.Distance(playerRB.position, newPosition) < 1f) || timeSinceStarted > 1f)
+            {
+                yield break;
+            }
+
+            // Otherwise, continue next frame
+            yield return null;
         }
     }
 

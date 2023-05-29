@@ -49,12 +49,12 @@ app.get('/api/get_player/:id', async (request, response)=>{
     }
 })
 
-app.get('/api/show_playthroughs/:id', async (request, response)=>{
+app.get('/api/get_weapons/', async (request, response)=>{
     let connection = null
 
     try
     {
-        const query = `SELECT * from playthrough INNER JOIN player ON playthrough.player_id = player.player_id WHERE user_id= ${request.params.id}`
+        const query = `SELECT * from weapon`
         connection = await connectToDB()
         const [results, fields] = await connection.execute(query)
 
