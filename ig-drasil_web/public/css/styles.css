@@ -21,7 +21,7 @@
   --bs-green: #67c29c;
   --bs-teal: #64a19d;
   --bs-cyan: #1cabc4;
-  --bs-black: #000;
+  --bs-black: #000000;
   --bs-white: #fff;
   --bs-gray: #6c757d;
   --bs-gray-dark: #343a40;
@@ -103,7 +103,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
+  background-color: var(--bs-black);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -8258,7 +8258,7 @@ textarea.form-control-lg {
 
 .text-black-50 {
   --bs-text-opacity: 1;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: var(--bs-white);
 }
 
 .text-white-50 {
@@ -8324,7 +8324,7 @@ textarea.form-control-lg {
 
 .bg-dark {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+  background-color: #000;
 }
 
 .bg-black {
@@ -11167,6 +11167,7 @@ body {
 }
 .projects-section .featured-text {
   padding: 2rem;
+  color: white;
 }
 @media (min-width: 992px) /*Linea entre el video y explicación*/
 {
