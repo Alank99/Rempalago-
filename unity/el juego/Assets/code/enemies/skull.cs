@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class skull : genericMonster
 {
+
+    public float distance;
+
     public GameObject player;
-    private void Update() {
-        if (active)
-            targetPos = player.transform.position;
-    }
-    private void Start() {
-        player = GameObject.FindWithTag("Player");
-        targetPos = player.transform.position;
-        
+    public void Update() {
+
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        // Debug.Log("Distance from skull: " + distance); 
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
+
+        if (player != null && active)
+            if (distance <10)
+                targetPos = player.transform.position;
+            else
+                targetPos = transform.position;
     }
 
-    public override void giveDamage(GameObject player)
-    {
-        Debug.Log("Le hemos pegado al jugador!!!!");
+    public void Start() {
+        player = GameObject.FindWithTag("Player");
+        targetPos = player.transform.position;
     }
 
     public override void monsterHasActivated()
     {
-        Debug.Log("mounstro activado");
+        Debug.Log("Calavera activada");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("mounstro desactivado");
+        Debug.Log("Calavera desactivada");
     }
 }

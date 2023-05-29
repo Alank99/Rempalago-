@@ -52,6 +52,8 @@ MonoBehaviour:
   jumpForce: 4
   waitTime: {x: 1.5, y: 2}
   monsterTargetMethod: 0
+  damage: 1
+  distance: 0
   player: {fileID: 0}
 --- !u!212 &7298000639871146085
 SpriteRenderer:

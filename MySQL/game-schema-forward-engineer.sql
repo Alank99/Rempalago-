@@ -1,3 +1,4 @@
+-- Active: 1681846904940@@127.0.0.1@3306@game
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;

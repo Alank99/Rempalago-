@@ -1,0 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class damager : MonoBehaviour
+{
+
+    public int damage;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerCollider")
+        {
+            HealthManager.healthSingleton.receiveDamage(damage);
+        }
+    }
+}

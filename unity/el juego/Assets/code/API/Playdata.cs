@@ -29,10 +29,16 @@ public class playerList
 public class Playdata : MonoBehaviour
 {
     [SerializeField] string url;
-    [SerializeField] string getUsersEP;
+    [SerializeField] string EP;
     [SerializeField] Text errorText;
 
-    public playerList allPlaythroughs;
+    private playerList allplayers;
+    public player myPlayer;
+
+    void Start()
+    {
+        GetPlayerData();
+    }
 
     public void GetPlayerData(){
         StartCoroutine(QueryPlayerData());
@@ -40,7 +46,7 @@ public class Playdata : MonoBehaviour
 
     IEnumerator QueryPlayerData()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(url + getUsersEP))
+        using (UnityWebRequest www = UnityWebRequest.Get(url + EP))
         {
             yield return www.SendWebRequest();
 
@@ -48,9 +54,9 @@ public class Playdata : MonoBehaviour
                 //Debug.Log("Response: " + www.downloadHandler.text);
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
-                string jsonString = "{\"users\":" + www.downloadHandler.text + "}";
-                allPlaythroughs = JsonUtility.FromJson<playerList>(jsonString);
-                Debug.Log(allPlaythroughs);
+                string jsonString = "{\"players\":" + www.downloadHandler.text + "}";
+                allplayers = JsonUtility.FromJson<playerList>(jsonString);
+                myPlayer = allplayers.players[0];
                 if (errorText != null) errorText.text = "";
             } else {
                 Debug.Log("Error: " + www.error);
