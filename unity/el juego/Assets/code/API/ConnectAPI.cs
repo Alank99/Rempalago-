@@ -13,7 +13,7 @@ public static class ConnectAPI<T>
         return await task;
     }
 
-    private static T internalGet(string EP)
+    public static T internalGet(string EP)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(url + EP))
         {

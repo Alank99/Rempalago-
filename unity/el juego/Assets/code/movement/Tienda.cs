@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 using UnityEngine.Networking;
 
 public class Tienda : MonoBehaviour
@@ -9,20 +7,9 @@ public class Tienda : MonoBehaviour
     [SerializeField] GameObject tienda_ui;
     [SerializeField] GameObject vendedor;
 
-    public weaponList weapons;
-
     void Start()
     {
-        GetWeapons();
-    }
 
-    public void GetWeapons()
-    {
-        var weaponsCall = ConnectAPI<weaponList>.get("get_weapons");
-        //weaponsCall.Wait();
-        //weapons = weaponsCall.Result;
-        Debug.Log(weaponsCall);
-        //PlayerPrefs.SetInt("myUserId", 1);
     }
 
     void Update()

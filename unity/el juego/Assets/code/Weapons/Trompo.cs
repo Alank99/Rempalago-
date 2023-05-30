@@ -13,6 +13,7 @@ public class Trompo : MonoBehaviour
     [Tooltip("Tiempo que tarda en reducirse el giro del trompo")]
     [SerializeField] float slowdown;
 
+    public int InitialDamage;
 
     private float SpinSpeed;
     private float time_since_slow;

@@ -34,7 +34,6 @@ public class player: ISerializableJson
     public int dash;
 }
 
-
 [System.Serializable]
 public class weapon: ISerializableJson
 {
