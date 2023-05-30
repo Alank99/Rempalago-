@@ -2,15 +2,77 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using TMPro;
 
 public class Login : MonoBehaviour
 {
     private int user_id;
     private playthroughList plays;
 
-    public void check_user()
+    [Header("Referencias para el scroll")]
+    [SerializeField] Transform contentTransform;
+    [SerializeField] GameObject buttonPrefab;
+
+    [Header("Referencias a textos")]
+    [SerializeField] TMPro.TextMeshProUGUI email_login;
+    [SerializeField] TMPro.TextMeshProUGUI password_login;
+    [SerializeField] TMPro.TextMeshProUGUI email_reg;
+    [SerializeField] TMPro.TextMeshProUGUI password_reg;
+    [SerializeField] TMPro.TextMeshProUGUI username_reg;
+
+    public void try_login()
     {
-        StartCoroutine(QueryData("get_playthroughs/" + user_id));
+        StartCoroutine(QueryData("playthroughs/1"));
+        
+    }
+
+    public void try_register()
+    {
+
+    }
+
+    public void select_play()
+    {
+
+    }
+
+public void LoadNames()
+    {
+        ClearContents();
+        GameObject uiItem;
+        for (int i=0; i < plays.playthroughs.Count; i++) {
+                uiItem = Instantiate(buttonPrefab);
+            // Add them to the ScollView content
+            uiItem.transform.SetParent(contentTransform);
+
+            // Set the position of each element
+            RectTransform rectTransform = uiItem.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2 (0, -50 * i);
+
+            // Extract the text from the argument object
+            playthrough us = plays.playthroughs[i];
+            //Debug.Log("ID: " + us.id_users + " | " + us.name + " " + us.surname);
+
+            // Set the text
+            TextMeshProUGUI field = uiItem.GetComponentInChildren<TextMeshProUGUI>();
+            field.text = "ID: " + us.player_id + ", playtime: " + us.playtime + ", completed: " + us.completed;
+            // Set the callback
+            Button btn = uiItem.GetComponent<Button>();
+            btn.onClick.AddListener(delegate {GreetName("Mario"); });
+        }
+    }
+
+    private void GreetName(string name)
+    {
+        Debug.Log("Hello " + name);
+    }
+    // Delete any child objects
+    private void ClearContents()
+    {
+        foreach (Transform child in contentTransform) {
+            Destroy(child.gameObject);
+        }
     }
 
     IEnumerator QueryData(string EP)
@@ -23,7 +85,7 @@ public class Login : MonoBehaviour
                 //Debug.Log("Response: " + www.downloadHandler.text);
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
-                string jsonString = "{\"users\":" + www.downloadHandler.text + "}";
+                string jsonString = "{\"plays\":" + www.downloadHandler.text + "}";
                 plays = JsonUtility.FromJson<playthroughList>(jsonString);
             }
             else {
@@ -31,4 +93,36 @@ public class Login : MonoBehaviour
             }
         }
     }
+
+/*
+    IEnumerator AddUser()
+    {
+        // Create the object to be sent as json
+        User testUser = new User();
+        testUser.name = "newGuy" + Random.Range(1000, 9000).ToString();
+        testUser.surname = "Tester" + Random.Range(1000, 9000).ToString();
+        //Debug.Log("USER: " + testUser);
+        string jsonData = JsonUtility.ToJson(testUser);
+        //Debug.Log("BODY: " + jsonData);
+
+        // Send using the Put method:
+        // https://stackoverflow.com/questions/68156230/unitywebrequest-post-not-sending-body
+        using (UnityWebRequest www = UnityWebRequest.Put(url + getUsersEP, jsonData))
+        {
+            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
+            // Set the method later, and indicate the encoding is JSON
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                Debug.Log("Response: " + www.downloadHandler.text);
+                if (errorText != null) errorText.text = "";
+            } else {
+                Debug.Log("Error: " + www.error);
+                if (errorText != null) errorText.text = "Error: " + www.error;
+            }
+        }
+    }
+*/
 }
