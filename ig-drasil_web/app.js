@@ -4,6 +4,9 @@ import express from 'express'
 import mysql from 'mysql2/promise'
 import fs from 'fs'
 import * as buffs from './endpointBuffs.js' 
+import * as loot from './endpointLoot.js' 
+import * as user from './endpointUser.js'
+//import * as player from './endpointPlayer.js' 
 
 const app = express()
 const port = 5000
@@ -14,14 +17,18 @@ app.use(express.static('./public'))
 async function connectToDB()
 {
     return await mysql.createConnection({
-        host:'172.27.176.1',
-        user:'requester',
-        password:'Arbolitos',
+        host:'localhost',
+        user:'root',
+        password:'123',
         database:'game'
     })
 }
 
-buffs.addEndpointsBuffs(app);
+let conn = await connectToDB();
+
+buffs.addEndpoints(app, conn);
+loot.addEndpoints(app, conn);
+user.addEndpoints(app, conn);
 
 app.get('/api/get_player/:id', async (request, response)=>{
     let connection = null
