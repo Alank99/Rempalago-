@@ -1,6 +1,6 @@
 const prefix = "/api/playthroughs/";
 
-export function addEndpointPlaythroughs(app, conn) {
+export function addEndpoints(app, conn) {
 
     const connection = conn;
     app.get('/api/playthroughs/:id', async (request, response)=>{

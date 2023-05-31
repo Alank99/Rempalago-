@@ -1,6 +1,6 @@
 const prefix = "/api/player/";
 
-export function addEndpointPlayer(app, conn) {
+export function addEndpoints(app, conn) {
 
     const connection = conn;
 
@@ -46,7 +46,7 @@ export function addEndpointPlayer(app, conn) {
         try
         {
             request.body.username
-            const query = `insert into user (checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash) values `
+            const query = `insert into user (checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash) values(1,0,100,2,2,1,2,3,2) `
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
