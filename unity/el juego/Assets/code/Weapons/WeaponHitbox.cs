@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponHitbox : MonoBehaviour
 {
-    [SerializeField] int damage;
+    public int damage;
 
     /// <summary>
     /// Ataque a un enemigo
