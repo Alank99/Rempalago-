@@ -46,7 +46,7 @@ export function addEndpointPlayer(app, conn) {
         try
         {
             request.body.username
-            const query = `select * from loot where id = ${request.params.id}`
+            const query = `insert into user (checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash) values `
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)

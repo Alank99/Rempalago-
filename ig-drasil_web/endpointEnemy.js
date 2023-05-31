@@ -62,7 +62,7 @@ export function addEndpoints(app, conn) {
     app.post(prefix + "kills/:id", async (request, response)=>{
         try
         {
-            const query = `select 'kills' from enemy where id = ${request.params.id}`
+            const query = `update enemy SET 'kills' = ((select 'kills' from enemy where id = ${request.params.id}) + 1) where id = ${request.params.id}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
