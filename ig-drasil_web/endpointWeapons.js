@@ -41,7 +41,7 @@ export function addEndpoints(app, conn) {
         }
     });
 
-    app.update(prefix + "kill-enemy/:id", async (request, response)=>{
+    app.post(prefix + "kill-enemy/:id", async (request, response)=>{
         try
         {
             const query = `update weapon SET 'kills' = ((select 'kills' from weapon where weapon_id = ${request.params.id}) + 1) where weapon_id = ${request.params.id}`
