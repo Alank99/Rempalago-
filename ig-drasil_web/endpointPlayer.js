@@ -23,7 +23,7 @@ export function addEndpointPlayer(app, conn) {
     });
 
     // statistics
-    app.post(prefix + "stats/:id", async (request, response)=>{
+    app.get(prefix + "stats/:id", async (request, response)=>{
         try
         {
             // TODO: cambiar a que haga los joins del loot
