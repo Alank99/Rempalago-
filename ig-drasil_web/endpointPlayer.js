@@ -27,7 +27,7 @@ export function addEndpointPlayer(app, conn) {
         try
         {
             // TODO: cambiar a que haga los joins del loot
-            const query = `select health,attack,speed, dash, money from player where player_id = ${request.params.id}`
+            const query = `select * from player where player_id = ${request.params.id}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
@@ -41,7 +41,7 @@ export function addEndpointPlayer(app, conn) {
         }
     });
 
-    // make a new user
+    // make a new player
     app.post(prefix + "new", async (request, response)=>{
         try
         {
