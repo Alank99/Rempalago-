@@ -1,6 +1,6 @@
 "use strict"
 
-import bcrypt from 'bcrypt'
+import crypto from 'crypto'
 
 const prefix = "/api/user/";
 
@@ -8,15 +8,10 @@ export function addEndpoints(app, conn) {
     const connection = conn;
 
     async function hashPassword(plainPassword) {
-        try {
-          const saltRounds = 10;
-          const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-          return connection.escape(hashedPassword).replace(/'/g, "");
-        } catch (error) {
-          console.error('Error hashing password:', error);
-          throw error;
-        }
-      }
+        const hash = crypto.createHash('sha256');
+        hash.update(plainPassword);
+        return hash.digest('hex');
+    }
 
     // get list loot tables
     app.get(prefix + "", async (request, response)=>{
@@ -44,7 +39,6 @@ export function addEndpoints(app, conn) {
             const query = `select user_id from user where email = '${request.body.email}' and password = '${await hashPassword(request.body.password)}';`
             const [results1, fields1] = await connection.execute(query);
     
-            console.log(`${results1.length} rows returned, created users successfully!!`)
             response.json(results1)
         }
         catch(error)

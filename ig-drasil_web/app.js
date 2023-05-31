@@ -6,6 +6,7 @@ import fs from 'fs'
 import * as buffs from './endpointBuffs.js' 
 import * as loot from './endpointLoot.js' 
 import * as user from './endpointUser.js'
+import * as enemy from './endpointEnemy.js'
 //import * as player from './endpointPlayer.js' 
 
 const app = express()
@@ -29,6 +30,7 @@ let conn = await connectToDB();
 buffs.addEndpoints(app, conn);
 loot.addEndpoints(app, conn);
 user.addEndpoints(app, conn);
+enemy.addEndpoints(app, conn);
 
 app.get('/api/get_player/:id', async (request, response)=>{
     let connection = null

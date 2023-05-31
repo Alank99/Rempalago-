@@ -1,14 +1,14 @@
-const prefix = "/api/loot/";
+const prefix = "/api/enemy/";
 
 export function addEndpoints(app, conn) {
 
     const connection = conn;
 
-    // get list loot tables
+    // get list enemies
     app.get(prefix + "", async (request, response)=>{
         try
         {
-            const query = `select * from loot_table`
+            const query = `select * from enemy`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
@@ -26,7 +26,7 @@ export function addEndpoints(app, conn) {
     app.get(prefix + ":id", async (request, response)=>{
         try
         {
-            const query = `select 'name', 'modifier', 'ammount' from loot_MTM where id = ${request.params.id} LEFT JOIN loot ON loot_id = loot.id`
+            const query = `select * from enemy where id = ${request.params.id}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
@@ -42,7 +42,7 @@ export function addEndpoints(app, conn) {
 
 
     // get loot info
-    app.get(prefix + "info/:id", async (request, response)=>{
+    app.get(prefix + "kills/:id", async (request, response)=>{
         try
         {
             const query = `select * from loot where id = ${request.params.id}`
