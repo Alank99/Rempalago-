@@ -17,7 +17,6 @@ public class ChangeWeapon : MonoBehaviour
     [SerializeField] Sprite ImgBalero;
     [SerializeField] Sprite ImgEspada;
 
-
     private int actual = 0;
     private float lastUpdate;
 
