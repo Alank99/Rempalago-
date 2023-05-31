@@ -135,16 +135,19 @@
                     <div class="featured-pc" id="pc">
                         <h5 class="text-center">PC</h5>
                     <ul class="text-black-50 mb-0">
-                        <li>Moverte a la izquierda - A</li>
-                        <li>Moverte a la derecha - D</li>
-                        <li>Saltar - Espacio</li>
-                        <li><i>Dash</i> - Shift</li>
+                        <li id="bottonA">Moverte a la izquierda - A</li>
+                        <li id="bottonD">Moverte a la derecha - D</li>
+                        <li id="bottonSp">Saltar - Espacio</li>
+                        <li id="bottonSH"><i>Dash</i> - Shift</li>
                         <p></p>
                         <li>Apuntar - Usando el apuntador del <i>mouse</i></li>
-                        <li>Atacar - Clic izquierdo</li>
-                        <li>Cambiar de arma - Clic derecho</li>
+                        <li id="bottonCI">Atacar - Clic izquierdo</li>
+                        <li id="bottonCD">Cambiar de arma - Scroll</li>
                     </ul>
-                    <img class="img-teclado" src="./assets/img/Teclado.png">
+                    <img class="img-teclado" src="./assets/img/Teclado.png" usemap="mapteclado">
+                    <map name="mapteclado">
+                        <area shape="rect" coords="3,2,4,5" onmouseover="mostrarTexto('cdv')">
+                    </map>
                     <img class="img-mouse" src="./assets/img/temp mouse.png">
                         
                     </div>

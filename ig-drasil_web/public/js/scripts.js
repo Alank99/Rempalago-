@@ -52,3 +52,11 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+// displays the text of the image
+
+function mostrarTexto(texto) {
+    var elementoTexto = document.getElementById('texto');
+    elementoTexto.innerHTML = texto;
+    elementoTexto.style.display = 'block';
+  }
