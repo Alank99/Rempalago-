@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
     private int user_id;
-    private playthroughList plays;
+    public playthroughList plays;
 
     [Header("Referencias para el scroll")]
     [SerializeField] Transform contentTransform;
@@ -32,23 +33,18 @@ public class Login : MonoBehaviour
 
     }
 
-    public void select_play()
-    {
-
-    }
-
-public void LoadNames()
+    public void LoadNames()
     {
         ClearContents();
         GameObject uiItem;
         for (int i=0; i < plays.playthroughs.Count; i++) {
-                uiItem = Instantiate(buttonPrefab);
+            uiItem = Instantiate(buttonPrefab);
             // Add them to the ScollView content
             uiItem.transform.SetParent(contentTransform);
 
             // Set the position of each element
             RectTransform rectTransform = uiItem.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2 (0, -50 * i);
+            rectTransform.anchoredPosition = new Vector2 (0, -100 * i);
 
             // Extract the text from the argument object
             playthrough us = plays.playthroughs[i];
@@ -59,14 +55,16 @@ public void LoadNames()
             field.text = "ID: " + us.player_id + ", playtime: " + us.playtime + ", completed: " + us.completed;
             // Set the callback
             Button btn = uiItem.GetComponent<Button>();
-            btn.onClick.AddListener(delegate {GreetName("Mario"); });
+            btn.onClick.AddListener(delegate {start_game(i); });
         }
     }
 
-    private void GreetName(string name)
+    private void start_game(int play)
     {
-        Debug.Log("Hello " + name);
+        //Iniciar la nueva escena
+        SceneManager.LoadScene("Primary");
     }
+
     // Delete any child objects
     private void ClearContents()
     {
@@ -82,11 +80,12 @@ public void LoadNames()
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success) {
-                //Debug.Log("Response: " + www.downloadHandler.text);
+                Debug.Log("Response: " + www.downloadHandler.text);
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
-                string jsonString = "{\"plays\":" + www.downloadHandler.text + "}";
+                string jsonString = "{\"playthroughs\":" + www.downloadHandler.text + "}";
                 plays = JsonUtility.FromJson<playthroughList>(jsonString);
+                LoadNames();
             }
             else {
                 Debug.Log("Error: " + www.error);
