@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Espada : MonoBehaviour
+public class Espada : FatherWeapon
 {
     [Header("Referencias a prefabs")]
     [SerializeField] Transform posicionInicial;
     [Tooltip("Animador de la espada")]
-    [SerializeField] GameObject espada;
-    [Tooltip("Tienes la espada?")]
-
-    public bool activa;
+    public GameObject espada;
 
     // Update is called once per frame
     void Update()

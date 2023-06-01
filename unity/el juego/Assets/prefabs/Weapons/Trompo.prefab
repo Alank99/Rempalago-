@@ -245,5 +245,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   png: {fileID: 118801242947023879}
   SpinLoss: 1
-  SpinMult: 3
+  SpinMult: 0.5
   slowdown: 2
+  InitialDamage: 0

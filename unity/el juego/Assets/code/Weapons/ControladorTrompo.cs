@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.Networking;
 
-public class ControladorTrompo : MonoBehaviour
+public class ControladorTrompo : FatherWeapon
 {
     [Header("Referencias a prefabs")]
     [SerializeField] GameObject trompo;
     [SerializeField] GameObject player;
     [SerializeField] RectTransform chargebar;
     [SerializeField] Transform posicionInicial;
-    [Tooltip("Tienes la espada?")]
-    public bool activa;
 
     [Header("Caracteristicas del trompo creado")]
     [Tooltip("Maximo tiempo que puede cargar el trompo")]
@@ -21,6 +20,8 @@ public class ControladorTrompo : MonoBehaviour
     [SerializeField] float chargepersec;
     [Tooltip("Tiempo entre que el jugador recoge el trompo y lo puede volver a aventar")]
     [SerializeField] float pickupDelay;
+    [Tooltip("El daño maximo que podria hacer un trompo, por su tipo")]
+    private int max_damage;
 
     private bool shot = false;
     private float startTime = 0.0f;
@@ -47,6 +48,10 @@ public class ControladorTrompo : MonoBehaviour
         }
     }
 
+    public void set_damage(int weapon_damage)
+    {
+        max_damage = weapon_damage;
+    }
 
     /// <summary>
     /// Shoot es llamado cuando quiere usar el trompo el jugador
@@ -66,7 +71,7 @@ public class ControladorTrompo : MonoBehaviour
             nuevoTrompo.GetComponent<Rigidbody2D>().velocity += player.GetComponent<Rigidbody2D>().velocity;
             
             //Calcular daño inicial
-            nuevoTrompo.GetComponent<Trompo>().setSpinSpeed(speed);
+            nuevoTrompo.GetComponent<Trompo>().setSpinSpeed(speed, max_damage);
     }
 
     /// <summary>

@@ -44,8 +44,11 @@ public class playerController : MonoBehaviour
     public AnimationCurve jumpCurve;
 
     [Header("Cosas para el dash")]
+    [Tooltip("If the player has unlocked the dash ability")]
+    public int has_dash;
     public float dashTime;
     public Vector2 dashForce;
+    //If the player currently can dash
     private int hasDash = 1;
     //1=left, 0=right
     private int moving_left = 0;
@@ -123,12 +126,12 @@ public class playerController : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Se ejecuta cuando se presiona el botón de Dodge y se regenera al tocar el piso
     /// </summary>
     /// <param name="value"></param>
     public void OnDoge(){
+        if (has_dash == 0) return;
         Vector2 force = new Vector2(0, 0);
         //Checa si toco el piso antes del dash
         if (hasDash == 1){
