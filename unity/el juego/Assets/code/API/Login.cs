@@ -34,7 +34,7 @@ public class Login : MonoBehaviour
 
     public void try_register()
     {
-
+        StartCoroutine(RegisterUser("register"));
     }
 
     public void LoadNames()
@@ -137,4 +137,41 @@ public class Login : MonoBehaviour
         }
     }
 */
+IEnumerator RegisterUser(string EP)
+    {
+        // register values
+        string email = email_reg.text;
+        string username = username_reg.text;
+        string password = password_reg.text;
+
+        // creates a class with the new user data
+        user newUser = new user
+        {
+            email = email,
+            name = username,
+            password = password
+        };
+
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson(newUser);
+
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Post(info.url + EP, jsonData))
+        {
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Registro exitoso");
+            }
+            else
+            {
+                Debug.Log("Error en el registro: " + www.error);
+            }
+        }
+    }
 }

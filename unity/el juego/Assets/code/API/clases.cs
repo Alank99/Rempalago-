@@ -50,6 +50,15 @@ public class weapon
 }
 
 [System.Serializable]
+public class user
+{
+    public int user_id;
+    public string name;
+    public string email;
+    public string password;
+}
+
+[System.Serializable]
 public class playthroughList
 {
     public List<playthrough> list;
