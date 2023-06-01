@@ -92,9 +92,9 @@ public class HealthManager : MonoBehaviour
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;
         this.GetComponent<playerController>().maxSpeedX = player_info.speed;
-        change.set_damage(player_info.espada, 1);
-        change.set_damage(player_info.balero, 2);
-        change.set_damage(player_info.trompo, 3);
+        change.set_damage(player_info.espada, 0);
+        change.set_damage(player_info.balero, 1);
+        change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
     }
 }

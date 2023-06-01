@@ -48,6 +48,10 @@ public class ControladorTrompo : FatherWeapon
         }
     }
 
+    public void set_damage(int weapon_damage)
+    {
+        max_damage = weapon_damage;
+    }
 
     /// <summary>
     /// Shoot es llamado cuando quiere usar el trompo el jugador

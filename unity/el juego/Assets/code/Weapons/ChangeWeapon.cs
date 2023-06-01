@@ -8,14 +8,15 @@ using UnityEngine.Networking;
 public class ChangeWeapon : MonoBehaviour
 {
     [Header("Referencias a clases")]
-    [SerializeField] ControladorTrompo Trompo;
-    private int trompo_dmg;
-    [SerializeField] Balero Balero;
-    private int balero_dmg;
-    [SerializeField] Espada Espada;
-    private int espada_dmg;
+    [SerializeField] ControladorTrompo trompo;
+    [SerializeField] WeaponHitbox espada;
+    [SerializeField] WeaponHitbox balero;
 
-    public List<FatherWeapon> lista = new List<FatherWeapon>();
+    [Header("Referencias a otros objetos")]
+    [SerializeField] FatherWeapon object_espada;
+    [SerializeField] FatherWeapon object_trompo;
+    [SerializeField] FatherWeapon object_balero;
+    [SerializeField] FatherWeaponList weapons;
 
     [Header("Referencias a imagenes del arma actual")]
     [SerializeField] Image arma; 
@@ -23,15 +24,11 @@ public class ChangeWeapon : MonoBehaviour
     [SerializeField] Sprite ImgBalero;
     [SerializeField] Sprite ImgEspada;
 
-    private int actual = 2;
+    private int actual = 0;
     private float lastUpdate;
-
 
     void start()
     {
-        lista.Add(Trompo);
-        lista.Add(Balero);
-        lista.Add(Espada);
         lastUpdate = Time.time;
         arma.sprite = ImgEspada;
     }
@@ -54,9 +51,22 @@ public class ChangeWeapon : MonoBehaviour
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 int damage = JsonUtility.FromJson<weaponList>(jsonString).list[0].damage;
-                if (type == 1) espada_dmg = damage;
-                else if (type == 2) balero_dmg = damage;
-                else if (type == 3) trompo_dmg = damage;
+                if (type == 0)
+                {
+                    espada.set_damage(damage);
+                    weapons.list.Add(object_espada);
+                }
+                else if (type == 1)
+                {
+                    balero.set_damage(damage);
+                    weapons.list.Add(object_balero);
+                }
+                else if (type == 2)
+                {
+                    trompo.set_damage(damage);
+                    weapons.list.Add(object_trompo);
+                }
+
             }
             else {
                 Debug.Log("Error: " + www.error);
@@ -68,6 +78,7 @@ public class ChangeWeapon : MonoBehaviour
     /// Cambia el arma actual del jugador
     /// </summary>
     private void OnCambiarArma(InputValue state){
+        int past_weapon = 0;
         //Si tienes menos de un segundo que cambiaste de arma, no cambies
         if (Time.time - lastUpdate < 1.0f) return;
 
@@ -75,33 +86,36 @@ public class ChangeWeapon : MonoBehaviour
 
         if (direction.y > 0)
         {
-            lista[actual].activa = false;
+            past_weapon = actual;
             actual++;
-            if (actual == 3)
+            if (actual > weapons.list.Count - 1)
                 actual = 0;
-            lista[actual].activa = true;
+            weapons.list[actual].activa = true;
+            if (past_weapon != actual)
+                weapons.list[past_weapon].activa = false;
         }
         else if (direction.y < 0)
         {
-            lista[actual].activa = false;
             actual--;
             if (actual == -1)
-                actual = 3;
-            lista[actual].activa = true;
+                actual = weapons.list.Count - 1;
+            weapons.list[actual].activa = true;
+            if (past_weapon != actual)
+                weapons.list[past_weapon].activa = false;
         }
 
         switch (actual)
         {
             case 0:
-                arma.sprite = ImgBalero;
+                arma.sprite = ImgEspada;
                 break;
             case 1:
-                arma.sprite = ImgEspada;
+                arma.sprite = ImgBalero;
                 break;
             case 2:
                 arma.sprite = ImgTrompo;
                 break;
         }
-            lastUpdate = Time.time;
+        lastUpdate = Time.time;
     }
 }
