@@ -87,6 +87,11 @@ public abstract class genericMonster : MonoBehaviour
 
     private void killSelf(){
         alive = false;
+        var rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = false;
+        var amount = 100f;
+        rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
+        rb.AddTorque(Random.Range(-1, 1) * amount);
         StartCoroutine(dieDelay());
     }
 
@@ -105,9 +110,8 @@ public abstract class genericMonster : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && alive)
         {
-            Debug.Log("Le hizo daño al player");
             HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
