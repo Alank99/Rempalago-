@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InfoTienda : MonoBehaviour
 {
-    public weaponList list;
+    public weaponList weapons;
     private weaponList espadas;
     private weaponList baleros;
     private weaponList trompos;
@@ -38,23 +38,23 @@ public class InfoTienda : MonoBehaviour
     void get_weapons()
     {
         //Separate weapon types
-        for (int i = 0; i < list.weapons.Count; i++)
+        for (int i = 0; i < weapons.list.Count; i++)
         {
-            if (list.weapons[i].type_id == 1)
-                espadas.weapons.Add(list.weapons[i]);
-            if (list.weapons[i].type_id == 2)
-                baleros.weapons.Add(list.weapons[i]);
-            if (list.weapons[i].type_id == 3)
-                trompos.weapons.Add(list.weapons[i]);
+            if (weapons.list[i].type_id == 1)
+                espadas.list.Add(weapons.list[i]);
+            if (weapons.list[i].type_id == 2)
+                baleros.list.Add(weapons.list[i]);
+            if (weapons.list[i].type_id == 3)
+                trompos.list.Add(weapons.list[i]);
         }
         //Get random number in weapons
-        int a = Random.Range(0, espadas.weapons.Count);
-        int b = Random.Range(0, baleros.weapons.Count);
-        int c = Random.Range(0, trompos.weapons.Count);
+        int a = Random.Range(0, espadas.list.Count);
+        int b = Random.Range(0, baleros.list.Count);
+        int c = Random.Range(0, trompos.list.Count);
         Debug.Log("a:" + a + "b:" + b + "c:" + c);
-        espada_vender = espadas.weapons[a];
-        balero_vender = baleros.weapons[b];
-        trompo_vender = trompos.weapons[c];
+        espada_vender = espadas.list[a];
+        balero_vender = baleros.list[b];
+        trompo_vender = trompos.list[c];
         four.text = espada_vender.name + "\n$" + espada_vender.damage * 10;
         five.text = balero_vender.name + "\n$" + balero_vender.damage * 10;
         six.text = trompo_vender.name + "\n$" + trompo_vender.damage * 10;
@@ -72,7 +72,7 @@ public class InfoTienda : MonoBehaviour
 
     IEnumerator QueryData(string EP)
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(ConnectAPI<weapon>.url + EP))
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
         {
             yield return www.SendWebRequest();
 
@@ -80,8 +80,8 @@ public class InfoTienda : MonoBehaviour
                 //Debug.Log("Response: " + www.downloadHandler.text);
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
-                string jsonString = "{\"weapons\":" + www.downloadHandler.text + "}";
-                list = JsonUtility.FromJson<weaponList>(jsonString);
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+                weapons = JsonUtility.FromJson<weaponList>(jsonString);
                 done = 1;
             }
             else {

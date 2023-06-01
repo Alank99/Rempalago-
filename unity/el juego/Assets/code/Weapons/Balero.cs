@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Balero : MonoBehaviour
+public class Balero : FatherWeapon
 {
     [Header("Referencias a prefabs")]
     [SerializeField] Transform posicionInicial;
     [Tooltip("Animador del balero")]
-    [SerializeField] GameObject balero;
-    [Tooltip("Tienes el balero?")]
-    public bool activa;
+    public GameObject balero;
 
     // Update is called once per frame
     void Update()

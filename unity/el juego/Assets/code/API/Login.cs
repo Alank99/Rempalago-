@@ -22,10 +22,14 @@ public class Login : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI password_reg;
     [SerializeField] TMPro.TextMeshProUGUI username_reg;
 
+    [Header("Referencias a Texto")]
+    [SerializeField] GameObject errorText;
+    [SerializeField] GameObject loadingText;
+
     public void try_login()
     {
-        StartCoroutine(QueryData("playthroughs/1"));
-        
+        user_id = 1;
+        StartCoroutine(QueryData("playthroughs/" + user_id));
     }
 
     public void try_register()
@@ -37,7 +41,7 @@ public class Login : MonoBehaviour
     {
         ClearContents();
         GameObject uiItem;
-        for (int i=0; i < plays.playthroughs.Count; i++) {
+        for (int i=0; i < plays.list.Count; i++) {
             uiItem = Instantiate(buttonPrefab);
             // Add them to the ScollView content
             uiItem.transform.SetParent(contentTransform);
@@ -47,20 +51,29 @@ public class Login : MonoBehaviour
             rectTransform.anchoredPosition = new Vector2 (0, -100 * i);
 
             // Extract the text from the argument object
-            playthrough us = plays.playthroughs[i];
+            playthrough us = plays.list[i];
             //Debug.Log("ID: " + us.id_users + " | " + us.name + " " + us.surname);
 
             // Set the text
             TextMeshProUGUI field = uiItem.GetComponentInChildren<TextMeshProUGUI>();
-            field.text = "ID: " + us.player_id + ", playtime: " + us.playtime + ", completed: " + us.completed;
+            int nivel = 0;
+            if (us.espada > 0) nivel++;
+            if (us.trompo > 0) nivel++;
+            if (us.balero > 0) nivel++;
+            field.text = "Completed?: " + us.completed + " Money: " + us.money + " Dash?: " + us.dash + " Nivel arma: " + nivel;
             // Set the callback
             Button btn = uiItem.GetComponent<Button>();
-            btn.onClick.AddListener(delegate {start_game(i); });
+            int current_index = i;
+            btn.onClick.AddListener(delegate {start_game(current_index); });
         }
     }
 
     private void start_game(int play)
     {
+        PlayerPrefs.SetInt("user_id", user_id);
+        PlayerPrefs.SetInt("player_id", plays.list[play].player_id);
+        //Cargar Loading
+        loadingText.SetActive(true);
         //Iniciar la nueva escena
         SceneManager.LoadScene("Primary");
     }
@@ -75,15 +88,15 @@ public class Login : MonoBehaviour
 
     IEnumerator QueryData(string EP)
     {
-        using (UnityWebRequest www = UnityWebRequest.Get(ConnectAPI<weapon>.url + EP))
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
         {
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success) {
-                Debug.Log("Response: " + www.downloadHandler.text);
+                //Debug.Log("Response: " + www.downloadHandler.text);
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
-                string jsonString = "{\"playthroughs\":" + www.downloadHandler.text + "}";
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 plays = JsonUtility.FromJson<playthroughList>(jsonString);
                 LoadNames();
             }

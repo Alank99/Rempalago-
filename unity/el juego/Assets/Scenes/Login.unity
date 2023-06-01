@@ -2665,7 +2665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plays:
-    playthroughs: []
+    list: []
   contentTransform: {fileID: 991634381}
   buttonPrefab: {fileID: 6806743251011084899, guid: 3edc088123514a44b9e5cd9d0fa8ff8f, type: 3}
   email_login: {fileID: 1970966911}
@@ -2673,6 +2673,8 @@ MonoBehaviour:
   email_reg: {fileID: 707390693}
   password_reg: {fileID: 1876784189}
   username_reg: {fileID: 1742886396}
+  errorText: {fileID: 1341188399}
+  loadingText: {fileID: 793462752}
 --- !u!1 &1042211176
 GameObject:
   m_ObjectHideFlags: 0
