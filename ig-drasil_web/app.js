@@ -8,6 +8,8 @@ import * as loot from './endpointLoot.js'
 import * as user from './endpointUser.js'
 import * as enemy from './endpointEnemy.js'
 import * as player from './endpointPlayer.js' 
+import * as playthroughs from './endpointPlaythroughs.js' 
+import * as weapons from './endpointWeapons.js' 
 
 const app = express()
 const port = 5000
@@ -32,35 +34,8 @@ loot.addEndpoints(app, conn);
 user.addEndpoints(app, conn);
 enemy.addEndpoints(app, conn);
 player.addEndpoints(app, conn);
-
-app.get('/api/get_player/:id', async (request, response)=>{
-    let connection = null
-
-    try
-    {
-        const query = `select * from player where player_id= ${request.params.id}`
-        connection = await connectToDB()
-        const [results, fields] = await connection.execute(query)
-
-        console.log(`${results.length} rows returned`)
-        response.json(results)
-        
-    }
-    catch(error)
-    {
-        response.status(500)
-        response.json(error)
-        console.log(error)
-    }
-    finally
-    {
-        if(connection!==null) 
-        {
-            connection.end()
-            console.log("Connection closed succesfully!")
-        }
-    }
-})
+playthroughs.addEndpoints(app, conn);
+weapons.addEndpoints(app, conn);
 
 app.get('/api/get_weapons/', async (request, response)=>{
     let connection = null
