@@ -28,13 +28,17 @@ public class Login : MonoBehaviour
 
     public void try_login()
     {
-        user_id = 1;
+        //user_id = 1;
+        //leer user_id
+
+        //Si no esta orrecto escribir en errorText
+
         StartCoroutine(QueryData("playthroughs/" + user_id));
     }
 
     public void try_register()
     {
-        StartCoroutine(RegisterUser("register"));
+        StartCoroutine(RegisterUser("user/new"));
     }
 
     public void LoadNames()
@@ -141,24 +145,25 @@ IEnumerator RegisterUser(string EP)
     {
         // register values
         string email = email_reg.text;
-        string username = username_reg.text;
+        string name = username_reg.text;
         string password = password_reg.text;
 
         // creates a class with the new user data
         user newUser = new user
         {
             email = email,
-            name = username,
+            name = name,
             password = password
         };
+        Debug.Log(newUser.name);
 
         // converts newUser to JSON
         string jsonData = JsonUtility.ToJson(newUser);
 
-
         // POST request
-        using (UnityWebRequest www = UnityWebRequest.Post(info.url + EP, jsonData))
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, jsonData))
         {
+            www.method = "POST";
             www.SetRequestHeader("Content-Type", "application/json");
 
             // request

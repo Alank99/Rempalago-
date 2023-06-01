@@ -53,7 +53,7 @@ export function addEndpoints(app, conn) {
     app.post(prefix + "new", async (request, response)=>{
         try
         {
-            let query = `insert into user (name, email, password) values ('${request.body.username}', '${request.body.email}', '${await hashPassword(request.body.password)}');`
+            let query = `insert into user (name, email, password) values ('${request.body.name}', '${request.body.email}', '${await hashPassword(request.body.password)}');`
             const [results, fields] = await connection.execute(query);
 
             query = `select user_id from user where email = '${request.body.email}';`

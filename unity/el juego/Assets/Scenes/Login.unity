@@ -1182,7 +1182,7 @@ GameObject:
   - component: {fileID: 707390694}
   - component: {fileID: 707390693}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Email
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4250,6 +4250,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 998042834}
+        m_TargetAssemblyTypeName: Login, Assembly-CSharp
+        m_MethodName: try_register
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1551024495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4781,7 +4793,7 @@ GameObject:
   - component: {fileID: 1600670485}
   - component: {fileID: 1600670484}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Password_log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4969,7 +4981,7 @@ GameObject:
   - component: {fileID: 1742886397}
   - component: {fileID: 1742886396}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5454,7 +5466,7 @@ GameObject:
   - component: {fileID: 1876784190}
   - component: {fileID: 1876784189}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Password
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5724,7 +5736,7 @@ GameObject:
   - component: {fileID: 1970966912}
   - component: {fileID: 1970966911}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Email_log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

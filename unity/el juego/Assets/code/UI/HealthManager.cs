@@ -86,6 +86,9 @@ public class HealthManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Guarda la información del jugador recogida del servidor
+    /// </summary>
     private void save_info()
     {
         health = player_info.health;
