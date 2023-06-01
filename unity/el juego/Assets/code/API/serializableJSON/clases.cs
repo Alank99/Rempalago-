@@ -45,6 +45,16 @@ public class weapon: ISerializableJson
 }
 
 [System.Serializable]
+
+public class user: ISerializableJson
+{
+    public int user_id;
+    public string name;
+    public string email;
+    public string password;
+}
+
+[System.Serializable]
 public class playthroughList: ISerializableJson
 {
     public List<playthrough> playthroughs;
