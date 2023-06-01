@@ -34,7 +34,7 @@ public class Login : MonoBehaviour
 
     public void try_register()
     {
-        StartCoroutine(RegisterUser());
+        StartCoroutine(RegisterUser("register"));
     }
 
     public void LoadNames()
@@ -137,7 +137,7 @@ public class Login : MonoBehaviour
         }
     }
 */
-IEnumerator RegisterUser()
+IEnumerator RegisterUser(string EP)
     {
         // register values
         string email = email_reg.text;
@@ -155,10 +155,9 @@ IEnumerator RegisterUser()
         // converts newUser to JSON
         string jsonData = JsonUtility.ToJson(newUser);
 
-        string url = "localhost" + "api/register";
 
         // POST request
-        using (UnityWebRequest www = UnityWebRequest.Post(url, jsonData))
+        using (UnityWebRequest www = UnityWebRequest.Post(info.url + EP, jsonData))
         {
             www.SetRequestHeader("Content-Type", "application/json");
 
