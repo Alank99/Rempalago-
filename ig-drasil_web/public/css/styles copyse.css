@@ -8274,29 +8274,6 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
   color: var(--bs-white);
 }
-#bottonA{
-  color: #0095DC;
-}
-
-#bottonD{
-  color: #E50160;
-}
-
-#bottonSp{
- color: #FFE512;
-}
-
-#bottonSH{
-  color: #763BAF;
-}
-
-#bottonCI{
-  color: #DD5C00;
-}
-
-#bottonCD{
-  color: #01A348;
-}
 
 .text-white-50 {
   --bs-text-opacity: 1;
@@ -11050,7 +11027,11 @@ body {
 }
 #mainNav .navbar-brand {
   font-weight: 500;
-  color: #33C473;
+    color: #067436;
+    text-shadow: 0 0 5px #33C473,
+    0 0 2px #01A348, 
+    0 0 5px #01A348,
+    0 0 1px #33C473;
   font-weight: 700;
   padding: 0.9rem 0;
 }
@@ -11075,7 +11056,7 @@ body {
   #mainNav .navbar-brand /*Ig-drasil back to top no-fondo*/
   {
     padding: 0.5rem 0;
-    color: #067436;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   #mainNav .nav-link /*Secciones no-fondo*/
@@ -11193,11 +11174,10 @@ body {
 
 .about-section /*Quienes somos*/
 {
-  margin-top: 4 rem;
-  margin-bottom: 5rem;
+  margin-top: 1 rem;
   padding-top: 12rem;
-  padding-bottom:7rem ;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 43%, rgba(0, 0, 0, 0.5) 70%, #000 100%), url(../assets/img/City2.png);
+  padding-bottom:5rem ;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 2.9) 75%, #000 100%), url(../assets/img/City2.png);
 }
 .about-section p /*Espacio del texto*/
 {
@@ -11206,7 +11186,7 @@ body {
 
 .projects-section {
   margin-top: 10rem;
-  padding: 2rem ;
+  padding: 7rem 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1.7) 75%, #000 100%), url(../assets/img/Cartoon_Forest_BG_04.png),no-repeat;
 
 }
@@ -11236,7 +11216,7 @@ body {
 
 .signup-section {
   padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.1) 75%, #000 100%), url("../assets/img/bosque-magico_3800x2149_xtrafondos.com.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/bg-signup.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
