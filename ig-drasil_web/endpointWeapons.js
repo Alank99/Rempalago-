@@ -22,6 +22,24 @@ export function addEndpoints(app, conn) {
         }
     });
 
+    // get list weapons
+    app.get(prefix, async (request, response)=>{
+        try
+        {
+            const query = `select * from game.weapon`
+            const [results, fields] = await connection.execute(query);
+    
+            console.log(`${results.length} rows returned`)
+            response.json(results)
+        }
+        catch(error)
+        {
+            response.status(500)
+            response.json(error)
+            console.log(error)
+        }
+    });
+
     // weapons more kills
     app.get(prefix + "more-kills", async (request, response)=>{
         try

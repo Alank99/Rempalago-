@@ -5405,7 +5405,7 @@ MonoBehaviour:
   posicionInicial: {fileID: 3201623993457589671}
   activa: 1
   maxSpeed: 2
-  chargepersec: 1.5
+  chargepersec: 1
   pickupDelay: 1
   color: {fileID: 4479486319982720992, guid: 727bbcdd5ba549d4e9ea2ccd29b7fa8e, type: 3}
 --- !u!114 &5713605500733794791
@@ -5473,6 +5473,19 @@ MonoBehaviour:
   MaxHealth: 100
   health: 100
   coolDownUntilNextHeal: 5
+  player_info:
+    player_id: 0
+    checkpoint_id: 0
+    money: 0
+    health: 0
+    attack: 0
+    speed: 0
+    espada: 0
+    balero: 0
+    trompo: 0
+    dash: 0
+  espada: {fileID: 0}
+  balero: {fileID: 0}
 --- !u!1 &6880477117721924853
 GameObject:
   m_ObjectHideFlags: 0
