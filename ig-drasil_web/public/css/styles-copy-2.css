@@ -3718,7 +3718,7 @@ textarea.form-control-lg {
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
- color: #33C473;
+ color: #9256CB;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
@@ -3879,7 +3879,7 @@ textarea.form-control-lg {
   --bs-nav-link-padding-y: 0.5rem;
   --bs-nav-link-font-weight: ;
   --bs-nav-link-color: var(--bs-navbar-color);
-  --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+  --bs-nav-link-hover-color: #4E2972;
   --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
   display: flex;
   flex-direction: column;
@@ -3889,7 +3889,7 @@ textarea.form-control-lg {
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active {
-  color: var(--bs-navbar-active-color);
+  color: #4E2972;
 }
 .navbar-nav .dropdown-menu {
   position: static;
@@ -8274,6 +8274,29 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
   color: var(--bs-white);
 }
+#bottonA{
+  color: #0095DC;
+}
+
+#bottonD{
+  color: #E50160;
+}
+
+#bottonSp{
+ color: #FFE512;
+}
+
+#bottonSH{
+  color: #763BAF;
+}
+
+#bottonCI{
+  color: #DD5C00;
+}
+
+#bottonCD{
+  color: #01A348;
+}
 
 .text-white-50 {
   --bs-text-opacity: 1;
@@ -11011,15 +11034,15 @@ body {
 
 #mainNav {
   min-height: 3.5rem;
-  background-color: #0A504B;
+  background-color: #001620;
 }
 
 #mainNav .navbar-toggler /*Cuando haces chica la pantalla es el displayer*/
 {
   font-size: 80%;
   padding: 0.75rem;
-  color: #33C473;
-  border: 1px solid #01A348;
+  color: #0095DC;
+  border: 1px solid #46ABDB;
 }
 #mainNav .navbar-toggler:focus 
 {
@@ -11027,11 +11050,7 @@ body {
 }
 #mainNav .navbar-brand {
   font-weight: 500;
-    color: #067436;
-    text-shadow: 0 0 5px #33C473,
-    0 0 2px #01A348, 
-    0 0 5px #01A348,
-    0 0 1px #33C473;
+  color: #46ABDB;
   font-weight: 700;
   padding: 0.9rem 0;
 }
@@ -11056,7 +11075,7 @@ body {
   #mainNav .navbar-brand /*Ig-drasil back to top no-fondo*/
   {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.5);
+    color: #0d6793;
   }
 
   #mainNav .nav-link /*Secciones no-fondo*/
@@ -11064,7 +11083,7 @@ body {
     transition: none;
     padding: 2rem 1.5rem;
     font-weight: 500;
-    color: #067436;
+    color: #0d6793;
   }
   #mainNav .nav-link:hover /*hover de secciones no-fondo*/
   {
@@ -11081,23 +11100,22 @@ body {
   }
   #mainNav.navbar-shrink .navbar-brand /*Ig-drasil back to top colour-fondo*/
   {
-    /*color: #903ABF;*/
-    color: azure;
+    color: #903ABF;
   }
   #mainNav.navbar-shrink .navbar-brand:hover /*Ig-drasil hover back to top colour-fondo*/
   {
-    color: #0A504B;
+    color: #3D2C4D;
     transition: 0.6s;
   }
   #mainNav.navbar-shrink .nav-link /*Secciones colour-fondo*/
   {
-    color: azure;
+    color: #bbffff;
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
   #mainNav.navbar-shrink .nav-link:hover /*hover de secciones colour-fondo , cuando se sobre pone*/ 
   {
-    color: #46ABDB;
+    color: #DF5890;
     transition: 0.4s;
   }
   #mainNav.navbar-shrink .nav-link:active /*parpadeo de seleccion de secciones colour-fondo*/
@@ -11106,9 +11124,9 @@ body {
   }
   #mainNav.navbar-shrink .nav-link.active /*color de letra cuando estas en esa seccion*/
   {
-    color: #0095DC;
+    color: #DF5890;
     outline: none;
-    border-bottom: 0.25rem solid #156F9B; /*Barrita de abajo*/
+    border-bottom: 0.25rem solid #E50160; /*Barrita de abajo*/
   }
 }
 
@@ -11174,10 +11192,11 @@ body {
 
 .about-section /*Quienes somos*/
 {
-  margin-top: 1 rem;
+  margin-top: 4 rem;
+  margin-bottom: 5rem;
   padding-top: 12rem;
-  padding-bottom:5rem ;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 2.9) 75%, #000 100%), url(../assets/img/City2.png);
+  padding-bottom:7rem ;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 43%, rgba(0, 0, 0, 0.5) 70%, #000 100%), url(../assets/img/City2.png);
 }
 .about-section p /*Espacio del texto*/
 {
@@ -11186,7 +11205,7 @@ body {
 
 .projects-section {
   margin-top: 10rem;
-  padding: 7rem 0;
+  padding: 2rem ;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 1.7) 75%, #000 100%), url(../assets/img/Cartoon_Forest_BG_04.png),no-repeat;
 
 }
@@ -11216,7 +11235,7 @@ body {
 
 .signup-section {
   padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/bg-signup.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.1) 75%, #000 100%), url("../assets/img/bosque-magico_3800x2149_xtrafondos.com.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
