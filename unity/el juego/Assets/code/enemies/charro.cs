@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rat : genericMonster
+public class charro : genericMonster
 {
 
     public float distance;
@@ -11,16 +11,18 @@ public class rat : genericMonster
     public void Update() {
 
         distance = Vector2.Distance(transform.position, player.transform.position);
-        // Debug.Log("Distance from mummy: " + distance);
+        
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
 
         if (player != null && active)
-            if (distance <8)
+            if (distance <13 && distance > 5)
                 targetPos = player.transform.position;
+            else if (distance < 5)
+                Debug.Log("Distance from charro: " + distance);
             else
-                targetPos = transform.position;
+                Debug.Log("They're here");
     }
     
     public void Start() {
@@ -31,11 +33,11 @@ public class rat : genericMonster
 
     public override void monsterHasActivated()
     {
-        Debug.Log("+");
+        Debug.Log("Charro activado");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("-");
+        Debug.Log("Charro desactivado");
     }
 }
