@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Espada : MonoBehaviour
+public class Espada : FatherWeapon
 {
     [Header("Referencias a prefabs")]
     [SerializeField] Transform posicionInicial;
     [Tooltip("Animador de la espada")]
-    [SerializeField] GameObject espada;
-    [Tooltip("Tienes la espada?")]
-    public bool activa;
-    int direction = 1;
+    public GameObject espada;
 
     // Update is called once per frame
     void Update()
     {
+
         if (activa)
         {
-            if (this.GetComponent<Rigidbody2D>().velocity.x > 0)
-                direction = 1;
-            else if (this.GetComponent<Rigidbody2D>().velocity.x < 0)
-                direction = 0;
+            if (playerController.mousePosVector(posicionInicial.position).x > 0)
+                espada.GetComponent<Animator>().SetBool("Left?", false);
+            else
+                espada.GetComponent<Animator>().SetBool("Left?", true);
             UpdatePosition();
         }
     }
@@ -43,10 +41,6 @@ public class Espada : MonoBehaviour
     private void OnAttackSword(InputValue state){
         if (activa)
         {
-            if (direction == 1)
-                espada.GetComponent<Animator>().SetBool("Left?", false);
-            else
-                espada.GetComponent<Animator>().SetBool("Left?", true);
             espada.GetComponent<Animator>().SetBool("Swing?", true);
         }
     }

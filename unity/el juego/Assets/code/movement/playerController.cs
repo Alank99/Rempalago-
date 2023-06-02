@@ -44,8 +44,11 @@ public class playerController : MonoBehaviour
     public AnimationCurve jumpCurve;
 
     [Header("Cosas para el dash")]
+    [Tooltip("If the player has unlocked the dash ability")]
+    public int has_dash;
     public float dashTime;
     public Vector2 dashForce;
+    //If the player currently can dash
     private int hasDash = 1;
     //1=left, 0=right
     private int moving_left = 0;
@@ -123,12 +126,12 @@ public class playerController : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// Se ejecuta cuando se presiona el botón de Dodge y se regenera al tocar el piso
     /// </summary>
     /// <param name="value"></param>
     public void OnDoge(){
+        if (has_dash == 0) return;
         Vector2 force = new Vector2(0, 0);
         //Checa si toco el piso antes del dash
         if (hasDash == 1){
@@ -140,10 +143,30 @@ public class playerController : MonoBehaviour
             //Checa si hay algo en la direccion de la fuerza
             RaycastHit2D hit = Physics2D.Raycast(transform.position, force, Mathf.Abs(force.x), LayerMask.GetMask("Ground"));
             if (hit.collider!= null)
-                playerRB.MovePosition(new Vector2(hit.point.x, playerRB.position.y));
+                StartCoroutine(MoveFunction(hit.point));
             else
-                playerRB.MovePosition(playerRB.position + force * Time.deltaTime);
+                StartCoroutine(MoveFunction(playerRB.position + force * Time.deltaTime)); 
+
             hasDash = 0;
+        }
+    }
+
+    IEnumerator MoveFunction(Vector2 newPosition)
+    {
+        float timeSinceStarted = 0f;
+        while (true)
+        {
+            timeSinceStarted += Time.deltaTime;
+            playerRB.MovePosition(Vector3.Lerp(playerRB.position, newPosition, timeSinceStarted));
+
+            // If the object has arrived, stop the coroutine
+            if ((Vector3.Distance(playerRB.position, newPosition) < 1f) || timeSinceStarted > 1f)
+            {
+                yield break;
+            }
+
+            // Otherwise, continue next frame
+            yield return null;
         }
     }
 

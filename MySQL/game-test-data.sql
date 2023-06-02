@@ -43,66 +43,65 @@ INSERT INTO enemy VALUES(1, "slime", 0, 3, 10, 1, 1, 1),
 (2, "nahual", 5, 3, 10, 1, 1, 12),
 (3, "caravera", 10, 1, 10, 19, 1, 15),
 (4, "momia", 20, 1, 10, 20, 5, 20),
-(5, "charro negro", 6, 100, 10, 1, 12, 50),
-(6, "llorona", 1, 4, 45, 50, 15, 100),
-;
+(5, "charro negro", 6, 3, 10, 1, 12, 50),
+(6, "llorona", 1, 4, 45, 50, 15, 100);
 COMMIT;
 
 -- type_id, name
 SET AUTOCOMMIT=0;
-INSERT INTO weapon_type VALUES(1, "wooden snake"),
+INSERT INTO weapon_type VALUES(1, "espada"),
 (2, "balero"),
-(3, "trampo de madera");
+(3, "trampo");
 
 COMMIT;
 
 -- weapon_id, name, damage, kills, type_id
 SET AUTOCOMMIT=0;
-INSERT INTO weapon VALUES(1, "basic sword", 1, 0, 1),
-(2, "balero de mandera", 1, 0, 2),
-(3, "tormpo de madera", 5, 0, 3),
-(4, "espada espiritual", 10, 20, 1),
-(5, "espada oscura", 23, 10, 1),
-(6, "balero de piedra", 2, 4, 2),
-(7, "balero de metal", 10, 15, 2),
-(8, "tormpo de madera", 5, 0, 3),
-(9, "tormpo de madera", 5, 0, 3),
-(10, "tormpo de madera", 5, 0, 1),;
+INSERT INTO weapon VALUES(1, "espada de madera", 1, 0, 1),
+(2, "balero de mandera", 2, 0, 2),
+(3, "trompo de madera", 4, 0, 3),
+(4, "espada espiritual", 4, 0, 1),
+(5, "espada oscura", 10, 0, 1),
+(6, "balero de piedra", 4, 4, 2),
+(7, "balero de metal", 8, 15, 2),
+(8, "trompo de piedra", 8, 0, 3),
+(9, "trompo de metal", 12, 0, 3),
+(10, "trompo espiritual", 16, 0, 3);
 COMMIT;
 
 -- player_id, checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash
 SET AUTOCOMMIT=0;
-INSERT INTO player VALUES(1, 3, 1000, 10, 1.0, 1.0, 1, 2, 3, 1),
-(2, 1, 10, 18, 1.12, 1.0, 1, 2, 3, 1),
-(3, 2, 200, 70, 1.4, 1.0, 1, 2, 3, 1),
-(4, 2, 40, 17, 1.45, 1.0, 1, 2, 3, 1),
-(5, 2, 500, 18, 1.2, 1.0, 1, 2, 3, 1),
-(6, 3, 700, 15, 1.3, 1.0, 1, 2, 3, 1),
-(7, 4, 900, 20, 1.7, 1.0, 1, 2, 3, 1),
-(8, 3, 250, 40, 1.6, 1.0, 1, 2, 3, 1),
-(9, 2, 120, 98, 1.4, 1.0, 1, 2, 3, 1),
-(10, 1, 1000, 100, 1.0, 1.0, 1, 2, 3, 1);
+INSERT INTO player VALUES(1, 1, 0, 100, 1.0, 10, 1, NULL, NULL, 0),
+(2, 1, 1000, 100, 1.0, 10, 1, 2, 3, 1),
+(3, 2, 200, 70, 1.4, 10, 1, 2, 3, 1),
+(4, 2, 40, 17, 1.45, 10, 1, 2, 3, 1),
+(5, 2, 500, 18, 1.2, 10, 1, 2, 3, 1),
+(6, 3, 700, 15, 1.3, 10, 1, 2, 3, 1),
+(7, 4, 900, 20, 1.7, 10, 1, 2, 3, 1),
+(8, 3, 250, 40, 1.6, 10, 1, 2, 3, 1),
+(9, 2, 120, 98, 1.4, 10, 1, 2, 3, 1),
+(10, 1, 1000, 100, 1.0, 10, 1, 2, 3, 1);
 COMMIT;
 
 -- play_id, user_id, player_id, first_created, last_updated, playtime, completed
 SET AUTOCOMMIT=0;
-INSERT INTO playthrough VALUES(1, 1, 1, NOW(), NOW(), 10, 0)
-(2, 2, 1, NOW(), NOW(), 10, 0),
-(3, 3, 1, NOW(), NOW(), 20, 0),
-(4, 4, 1, NOW(), NOW(), 30, 0),
-(5, 5, 1, NOW(), NOW(), 45, 0),
-(6, 6, 1, NOW(), NOW(), 50, 0),
-(7, 7, 1, NOW(), NOW(), 70, 0),
-(8, 8, 1, NOW(), NOW(), 84, 0),
-(9, 9, 1, NOW(), NOW(), 50, 0),
-(10, 10, 1, NOW(), NOW(), 20, 0);
+INSERT INTO playthrough VALUES(1, 1, 1, NOW(), NOW(), 10, 0),
+(2, 1, 2, NOW(), NOW(), 10, 0),
+(3, 1, 3, NOW(), NOW(), 20, 0),
+(4, 1, 4, NOW(), NOW(), 30, 0),
+(5, 1, 5, NOW(), NOW(), 45, 0),
+(6, 1, 6, NOW(), NOW(), 50, 0),
+(7, 1, 7, NOW(), NOW(), 70, 0),
+(8, 1, 8, NOW(), NOW(), 84, 0),
+(9, 1, 9, NOW(), NOW(), 50, 0),
+(10, 1, 10, NOW(), NOW(), 20, 0);
 COMMIT;
 
 -- id,name,modifier
 SET AUTOCOMMIT=0;
 INSERT INTO loot VALUES(1, "coin",3),
 (2, "dulce",2),
-(1, "quitapena",3);
+(3, "quitapena",3);
 COMMIT;
 
 -- id, level

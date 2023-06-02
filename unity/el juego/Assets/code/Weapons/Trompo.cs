@@ -13,6 +13,7 @@ public class Trompo : MonoBehaviour
     [Tooltip("Tiempo que tarda en reducirse el giro del trompo")]
     [SerializeField] float slowdown;
 
+    public int MaxDamage;
 
     private float SpinSpeed;
     private float time_since_slow;
@@ -47,7 +48,7 @@ public class Trompo : MonoBehaviour
         {
             SpinSpeed -= SpinLoss;
             try {
-            col.gameObject.GetComponent<genericMonster>().takeDamage((int)SpinSpeed);
+            col.gameObject.GetComponent<genericMonster>().takeDamage((int)(SpinSpeed * MaxDamage));
             }
             catch{}
         }
@@ -56,8 +57,9 @@ public class Trompo : MonoBehaviour
     /// <summary>
     /// Velocidad inicial del trompo
     /// </summary>
-    public void setSpinSpeed(float speed)
+    public void setSpinSpeed(float speed, int max_damage)
     {
         SpinSpeed = speed * SpinMult;
+        MaxDamage = max_damage;
     }
 }
