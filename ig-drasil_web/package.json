@@ -1,7 +1,7 @@
 {
     "name": "ig-drasil_api",
     "version": "1.0.0",
-    "description": "",
+    "description": "Our game for TEC",
     "main": "app.js",
     "type": "module",
     "scripts": {
