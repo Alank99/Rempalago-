@@ -619,6 +619,12 @@ progress {
   height: auto;
 }
 
+.img-mando{
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 1fr;
+  
+}
 
 .img-thumbnail {
   padding: 0.25rem;
