@@ -28,7 +28,7 @@ public class Login : MonoBehaviour
 
     public void try_login()
     {
-        //user_id = 1;
+        user_id = 1;
         //leer user_id
 
         //Si no esta orrecto escribir en errorText

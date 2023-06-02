@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1388538500774754130, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+      propertyPath: change
+      value: 
+      objectReference: {fileID: 286923822}
     - target: {fileID: 2227542715419884249, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
       propertyPath: arma
       value: 
@@ -323,6 +327,17 @@ PrefabInstance:
     - {fileID: 2650632079493401187, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
     - {fileID: 1147364729842273560, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+--- !u!114 &286923822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2227542715419884249, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
+  m_PrefabInstance: {fileID: 286923821}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237603472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b64717be8dabea4ca3385c02a4cbe93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &287845947 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8583456048786534065, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
