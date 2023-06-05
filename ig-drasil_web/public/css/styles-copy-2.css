@@ -8303,6 +8303,12 @@ textarea.form-control-lg {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
+.text-white-50-2 {
+  --bs-text-opacity: 1;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: medium;
+}
+
 .text-reset {
   --bs-text-opacity: 1;
   color: inherit !important;
@@ -11050,7 +11056,7 @@ body {
 }
 #mainNav .navbar-brand {
   font-weight: 500;
-  color: #46ABDB;
+  color: #0095DC;
   font-weight: 700;
   padding: 0.9rem 0;
 }
@@ -11075,7 +11081,7 @@ body {
   #mainNav .navbar-brand /*Ig-drasil back to top no-fondo*/
   {
     padding: 0.5rem 0;
-    color: #0d6793;
+    color: #0095DC;
   }
 
   #mainNav .nav-link /*Secciones no-fondo*/
@@ -11083,7 +11089,7 @@ body {
     transition: none;
     padding: 2rem 1.5rem;
     font-weight: 500;
-    color: #0d6793;
+    color: #0095DC;
   }
   #mainNav .nav-link:hover /*hover de secciones no-fondo*/
   {
@@ -11196,7 +11202,7 @@ body {
   margin-bottom: 5rem;
   padding-top: 12rem;
   padding-bottom:7rem ;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 43%, rgba(0, 0, 0, 0.5) 70%, #000 100%), url(../assets/img/City2.png);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 45%, rgba(0, 0, 0, 0.7) 60%, #000 100%), url(../assets/img/City2.png);
 }
 .about-section p /*Espacio del texto*/
 {
@@ -11235,7 +11241,7 @@ body {
 
 .signup-section {
   padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.1) 75%, #000 100%), url("../assets/img/bosque-magico_3800x2149_xtrafondos.com.jpg");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.4) 75%, #000 100%), url("../assets/img/Imagen\ de\ WhatsApp\ 2023-06-01\ a\ las\ 13.46.25.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
