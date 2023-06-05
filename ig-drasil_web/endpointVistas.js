@@ -22,7 +22,7 @@ export function addEndpoints(app, conn) {
         }
     });
 
-    // get list of drops for given loot table
+    // get list of active players
     app.get(prefix + "active", async (request, response)=>{
         try
         {
@@ -41,7 +41,7 @@ export function addEndpoints(app, conn) {
     });
 
 
-    // get loot info
+    // get list of inactive players
     app.get(prefix + "inactive", async (request, response)=>{
         try
         {
@@ -60,10 +60,10 @@ export function addEndpoints(app, conn) {
     });
 
     // get loot info
-    app.get(prefix + "new", async (request, response)=>{
+    app.get(prefix + "new/:limit", async (request, response)=>{
         try
         {
-            const query = `select * from new_users LIMIT 10`
+            const query = `select * from new_users LIMIT ${request.params.limit}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
@@ -78,10 +78,10 @@ export function addEndpoints(app, conn) {
     });
 
     // get loot info
-    app.get(prefix + "topTimes", async (request, response)=>{
+    app.get(prefix + "topTimes/:limit", async (request, response)=>{
         try
         {
-            const query = `select * from speedruns LIMIT 10`
+            const query = `select * from speedruns LIMIT ${request.params.limit}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
@@ -96,10 +96,10 @@ export function addEndpoints(app, conn) {
     });
 
     // get loot info
-    app.get(prefix + "topWeapons", async (request, response)=>{
+    app.get(prefix + "topWeapons/:limit", async (request, response)=>{
         try
         {
-            const query = `select * from top_weapons LIMIT 10`
+            const query = `select * from top_weapons LIMIT ${request.params.limit}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)

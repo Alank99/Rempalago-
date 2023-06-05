@@ -9,7 +9,8 @@ import * as user from './endpointUser.js'
 import * as enemy from './endpointEnemy.js'
 import * as player from './endpointPlayer.js' 
 import * as playthroughs from './endpointPlaythroughs.js' 
-import * as weapons from './endpointWeapons.js' 
+import * as weapons from './endpointWeapons.js'
+import * as views from './endpointVistas.js'
 
 const app = express()
 const port = 5000
@@ -36,6 +37,7 @@ enemy.addEndpoints(app, conn);
 player.addEndpoints(app, conn);
 playthroughs.addEndpoints(app, conn);
 weapons.addEndpoints(app, conn);
+views.addEndpoints(app, conn);
 
 app.listen(port, ()=>
 {
