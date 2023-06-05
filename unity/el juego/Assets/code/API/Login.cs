@@ -5,10 +5,12 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class Login : MonoBehaviour
 {
     private int user_id;
+    private int player_id = -1;
     public playthroughList plays;
 
     [Header("Referencias para el scroll")]
@@ -26,14 +28,10 @@ public class Login : MonoBehaviour
     [SerializeField] GameObject errorText;
     [SerializeField] GameObject loadingText;
 
+
     public void try_login()
     {
-        //user_id = 1;
-        //leer user_id
-
-        //Si no esta orrecto escribir en errorText
-
-        StartCoroutine(QueryData("playthroughs/" + user_id));
+        StartCoroutine(TryLoginMySQL());
     }
 
     public void try_register()
@@ -41,6 +39,12 @@ public class Login : MonoBehaviour
         StartCoroutine(RegisterUser("user/new"));
     }
 
+    public void try_newgame()
+    {
+        StartCoroutine(CreatePlayer());
+    }
+
+    //Creates the buttons for the different playthroughs in the scroll view
     public void LoadNames()
     {
         ClearContents();
@@ -67,15 +71,20 @@ public class Login : MonoBehaviour
             field.text = "Completed?: " + us.completed + " Money: " + us.money + " Dash?: " + us.dash + " Nivel arma: " + nivel;
             // Set the callback
             Button btn = uiItem.GetComponent<Button>();
-            int current_index = i;
+            int current_index = plays.list[i].player_id;
             btn.onClick.AddListener(delegate {start_game(current_index); });
         }
     }
 
     private void start_game(int play)
     {
+        if (play < 0)
+        {
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid player id given";
+            return;
+        }
         PlayerPrefs.SetInt("user_id", user_id);
-        PlayerPrefs.SetInt("player_id", plays.list[play].player_id);
+        PlayerPrefs.SetInt("player_id", play);
         //Cargar Loading
         loadingText.SetActive(true);
         //Iniciar la nueva escena
@@ -87,6 +96,42 @@ public class Login : MonoBehaviour
     {
         foreach (Transform child in contentTransform) {
             Destroy(child.gameObject);
+        }
+    }
+
+    IEnumerator TryLoginMySQL()
+    {
+        user newUser = new user
+        {
+            email = email_login.text,
+            name = "name",
+            password = password_login.text
+        };
+        
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson(newUser);
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + "user/login", jsonData))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                user_id = int.Parse(Regex.Match(www.downloadHandler.text, @"\d+").Value);
+                StartCoroutine(QueryData("playthroughs/" + user_id));
+                Debug.Log("Login exitoso usuario:" + user_id);
+            }
+            else
+            {
+                errorText.SetActive(true);
+                errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: " + www.error;
+                Debug.Log("Error en el login: " + www.error);
+            }
         }
     }
 
@@ -110,38 +155,7 @@ public class Login : MonoBehaviour
         }
     }
 
-/*
-    IEnumerator AddUser()
-    {
-        // Create the object to be sent as json
-        User testUser = new User();
-        testUser.name = "newGuy" + Random.Range(1000, 9000).ToString();
-        testUser.surname = "Tester" + Random.Range(1000, 9000).ToString();
-        //Debug.Log("USER: " + testUser);
-        string jsonData = JsonUtility.ToJson(testUser);
-        //Debug.Log("BODY: " + jsonData);
-
-        // Send using the Put method:
-        // https://stackoverflow.com/questions/68156230/unitywebrequest-post-not-sending-body
-        using (UnityWebRequest www = UnityWebRequest.Put(url + getUsersEP, jsonData))
-        {
-            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
-            // Set the method later, and indicate the encoding is JSON
-            www.method = "POST";
-            www.SetRequestHeader("Content-Type", "application/json");
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success) {
-                Debug.Log("Response: " + www.downloadHandler.text);
-                if (errorText != null) errorText.text = "";
-            } else {
-                Debug.Log("Error: " + www.error);
-                if (errorText != null) errorText.text = "Error: " + www.error;
-            }
-        }
-    }
-*/
-IEnumerator RegisterUser(string EP)
+    IEnumerator RegisterUser(string EP)
     {
         // register values
         string email = email_reg.text;
@@ -179,4 +193,53 @@ IEnumerator RegisterUser(string EP)
             }
         }
     }
+
+    IEnumerator CreatePlayer()
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + "player/new", ""))
+        {
+            www.method = "POST";
+            //www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.downloadHandler.text);
+                player_id = int.Parse(Regex.Match(www.downloadHandler.text, @"insertId.:(\d+)").Groups[1].Value);
+                Debug.Log("Creacion exitosa Player_id=" + player_id);
+                start_game(player_id);
+                StartCoroutine(CreatePlaythrough("playthroughs/new/" + user_id + "/" + player_id));
+            }
+            else
+            {
+                Debug.Log("Error en la creacion del usuario: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator CreatePlaythrough(string EP)
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, ""))
+        {
+            www.method = "POST";
+            //www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Creacion exitosa de playthrough");
+            }
+            else
+            {
+                Debug.Log("Error en la creacion del usuario: " + www.error);
+            }
+        }
+    }
 }
+
