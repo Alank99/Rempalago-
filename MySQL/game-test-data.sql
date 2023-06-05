@@ -4,7 +4,7 @@ USE game;
 -- user_id, name, email, password, first_created
 SET AUTOCOMMIT=0;
 INSERT INTO user VALUES(1, "root", "root@root.com", "root", NOW()),
-(2, "parcivla", "prc129@tec.com", "contraseña", NOW()),
+(2, "Tester", "test_user@root.com", "test", NOW()),
 (3, "alex", "barron@hotmail.com", "asdvadf", NOW()),
 (4, "alan", "ala_fdz192@icloud.com", "avsdanuw", NOW()),
 (5, "pierce", "pie@root.com", "afvw", NOW()),
@@ -58,7 +58,7 @@ COMMIT;
 -- weapon_id, name, damage, kills, type_id
 SET AUTOCOMMIT=0;
 INSERT INTO weapon VALUES(1, "espada de madera", 1, 0, 1),
-(2, "balero de mandera", 2, 0, 2),
+(2, "balero de madera", 2, 0, 2),
 (3, "trompo de madera", 4, 0, 3),
 (4, "espada espiritual", 4, 0, 1),
 (5, "espada oscura", 10, 0, 1),
@@ -86,15 +86,15 @@ COMMIT;
 -- play_id, user_id, player_id, first_created, last_updated, playtime, completed
 SET AUTOCOMMIT=0;
 INSERT INTO playthrough VALUES(1, 1, 1, NOW(), NOW(), 10, 0),
-(2, 1, 2, NOW(), NOW(), 10, 0),
-(3, 1, 3, NOW(), NOW(), 20, 0),
-(4, 1, 4, NOW(), NOW(), 30, 0),
-(5, 1, 5, NOW(), NOW(), 45, 0),
-(6, 1, 6, NOW(), NOW(), 50, 0),
-(7, 1, 7, NOW(), NOW(), 70, 0),
-(8, 1, 8, NOW(), NOW(), 84, 0),
-(9, 1, 9, NOW(), NOW(), 50, 0),
-(10, 1, 10, NOW(), NOW(), 20, 0);
+(2, 2, 2, NOW(), NOW(), 10, 1),
+(3, 2, 3, NOW(), NOW(), 20, 1),
+(4, 2, 4, NOW(), NOW(), 30, 1),
+(5, 2, 5, NOW(), NOW(), 45, 1),
+(6, 2, 6, NOW(), NOW(), 50, 1),
+(7, 2, 7, NOW(), NOW(), 70, 1),
+(8, 2, 8, NOW(), NOW(), 84, 1),
+(9, 2, 9, NOW(), NOW(), 50, 1),
+(10, 2, 10, NOW(), NOW(), 20, 1);
 COMMIT;
 
 -- id,name,modifier
