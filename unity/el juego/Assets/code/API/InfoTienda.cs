@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class InfoTienda : MonoBehaviour
 {
     public weaponList weapons;
-    private weaponList espadas;
-    private weaponList baleros;
-    private weaponList trompos;
+    private List<int> espadas = new List<int>();
+    private List<int> baleros = new List<int>();
+    private List<int> trompos = new List<int>();
 
-    private int done = 0;
+    [SerializeField] HealthManager manager;
+
     [Header("UI")]
     [SerializeField] TMPro.TextMeshProUGUI one;
     [SerializeField] TMPro.TextMeshProUGUI two;
@@ -32,7 +34,7 @@ public class InfoTienda : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(QueryData("get_weapons"));
+        StartCoroutine(QueryData("weapons"));
     }
 
     void get_weapons()
@@ -40,34 +42,24 @@ public class InfoTienda : MonoBehaviour
         //Separate weapon types
         for (int i = 0; i < weapons.list.Count; i++)
         {
-            if (weapons.list[i].type_id == 1)
-                espadas.list.Add(weapons.list[i]);
-            if (weapons.list[i].type_id == 2)
-                baleros.list.Add(weapons.list[i]);
-            if (weapons.list[i].type_id == 3)
-                trompos.list.Add(weapons.list[i]);
+            if (weapons.list[i].type_id == 1 && weapons.list[i].weapon_id > manager.player_info.espada)
+                espadas.Add(i);
+            if (weapons.list[i].type_id == 2 && weapons.list[i].weapon_id > manager.player_info.balero)
+                baleros.Add(i);
+            if (weapons.list[i].type_id == 3 && weapons.list[i].weapon_id > manager.player_info.trompo)
+                trompos.Add(i);
         }
         //Get random number in weapons
-        int a = Random.Range(0, espadas.list.Count);
-        int b = Random.Range(0, baleros.list.Count);
-        int c = Random.Range(0, trompos.list.Count);
+        int a = espadas[Random.Range(0, espadas.Count)];
+        int b = baleros[Random.Range(0, baleros.Count)];
+        int c = trompos[Random.Range(0, trompos.Count)];
         Debug.Log("a:" + a + "b:" + b + "c:" + c);
-        espada_vender = espadas.list[a];
-        balero_vender = baleros.list[b];
-        trompo_vender = trompos.list[c];
+        espada_vender = weapons.list[a];
+        balero_vender = weapons.list[b];
+        trompo_vender = weapons.list[c];
         four.text = espada_vender.name + "\n$" + espada_vender.damage * 10;
         five.text = balero_vender.name + "\n$" + balero_vender.damage * 10;
         six.text = trompo_vender.name + "\n$" + trompo_vender.damage * 10;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (done == 1)
-        {
-            get_weapons();
-            done = 0;
-        }
     }
 
     IEnumerator QueryData(string EP)
@@ -77,12 +69,9 @@ public class InfoTienda : MonoBehaviour
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success) {
-                //Debug.Log("Response: " + www.downloadHandler.text);
-                // Compose the response to look like the object we want to extract
-                // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 weapons = JsonUtility.FromJson<weaponList>(jsonString);
-                done = 1;
+                get_weapons();
             }
             else {
                 Debug.Log("Error: " + www.error);
@@ -90,34 +79,45 @@ public class InfoTienda : MonoBehaviour
         }
     }
 
+    private bool try_buy(int precio)
+    {
+        if (CoinCounter.instance.currentCoins > precio)
+        {
+            CoinCounter.instance.IncreaseCoins(precio * -1);
+            return true;
+        }
+        Debug.Log("No tienes suficientes monedas");
+        return false;
+    }
+
     public void buy(int button_id)
     {
-        int precio = 0;
         switch (button_id)
         {
             case 1:
-                precio = precio_vida;
+                if (try_buy(precio_vida))
+                    manager.health = manager.MaxHealth;
                 break;
             case 2:
-                precio = precio_mejora;
+                if (try_buy(espada_vender.damage * multiplicador_precio))
+                    manager.change.set_damage(espada_vender.weapon_id, 1);
                 break;
             case 3:
-                precio = precio_buff;
+                if (try_buy(precio_buff))
+                    Debug.Log("Compraste un buff");
                 break;
             case 4:
-                precio = espada_vender.damage * 10;
+                if (try_buy(balero_vender.damage * multiplicador_precio))
+                    manager.change.set_damage(balero_vender.weapon_id, 2);
                 break;
             case 5:
-                precio = balero_vender.damage * 10;
+                if (try_buy(precio_mejora))
+                    Debug.Log("Compraste una mejora");
                 break;
             case 6:
-                precio = trompo_vender.damage * 10;
-                if (CoinCounter.instance.currentCoins > precio)
-                {
-                    CoinCounter.instance.IncreaseCoins(precio * -1);
-                }
+                if (try_buy(trompo_vender.damage * multiplicador_precio))
+                    manager.change.set_damage(trompo_vender.weapon_id, 2);
                 break;
         }
-
     }
 }

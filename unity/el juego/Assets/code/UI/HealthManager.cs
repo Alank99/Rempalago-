@@ -16,7 +16,7 @@ public class HealthManager : MonoBehaviour
     public static HealthManager healthSingleton;
     [Header("Player Info")]
     public player player_info;
-    [SerializeField] ChangeWeapon change;
+    public ChangeWeapon change;
 
     // Start is called before the first frame update
     void Start()

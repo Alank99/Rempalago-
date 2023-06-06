@@ -11,7 +11,6 @@ public class adminBackground : MonoBehaviour
     }
     
     public void changebackground(int newsbackground){
-        Debug.Log("Sirve");
         StartCoroutine("cambiar", newsbackground);
     }
 
