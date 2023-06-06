@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7298000639871146083}
-  - component: {fileID: 7298000639871146084}
   - component: {fileID: 7298000639871146085}
   - component: {fileID: 7298000639871146086}
   - component: {fileID: 7298000639871146087}
+  - component: {fileID: 55724307182158590}
   m_Layer: 0
   m_Name: enemie example
   m_TagString: Enemy
@@ -35,26 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7298000639871146084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7298000639871146088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8e1473ca4b4aa989d06468d137d725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeedX: 10
-  Force: 2
-  jumpForce: 4
-  waitTime: {x: 1.5, y: 2}
-  monsterTargetMethod: 0
-  damage: 1
-  distance: 0
-  player: {fileID: 0}
 --- !u!212 &7298000639871146085
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -144,3 +124,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &55724307182158590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298000639871146088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc82486a9192caa40b379c57ca4f5607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

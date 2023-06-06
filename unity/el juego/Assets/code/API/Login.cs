@@ -5,10 +5,12 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class Login : MonoBehaviour
 {
     private int user_id;
+    private int player_id = -1;
     public playthroughList plays;
 
     [Header("Referencias para el scroll")]
@@ -22,25 +24,86 @@ public class Login : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI password_reg;
     [SerializeField] TMPro.TextMeshProUGUI username_reg;
 
-    [Header("Referencias a Texto")]
+    [Header("Referencias a Mensajes")]
     [SerializeField] GameObject errorText;
     [SerializeField] GameObject loadingText;
 
+    [Header("Referencias a vistas")]
+    [SerializeField] GameObject scrollView;
+    [SerializeField] GameObject loginView;
+    [SerializeField] GameObject registerView;
+
     public void try_login()
     {
-        //user_id = 1;
-        //leer user_id
-
-        //Si no esta orrecto escribir en errorText
-
-        StartCoroutine(QueryData("playthroughs/" + user_id));
+        if (Regex.Match(email_login.text, @"([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)").Value == "")
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Email invalid";
+            return; 
+        }
+        else if (password_login.text.Length < 5)
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Password invalid. Must be longer than 5 characters";
+            return;
+        }
+        StartCoroutine(TryLoginMySQL());
     }
 
     public void try_register()
     {
+        if (Regex.Match(email_reg.text, @"([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)").Value == "")
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Email invalid";
+            return; 
+        }
+        else if (password_reg.text.Length < 5)
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Password invalid. Must be longer than 5 characters";
+            return;
+        }
+        else if (username_reg.text.Length < 5)
+        {
+            errorText.SetActive(true); 
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Username invalid. Must be longer than 5 characters";
+            return;
+        }
         StartCoroutine(RegisterUser("user/new"));
+        return_login();
     }
 
+    public void try_newgame()
+    {
+        StartCoroutine(CreatePlayer());
+    }
+
+    public void return_login()
+    {
+        loginView.SetActive(true);
+        scrollView.SetActive(false);
+        registerView.SetActive(false);
+        errorText.SetActive(false);
+    }
+
+    public void return_register()
+    {
+        loginView.SetActive(false);
+        scrollView.SetActive(false);
+        registerView.SetActive(true);
+        errorText.SetActive(false);
+    }
+
+    public void return_scroll()
+    {
+        loginView.SetActive(false);
+        scrollView.SetActive(true);
+        registerView.SetActive(false);
+        errorText.SetActive(false);
+    }
+
+    //Creates the buttons for the different playthroughs in the scroll view
     public void LoadNames()
     {
         ClearContents();
@@ -67,15 +130,21 @@ public class Login : MonoBehaviour
             field.text = "Completed?: " + us.completed + " Money: " + us.money + " Dash?: " + us.dash + " Nivel arma: " + nivel;
             // Set the callback
             Button btn = uiItem.GetComponent<Button>();
-            int current_index = i;
+            int current_index = plays.list[i].player_id;
             btn.onClick.AddListener(delegate {start_game(current_index); });
         }
     }
 
     private void start_game(int play)
     {
+        if (play < 0)
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid player id given";
+            return;
+        }
         PlayerPrefs.SetInt("user_id", user_id);
-        PlayerPrefs.SetInt("player_id", plays.list[play].player_id);
+        PlayerPrefs.SetInt("player_id", play);
         //Cargar Loading
         loadingText.SetActive(true);
         //Iniciar la nueva escena
@@ -90,16 +159,61 @@ public class Login : MonoBehaviour
         }
     }
 
-    IEnumerator QueryData(string EP)
+    IEnumerator TryLoginMySQL()
+    {
+        user newUser = new user
+        {
+            email = email_login.text,
+            name = "name",
+            password = password_login.text
+        };
+        
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson(newUser);
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + "user/login", jsonData))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                if (www.downloadHandler.text != "[]")
+                {
+                    return_scroll();
+                    user_id = int.Parse(Regex.Match(www.downloadHandler.text, @"\d+").Value);
+                    StartCoroutine(GetPlaythroughs("playthroughs/" + user_id));
+                    Debug.Log("Login exitoso usuario:" + user_id);
+                }
+                else
+                {
+                    return_login();
+                    errorText.SetActive(true);
+                    errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid credentials";
+                    Debug.Log("Error en el login: Invalid credentials");
+
+                }
+            }
+            else
+            {
+                errorText.SetActive(true);
+                errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: " + www.error;
+                Debug.Log("Error en el login: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator GetPlaythroughs(string EP)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
         {
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success) {
-                //Debug.Log("Response: " + www.downloadHandler.text);
-                // Compose the response to look like the object we want to extract
-                // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 plays = JsonUtility.FromJson<playthroughList>(jsonString);
                 LoadNames();
@@ -110,38 +224,7 @@ public class Login : MonoBehaviour
         }
     }
 
-/*
-    IEnumerator AddUser()
-    {
-        // Create the object to be sent as json
-        User testUser = new User();
-        testUser.name = "newGuy" + Random.Range(1000, 9000).ToString();
-        testUser.surname = "Tester" + Random.Range(1000, 9000).ToString();
-        //Debug.Log("USER: " + testUser);
-        string jsonData = JsonUtility.ToJson(testUser);
-        //Debug.Log("BODY: " + jsonData);
-
-        // Send using the Put method:
-        // https://stackoverflow.com/questions/68156230/unitywebrequest-post-not-sending-body
-        using (UnityWebRequest www = UnityWebRequest.Put(url + getUsersEP, jsonData))
-        {
-            //UnityWebRequest www = UnityWebRequest.Post(url + getUsersEP, form);
-            // Set the method later, and indicate the encoding is JSON
-            www.method = "POST";
-            www.SetRequestHeader("Content-Type", "application/json");
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success) {
-                Debug.Log("Response: " + www.downloadHandler.text);
-                if (errorText != null) errorText.text = "";
-            } else {
-                Debug.Log("Error: " + www.error);
-                if (errorText != null) errorText.text = "Error: " + www.error;
-            }
-        }
-    }
-*/
-IEnumerator RegisterUser(string EP)
+    IEnumerator RegisterUser(string EP)
     {
         // register values
         string email = email_reg.text;
@@ -179,4 +262,53 @@ IEnumerator RegisterUser(string EP)
             }
         }
     }
+
+    IEnumerator CreatePlayer()
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + "player/new", ""))
+        {
+            www.method = "POST";
+            //www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.downloadHandler.text);
+                player_id = int.Parse(Regex.Match(www.downloadHandler.text, @"insertId.:(\d+)").Groups[1].Value);
+                Debug.Log("Creacion exitosa Player_id=" + player_id);
+                start_game(player_id);
+                StartCoroutine(CreatePlaythrough("playthroughs/new/" + user_id + "/" + player_id));
+            }
+            else
+            {
+                Debug.Log("Error en la creacion del usuario: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator CreatePlaythrough(string EP)
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, ""))
+        {
+            www.method = "POST";
+            //www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Creacion exitosa de playthrough");
+            }
+            else
+            {
+                Debug.Log("Error en la creacion del usuario: " + www.error);
+            }
+        }
+    }
 }
+
