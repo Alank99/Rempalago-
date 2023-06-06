@@ -24,24 +24,83 @@ public class Login : MonoBehaviour
     [SerializeField] TMPro.TextMeshProUGUI password_reg;
     [SerializeField] TMPro.TextMeshProUGUI username_reg;
 
-    [Header("Referencias a Texto")]
+    [Header("Referencias a Mensajes")]
     [SerializeField] GameObject errorText;
     [SerializeField] GameObject loadingText;
 
+    [Header("Referencias a vistas")]
+    [SerializeField] GameObject scrollView;
+    [SerializeField] GameObject loginView;
+    [SerializeField] GameObject registerView;
 
     public void try_login()
     {
+        if (Regex.Match(email_login.text, @"([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)").Value == "")
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Email invalid";
+            return; 
+        }
+        else if (password_login.text.Length < 5)
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Password invalid. Must be longer than 5 characters";
+            return;
+        }
         StartCoroutine(TryLoginMySQL());
     }
 
     public void try_register()
     {
+        if (Regex.Match(email_reg.text, @"([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)").Value == "")
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Email invalid";
+            return; 
+        }
+        else if (password_reg.text.Length < 5)
+        {
+            errorText.SetActive(true);
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Password invalid. Must be longer than 5 characters";
+            return;
+        }
+        else if (username_reg.text.Length < 5)
+        {
+            errorText.SetActive(true); 
+            errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Username invalid. Must be longer than 5 characters";
+            return;
+        }
         StartCoroutine(RegisterUser("user/new"));
+        return_login();
     }
 
     public void try_newgame()
     {
         StartCoroutine(CreatePlayer());
+    }
+
+    public void return_login()
+    {
+        loginView.SetActive(true);
+        scrollView.SetActive(false);
+        registerView.SetActive(false);
+        errorText.SetActive(false);
+    }
+
+    public void return_register()
+    {
+        loginView.SetActive(false);
+        scrollView.SetActive(false);
+        registerView.SetActive(true);
+        errorText.SetActive(false);
+    }
+
+    public void return_scroll()
+    {
+        loginView.SetActive(false);
+        scrollView.SetActive(true);
+        registerView.SetActive(false);
+        errorText.SetActive(false);
     }
 
     //Creates the buttons for the different playthroughs in the scroll view
@@ -80,6 +139,7 @@ public class Login : MonoBehaviour
     {
         if (play < 0)
         {
+            errorText.SetActive(true);
             errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid player id given";
             return;
         }
@@ -122,9 +182,21 @@ public class Login : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                user_id = int.Parse(Regex.Match(www.downloadHandler.text, @"\d+").Value);
-                StartCoroutine(QueryData("playthroughs/" + user_id));
-                Debug.Log("Login exitoso usuario:" + user_id);
+                if (www.downloadHandler.text != "[]")
+                {
+                    return_scroll();
+                    user_id = int.Parse(Regex.Match(www.downloadHandler.text, @"\d+").Value);
+                    StartCoroutine(GetPlaythroughs("playthroughs/" + user_id));
+                    Debug.Log("Login exitoso usuario:" + user_id);
+                }
+                else
+                {
+                    return_login();
+                    errorText.SetActive(true);
+                    errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid credentials";
+                    Debug.Log("Error en el login: Invalid credentials");
+
+                }
             }
             else
             {
@@ -135,16 +207,13 @@ public class Login : MonoBehaviour
         }
     }
 
-    IEnumerator QueryData(string EP)
+    IEnumerator GetPlaythroughs(string EP)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
         {
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success) {
-                //Debug.Log("Response: " + www.downloadHandler.text);
-                // Compose the response to look like the object we want to extract
-                // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 plays = JsonUtility.FromJson<playthroughList>(jsonString);
                 LoadNames();
