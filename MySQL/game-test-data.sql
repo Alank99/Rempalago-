@@ -27,10 +27,10 @@ COMMIT;
 -- checkpoint_id, level_id, position_x, position_y
 SET AUTOCOMMIT=0;
 INSERT INTO checkpoint VALUES(1, 1, -29, -2),
-(2, 2, 28, -92),
-(3, 3, 141, 8),
-(4, 4, 438, 10),
-(5, 5, 528, -28);
+(2, 2, 30, -93),
+(3, 3, 266, 9),
+(4, 4, 434, 9),
+(5, 5, 529, -29);
 COMMIT;
 
 -- enemy_id, enemy_name, kills, level_id, health, attack, speed, money_drop
