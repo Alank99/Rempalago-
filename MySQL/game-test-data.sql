@@ -18,23 +18,19 @@ COMMIT;
 -- level_id, level_name
 SET AUTOCOMMIT=0;
 INSERT INTO level VALUES(1, "FOREST"),
-(2, "TOWN"),
-(3, "UNDERGROUND SEWER"),
-(4, "DEEP FOREST");
+(2, "TUTORIAL")
+(3, "TOWN"),
+(4, "UNDERGROUND SEWER"),
+(5, "DEEP FOREST");
 COMMIT;
 
 -- checkpoint_id, level_id, position_x, position_y
 SET AUTOCOMMIT=0;
-INSERT INTO checkpoint VALUES(1, 1, 0, 0),
-(2, 2, 10, 10),
-(3, 4, 14, -50),
-(4, 3, 60, 50),
-(5, 1, 70, 10),
-(6, 2, 80, 90),
-(7, 3, 10, -40),
-(8, 4, 60, -10),
-(9, 1, 80, 20),
-(10, 1, 30, 80);
+INSERT INTO checkpoint VALUES(1, 1, -29, -2),
+(2, 2, 28, -92),
+(3, 3, 141, 8),
+(4, 4, 438, 10),
+(5, 5, 528, -28);
 COMMIT;
 
 -- enemy_id, enemy_name, kills, level_id, health, attack, speed, money_drop

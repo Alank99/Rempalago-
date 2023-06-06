@@ -12,6 +12,7 @@ TagManager:
   - PlayerCollider
   - coin
   - Transition
+  - PuzzleCollider
   layers:
   - Default
   - TransparentFX
