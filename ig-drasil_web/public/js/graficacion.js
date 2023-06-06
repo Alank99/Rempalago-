@@ -8,67 +8,163 @@ function random_color(alpha=1.0)
     return `rgba(${r_c()}, ${r_c()}, ${r_c()}, ${alpha}`;
 }
 
-Chart.defaults.font.size = 16;
+function convertRange( value, r1, r2 ) { 
+    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+}
 
-const ctx1 = document.getElementById('chartCanvas').getContext('2d');
+function getColor(value, range){
+    //value from 0 to 1
+    value = convertRange(value, range, [0, 1])
+    var hue=((1-value)*120).toString(10);
+    return ["hsl(",hue,",100%,50%)"].join("");
+}
 
+// Speedrun data
+try
+{
+    const speedrun_response = await fetch('http://localhost:5000/api/vistas/topTimes/20',{
+        method: 'GET'
+    })
 
-const data = {
-    labels: ['Índice', 'Valor'],
-    datasets: [{
-        data: [1, 2],
-        backgroundColor: ['#ff6384', '#36a2eb']
-    }]
-};
+    console.log('Got a response correctly')
 
-const options = {
-    scales: {
-        y: {
-            beginAtZero: true
-        }
+    if(speedrun_response.ok)
+    {
+        console.log('Response is ok. Converting to JSON.')
+
+        let results = await speedrun_response.json()
+
+        console.log(results)
+        console.log('Data converted correctly. Plotting chart.')
+
+        const values = Object.values(results)
+
+        // In this case, we just separate the data into different arrays using the map method of the values array. This creates new arrays that hold only the data that we need.
+        const names = values.map(e => e['UserName'])
+        const speedrun_colors = values.map(e => getColor(e['Time'], [0, results.at(-1).Time]))
+        const speedrun_borders = values.map(e => 'rgba(0, 0, 0, 1.0)')
+        const speedrun_completion = values.map(e => e['Time'])
+        
+        const ctx_speedrun = document.getElementById('speedrun').getContext('2d');
+        const speedrunChart = new Chart(ctx_speedrun, 
+            {
+                type: 'line',
+                data: {
+                    labels: names,
+                    datasets: [
+                        {
+                            label: 'Tiempo de compleción',
+                            backgroundColor: speedrun_colors,
+                            borderColor: speedrun_borders,
+                            borderWidth: 2,
+                            data: speedrun_completion
+                        }
+                    ]
+                }
+            })
     }
-};
+}
+catch(error)
+{
+    console.log(error)
+}
 
+// Best Weapons data
+try
+{
+    const response = await fetch('http://localhost:5000/api/vistas/topWeapons/100',{
+        method: 'GET'
+    })
 
-const chart = new Chart(ctx1, {
-    type: 'bar',
-    data: data,
-    options: options
-});
+    console.log('Got a response correctly')
 
-const ctx = document.getElementById('firstChart').getContext('2d');
+    if(response.ok)
+    {
+        console.log('Response is ok. Converting to JSON.')
 
-const firstChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+        let results = await response.json()
+
+        console.log(results)
+        console.log('Data converted correctly. Plotting chart.')
+
+        const values = Object.values(results)
+        
+        // In this case, we just separate the data into different arrays using the map method of the values array. This creates new arrays that hold only the data that we need.
+        const names = values.map(e => e['Weapon'])
+        const type = values.map(e => getColor(e['Kills'], [0, results.at(0).Kills]))
+        const borders = values.map(e => 'rgba(0, 0, 0, 1.0)')
+        const kills = values.map(e => e['Kills'])
+        
+        const ctx = document.getElementById('weapons').getContext('2d');
+        const chart = new Chart(ctx, 
+            {
+                type: 'bar',
+                data: {
+                    labels: names,
+                    datasets: [
+                        {
+                            label: 'Número de derrotas con arma',
+                            backgroundColor: type,
+                            borderColor: borders,
+                            borderWidth: 2,
+                            data: kills
+                        }
+                    ]
+                }
+            })
     }
-});
+}
+catch(error)
+{
+    console.log(error)
+}
+
+// Active users data
+try
+{
+    const response = await fetch('http://localhost:5000/api/vistas/active',{
+        method: 'GET'
+    })
+
+    console.log('Got a response correctly')
+
+    if(response.ok)
+    {
+        console.log('Response is ok. Converting to JSON.')
+
+        let results = await response.json()
+
+        console.log(results)
+        console.log('Data converted correctly. Plotting chart.')
+
+        const values = Object.values(results)
+        
+        // In this case, we just separate the data into different arrays using the map method of the values array. This creates new arrays that hold only the data that we need.
+        const names = values.map(e => e['UserName'])
+        const type = values.map(e => getColor(e['TotalPlaythroughs'], [0, results.at(0).TotalPlaythroughs]))
+        const borders = values.map(e => 'rgba(0, 0, 0, 1.0)')
+        const plays = values.map(e => e['TotalPlaythroughs'])
+        
+        const ctx_speedrun = document.getElementById('users').getContext('2d');
+        const speedrunChart = new Chart(ctx_speedrun, 
+            {
+                type: 'bar',
+                data: {
+                    labels: names,
+                    datasets: [
+                        {
+                            label: 'Número de juegos por usuario',
+                            backgroundColor: type,
+                            borderColor: borders,
+                            borderWidth: 2,
+                            data: plays
+                        }
+                    ]
+                }
+            })
+    }
+}
+catch(error)
+{
+    console.log(error)
+}

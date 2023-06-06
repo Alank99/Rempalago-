@@ -7,15 +7,6 @@ public class Tienda : MonoBehaviour
     [SerializeField] GameObject tienda_ui;
     [SerializeField] GameObject vendedor;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-    }
-
     public void OnInteract()
     {
         //Check if player position is close to this object position

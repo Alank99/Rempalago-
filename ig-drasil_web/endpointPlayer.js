@@ -45,7 +45,7 @@ export function addEndpoints(app, conn) {
     app.post(prefix + "new", async (request, response)=>{
         try
         {
-            const query = `insert into user (checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash) values(1,0,100,2,2,1,2,3,0) `
+            const query = `insert into player (checkpoint_id, money, health, attack, speed, espada, balero, trompo, dash) values(1, 0, 100, 1, 10, 1, NULL, NULL, 0) `
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
