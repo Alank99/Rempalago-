@@ -610,7 +610,7 @@ Tilemap:
       - {fileID: 21300000, guid: a398d7424d29e0ec191a42f36a27c529, type: 3}
       - {fileID: 21300000, guid: e8d00aa5c3ca280e493b2baf6672a0b8, type: 3}
       - {fileID: 21300000, guid: dd88fefe33892bf40ad978ee24f72d49, type: 3}
-      m_AnimationSpeed: 1
+      m_AnimationSpeed: 2
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -1055,7 +1055,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &793355652466807951
+--- !u!114 &3918810970821552618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
