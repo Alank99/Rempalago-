@@ -62,9 +62,6 @@ public class playerController : MonoBehaviour
     private void Start() {
         playerRB = gameObject.GetComponent<Rigidbody2D>();
         grounded = true;
-        if(saveload.savedgame){
-            loadGame();
-        }
     }
 
     public void TouchGrass(){
@@ -91,25 +88,7 @@ public class playerController : MonoBehaviour
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
             playerSprites.localScale = new Vector3(spriteScale,spriteScale,spriteScale);
         }
-        if (grounded && hasDash == 0) hasDash = 1;
-
-        if (Input.GetKeyDown(KeyCode.P)) loadGame();
-        
-        if (Input.GetKeyDown(KeyCode.O)) saveGame();        
-    }
-
-    //guardar partida
-    //a modificar los punto de vida?
-    public void saveGame(){
-        saveload.player_estatus.position = transform.position;
-        saveload.player_estatus.health_p = 100;
-        saveload.savedgame = true;
-    }
-
-    //cargar partida
-    public void loadGame(){
-        transform.position = saveload.player_estatus.position;
-        double Hp=saveload.player_estatus.health_p;
+        if (grounded && hasDash == 0) hasDash = 1;       
     }
 
     // no puedes usar un collision 2d!!! necesitas tener un collider2d para un trigger. El collider es cuando no es trigger
@@ -118,12 +97,6 @@ public class playerController : MonoBehaviour
     //         saveGame();
     //     }
     // }
-
-    private void OnTriggerEnter2D(Collider2D col) {
-        if(col.gameObject.tag == "cheackpoint"){ // Se escribe checkpoint
-            saveGame();
-        }
-    }
 
     /// <summary>
     /// Se ejecuta cuando se presiona el botón de Dodge y se regenera al tocar el piso
@@ -144,7 +117,10 @@ public class playerController : MonoBehaviour
             if (hit.collider!= null)
                 StartCoroutine(MoveFunction(hit.point));
             else
-                StartCoroutine(MoveFunction(playerRB.position + force * Time.deltaTime)); 
+            {
+                Debug.Log("No collider on dash");
+                StartCoroutine(MoveFunction(playerRB.position + force));
+            }
 
             hasDash = 0;
         }
@@ -153,6 +129,8 @@ public class playerController : MonoBehaviour
     IEnumerator MoveFunction(Vector2 newPosition)
     {
         float timeSinceStarted = 0f;
+        Debug.Log("Current:" + playerRB.position);
+        Debug.Log("Final:" + newPosition);
         while (true)
         {
             timeSinceStarted += Time.deltaTime;
