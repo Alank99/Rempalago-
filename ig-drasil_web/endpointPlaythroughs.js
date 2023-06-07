@@ -57,4 +57,22 @@ export function addEndpoints(app, conn) {
             console.log(error)
         } 
     });
+
+    app.post(prefix + "update/:id/:time/:completed", async (request, response)=>{
+        try
+        {
+            const params = `last_updated = NOW(), playtime = ${request.params.time} + playthrough.playtime, completed = ${request.params.completed}`
+            const query = `update playthrough SET ` + params + ` WHERE player_id = ${request.params.id}`
+            const [results, fields] = await connection.execute(query);
+    
+            console.log(`${results.length} rows returned`)
+            response.json(results)
+        }
+        catch(error)
+        {
+            response.status(500)
+            response.json(error)
+            console.log(error)
+        }
+    });
 };

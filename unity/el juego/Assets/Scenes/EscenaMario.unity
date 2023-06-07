@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4342138037357782569, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
       propertyPath: dashForce.x
-      value: 500
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4342138037357782569, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}
       propertyPath: dashForce.y
@@ -744,11 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac8f29aa8f6b9741aa99c7796baf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1614645967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9076644430594350486, guid: da4741d47588d2c40a18ebbdc43628bf, type: 3}
-  m_PrefabInstance: {fileID: 9076644428984555353}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1715216333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,8 +756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27259a47a5ceb2447b0a9021ad292e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tienda_ui: {fileID: 1614645967}
-  vendedor: {fileID: 456911972}
 --- !u!114 &1715216337 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2227542715419884249, guid: 47fe9ef6ed98ebb80b1506ad03673479, type: 3}

@@ -17,10 +17,12 @@ public class HealthManager : MonoBehaviour
     [Header("Player Info")]
     public player player_info;
     public ChangeWeapon change;
+    private float startTime;
 
     // Start is called before the first frame update
     void Start()
     {
+        startTime = Time.time;
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;
@@ -100,4 +102,72 @@ public class HealthManager : MonoBehaviour
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
     }
+
+    public void update_weapon(int weapon_id, int type)
+    {
+        
+        change.set_damage(weapon_id, type);
+        if (type == 0)
+            player_info.espada = weapon_id;
+        else if (type == 1)
+            player_info.balero = weapon_id;
+        else if (type == 2)
+            player_info.trompo = weapon_id;
+    }
+
+    public void save_to_sql()
+    {
+        player_info.money = CoinCounter.instance.currentCoins;
+        StartCoroutine(SaveGame("player/update/" + PlayerPrefs.GetInt("player_id", 2), player_info));
+        StartCoroutine(SaveGame("playthroughs/update/" + PlayerPrefs.GetInt("player_id", 2) + "/" + (int)(Time.time - startTime) + "/0"));
+        startTime = Time.time;
+    }
+
+    IEnumerator SaveGame(string EP, object data)
+    {
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson(data);
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, jsonData))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Guardado exitoso");
+            }
+            else
+            {
+                Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator SaveGame(string EP)
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, ""))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Guardado exitoso");
+            }
+            else
+            {
+                Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
+    }
+
 }

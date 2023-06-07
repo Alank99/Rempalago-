@@ -100,7 +100,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 2:
                 if (try_buy(espada_vender.damage * multiplicador_precio))
-                    manager.change.set_damage(espada_vender.weapon_id, 1);
+                    manager.update_weapon(espada_vender.weapon_id, 1);
                 break;
             case 3:
                 if (try_buy(precio_buff))
@@ -108,7 +108,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 4:
                 if (try_buy(balero_vender.damage * multiplicador_precio))
-                    manager.change.set_damage(balero_vender.weapon_id, 2);
+                    manager.update_weapon(balero_vender.weapon_id, 2);
                 break;
             case 5:
                 if (try_buy(precio_mejora))
@@ -116,7 +116,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 6:
                 if (try_buy(trompo_vender.damage * multiplicador_precio))
-                    manager.change.set_damage(trompo_vender.weapon_id, 2);
+                    manager.update_weapon(trompo_vender.weapon_id, 2);
                 break;
         }
     }
