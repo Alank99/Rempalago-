@@ -16,7 +16,7 @@ public class HealthManager : MonoBehaviour
     public static HealthManager healthSingleton;
     [Header("Player Info")]
     public player player_info;
-    [SerializeField] ChangeWeapon change;
+    public ChangeWeapon change;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +53,7 @@ public class HealthManager : MonoBehaviour
 
         if (health <= 0)
         {
-            SceneManager.LoadScene(0); // TODO: Osvald cambiar a la escena de muerte
+            SceneManager.LoadScene("DeadScreen"); // TODO: Osvald cambiar a la escena de muerte
         }
 
         lastHitTime = Time.time;

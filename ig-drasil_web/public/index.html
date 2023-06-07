@@ -61,7 +61,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
                         <h2 class="text-white mb-4">¿Quiénes somos?</h2>
-                        <p class="text-white-50">
+                        <p class="text-white-50-2">
                             Ig-drasil es un equipo de jóvenes desarrolladores que buscan llevar más allá el folclore mexicano. A lo largo de los años han 
                             existido empresas que han desarrollado múltiples videojuegos relatando diversas historias, mientras que la cultura
                             mexicana ha quedado bajo la sombra de estas. Así, el grupo busca llevar a relucir la magia de la herencia mexicana a través de 
@@ -140,7 +140,7 @@
                         <li id="bottonSp">Saltar - Espacio</li>
                         <li id="bottonSH"><i>Dash</i> - Shift</li>
                         <p></p>
-                        <li>Apuntar - Usando el apuntador del <i>mouse</i></li>
+                        <span style="color: rgb(196, 193, 193)"><li>Apuntar - Usando el apuntador del <i>mouse</i></li></span>
                         <li id="bottonCI">Atacar - Clic izquierdo</li>
                         <li id="bottonCD">Cambiar de arma - Scroll</li>
                     </ul>
@@ -154,16 +154,19 @@
 
                     <div  class="featured-console" id="console">
                         <h5 class="text-center">Mando</h5>
-                        <ul class="text-black-50 mb-0">
-                            <li>Moverte de lado a lado - Joystick izquierdo</li>
-                            <li>Saltar - A</li>
-                            <li><i>Dash</i> - X</li>
-                            <p></p>
-                            <br>
-                            <li>Apuntar - Gatillo derecho</li>
-                            <li>Atacar - Joystick derecho</li>
-                            <li>Cambiar de arma - Gatillo izquierdo</li>
-                        </ul>
+                    <ul class="text-black-50 mb-0">
+                        <li id="bottonA">Moverte de lado a lado - Joystick izquierdo</li>
+                        <li id="bottonSp">Saltar - Y</li>
+                        <li id="bottonSH"><i>Dash</i> - X</li>
+                        <p></p>
+                        <br>
+                        <span style="color: #c80000;"><li>Apuntar - Joystick derecho</li></span>
+                        <li id="bottonCI">Atacar - Gatillo derecho</li>
+                        <li id="bottonCD">Cambiar de arma - Gatillo izquierdo</li>
+                    </ul>
+                    <br>
+                    <br>
+                        <img class="img-teclado"src="./assets/img/Mando.png">
                     </div>
                 </div>
                 <br>
@@ -181,41 +184,15 @@
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                        <!--Borrar de aquí-->
-                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
-                            <!-- Email address input-->
-                            <div class="row input-group-newsletter">
-                                <div class="col"><input class="form-control" id="emailAddress" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" /></div>
-                                <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Notify Me!</button></div>
-                            </div>
-                            <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:required">An email is required.</div>
-                            <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:email">Email is not valid.</div>
+                
+                        <i class="fa-solid fa-chart-simple fa-2xl fa-2x mb-2" style="color: #ffffff;"></i>
+                        <h2 class="text-white mb-5">Ver graficas!</h2>
+                            <a href="./graficas.html"><button class="btn btn-primary" id="submitButton" type="submit">Click aqui!</button></a>
                             <!-- Submit success message-->
                             <!---->
                             <!-- This is what your users will see when the form-->
                             <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3 mt-2 text-white">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
-                        </form>
+                
                         <!--Hasta aquí-->
                         <!--Ya que se borre esto va a sobrar un espacio, quitar-->
                     </div>

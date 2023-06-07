@@ -245,6 +245,8 @@ from
     (`game`.`user`
 join `game`.`playthrough` on
     ((`game`.`user`.`user_id` = `game`.`playthrough`.`user_id`)))
+WHERE
+    `game`.`playthrough`.`completed` = 1
 order by
     `game`.`playthrough`.`playtime`;
 
@@ -262,4 +264,4 @@ from
 join `game`.`weapon_type` on
     ((`game`.`weapon`.`type_id` = `game`.`weapon_type`.`type_id`)))
 order by
-    `game`.`weapon`.`kills`;
+    `game`.`weapon`.`kills` DESC;

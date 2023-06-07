@@ -46,7 +46,6 @@ public class playerController : MonoBehaviour
     [Header("Cosas para el dash")]
     [Tooltip("If the player has unlocked the dash ability")]
     public int has_dash;
-    public float dashTime;
     public Vector2 dashForce;
     //If the player currently can dash
     private int hasDash = 1;

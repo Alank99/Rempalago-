@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js" integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" defer src="js/graficacion.js"></script> 
+    <link href="css/style-graph.css" type="text/css" rel="stylesheet">
+    <title>User Charts</title>
+</head>
+
+<body>
+    <header class="container">
+        <h1>Estadísticas de Quimera</h1>
+    </header>
+
+    <div class="container">
+        <h2>Tiempos de compleción</h2>
+        <p>Los tiempos son calculados desde la creación del usuario hasta el momento en que se vence al jefe final dentro del juego.</p>
+        <canvas id="speedrun" width="200" height="200"></canvas>
+    </div>
+
+    <div class="container">
+        <h2>Enemigos derrotados</h2>
+        <p>Las armas más usadas son calculadas al agregar una nueva derrota por cada enemigo que es derrotado por cualquier jugador con un arma especifica.</p>
+        <canvas id="weapons" width="200" height="200"></canvas>
+    </div>
+
+    <div class="container">
+        <h2>Usuarios activos</h2>
+        <p>El número de playhtroughs por usuario activo.</p>
+        <canvas id="users" width="200" height="200"></canvas>
+    </div>
+</body>
+</html>
