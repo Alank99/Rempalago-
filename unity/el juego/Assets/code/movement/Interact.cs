@@ -23,6 +23,13 @@ public class Interact : MonoBehaviour
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
 
+    private GameObject[] saves;
+
+    void Start()
+    {
+        saves = GameObject.FindGameObjectsWithTag("SavePoint");
+    }
+
     public void OnInteract()
     {
         //Check if player position is close to this object position
@@ -35,19 +42,21 @@ public class Interact : MonoBehaviour
                 tienda_ui.SetActive(true);
         }
 
-        GameObject save = GameObject.FindWithTag("SavePoint");
-        if (Vector3.Distance(transform.position, save.transform.position) < distance_from_player)
+        foreach (GameObject save in saves)
         {
-            this.GetComponent<HealthManager>().save_to_sql(save.GetComponent<NPC>().checkpoint_id);            
+            if (Vector3.Distance(transform.position, save.transform.position) < distance_from_player)
+            {
+                this.GetComponent<HealthManager>().save_to_sql(save.GetComponent<NPC>().checkpoint_id);            
 
-            text_dialog.text = save.GetComponent<NPC>().dialogo_npc;
-            name_dialog.text = "Ajolotito";
-            dialog_image.sprite = ajolote;
-            if (dialog_box.activeSelf)
-                dialog_box.SetActive(false);
-            else
-                dialog_box.SetActive(true);
-            StartCoroutine(Waiter(dialog_box));
+                text_dialog.text = save.GetComponent<NPC>().dialogo_npc;
+                name_dialog.text = "Ajolotito";
+                dialog_image.sprite = ajolote;
+                if (dialog_box.activeSelf)
+                    dialog_box.SetActive(false);
+                else
+                    dialog_box.SetActive(true);
+                StartCoroutine(Waiter(dialog_box));
+            }
         }
 
         if (Vector3.Distance(transform.position, dash_unlock.transform.position) < distance_from_player)
