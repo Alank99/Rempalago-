@@ -6,7 +6,7 @@ USE game;
 -- level_id, level_name
 SET AUTOCOMMIT=0;
 INSERT INTO level VALUES(1, "FOREST"),
-(2, "TUTORIAL")
+(2, "TUTORIAL"),
 (3, "TOWN"),
 (4, "UNDERGROUND SEWER"),
 (5, "DEEP FOREST");

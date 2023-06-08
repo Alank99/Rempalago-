@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6899450186246103189}
   - component: {fileID: 6899450186246103190}
   - component: {fileID: 6899450186246103191}
-  - component: {fileID: 6015727608302891568}
+  - component: {fileID: 6303029813447714925}
   m_Layer: 0
   m_Name: Espada
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6015727608302891568
+--- !u!114 &6303029813447714925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,10 +121,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6899450186246103188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 571c14cdd3b49cf4fa22c6ec74c1e19c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ac8f29aa8f6b9741aa99c7796baf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 1
 --- !u!1 &6899450186254355711
 GameObject:
   m_ObjectHideFlags: 0

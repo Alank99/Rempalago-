@@ -143,12 +143,11 @@ public class Login : MonoBehaviour
             errorText.GetComponent<TMPro.TextMeshProUGUI>().text = "Error: Invalid player id given";
             return;
         }
+        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + play));
         PlayerPrefs.SetInt("user_id", user_id);
         PlayerPrefs.SetInt("player_id", play);
         //Cargar Loading
         loadingText.SetActive(true);
-        //Iniciar la nueva escena
-        SceneManager.LoadScene("Primary");
     }
 
     // Delete any child objects
@@ -224,6 +223,26 @@ public class Login : MonoBehaviour
         }
     }
 
+    IEnumerator GetCheckpoint(string EP)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+                checkpoint check = JsonUtility.FromJson<checkpointList>(jsonString).list[0];
+                PlayerPrefs.SetInt("pos_x", check.position_x);
+                PlayerPrefs.SetInt("pos_y", check.position_y);
+                //Iniciar la nueva escena
+                SceneManager.LoadScene("Primary");
+            }
+            else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
+    }
+
     IEnumerator RegisterUser(string EP)
     {
         // register values
@@ -279,8 +298,8 @@ public class Login : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 player_id = int.Parse(Regex.Match(www.downloadHandler.text, @"insertId.:(\d+)").Groups[1].Value);
                 Debug.Log("Creacion exitosa Player_id=" + player_id);
-                start_game(player_id);
                 StartCoroutine(CreatePlaythrough("playthroughs/new/" + user_id + "/" + player_id));
+                start_game(player_id);
             }
             else
             {

@@ -93,6 +93,7 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     private void save_info()
     {
+        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
         health = player_info.health;
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;
@@ -115,11 +116,13 @@ public class HealthManager : MonoBehaviour
             player_info.trompo = weapon_id;
     }
 
-    public void save_to_sql()
+    public void save_to_sql(int id)
     {
+        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
+        player_info.checkpoint_id = id;
         player_info.money = CoinCounter.instance.currentCoins;
-        StartCoroutine(SaveGame("player/update/" + PlayerPrefs.GetInt("player_id", 2), player_info));
-        StartCoroutine(SaveGame("playthroughs/update/" + PlayerPrefs.GetInt("player_id", 2) + "/" + (int)(Time.time - startTime) + "/0"));
+        StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
+        StartCoroutine(SaveGame("playthroughs/update/" + player_info.player_id + "/" + (int)(Time.time - startTime) + "/0"));
         startTime = Time.time;
     }
 
@@ -166,6 +169,24 @@ public class HealthManager : MonoBehaviour
             else
             {
                 Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator GetCheckpoint(string EP)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+                checkpoint check = JsonUtility.FromJson<checkpointList>(jsonString).list[0];
+                PlayerPrefs.SetInt("pos_x", check.position_x);
+                PlayerPrefs.SetInt("pos_y", check.position_y);
+            }
+            else {
+                Debug.Log("Error: " + www.error);
             }
         }
     }

@@ -88,7 +88,7 @@ export function addEndpoints(app, conn) {
         try
         {
             // TODO: cambiar a que haga los joins del loot
-            const query = `select C.checkpoint_id, P.player_id, L.level_name  from game.player AS P INNER JOIN checkpoint AS C ON C.checkpoint_id = P.checkpoint_id INNER JOIN level AS L ON C.level_id = L.level_id  where player_id = ${request.params.id}`
+            const query = `select C.checkpoint_id, C.level_id, C.position_x, C.position_y from game.player AS P INNER JOIN checkpoint AS C ON C.checkpoint_id = P.checkpoint_id where P.player_id = ${request.params.id}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)

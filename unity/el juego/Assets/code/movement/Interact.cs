@@ -38,7 +38,7 @@ public class Interact : MonoBehaviour
         GameObject save = GameObject.FindWithTag("SavePoint");
         if (Vector3.Distance(transform.position, save.transform.position) < distance_from_player)
         {
-            this.GetComponent<HealthManager>().save_to_sql();            
+            this.GetComponent<HealthManager>().save_to_sql(save.GetComponent<NPC>().checkpoint_id);            
 
             text_dialog.text = save.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Ajolotito";
