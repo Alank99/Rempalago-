@@ -117,10 +117,7 @@ public class playerController : MonoBehaviour
             if (hit.collider!= null)
                 StartCoroutine(MoveFunction(hit.point));
             else
-            {
-                Debug.Log("No collider on dash");
                 StartCoroutine(MoveFunction(playerRB.position + force));
-            }
 
             hasDash = 0;
         }
@@ -129,15 +126,13 @@ public class playerController : MonoBehaviour
     IEnumerator MoveFunction(Vector2 newPosition)
     {
         float timeSinceStarted = 0f;
-        Debug.Log("Current:" + playerRB.position);
-        Debug.Log("Final:" + newPosition);
         while (true)
         {
             timeSinceStarted += Time.deltaTime;
             playerRB.MovePosition(Vector3.Lerp(playerRB.position, newPosition, timeSinceStarted));
 
             // If the object has arrived, stop the coroutine
-            if ((Vector3.Distance(playerRB.position, newPosition) < 1f) || timeSinceStarted > 1f)
+            if ((Vector3.Distance(playerRB.position, newPosition) < 1f) || timeSinceStarted > 0.5f)
             {
                 yield break;
             }
