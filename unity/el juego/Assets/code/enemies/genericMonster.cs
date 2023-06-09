@@ -64,7 +64,7 @@ public abstract class genericMonster : MonoBehaviour
             //     currentLock = currentLock == pos1 ? pos2 : pos1;
             // }
 
-            var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
+            var moveTowards = Vector3.MoveTowards(transform.position, targetPos, 1f) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
             
             yield return new WaitForSeconds(Random.Range(waitTime.x, waitTime.y));
@@ -85,11 +85,21 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
+    IEnumerator dropLoot(){
+        // TODO agregar aquí lo que se supone que se debe dropear de la base de datos
+
+        var dropItems = new List<GameObject>();
+
+        // testing each drop item
+
+        yield return new WaitForSeconds(1);
+    }
+
     private void killSelf(){
         alive = false;
         var rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false;
-        var amount = 100f;
+        var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
         StartCoroutine(dieDelay());
