@@ -22,6 +22,9 @@ public class Interact : MonoBehaviour
 
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
+    [SerializeField] GameObject trompo_unlock;
+    [SerializeField] GameObject balero_unlock;
+
 
     private GameObject[] saves;
 
@@ -65,6 +68,28 @@ public class Interact : MonoBehaviour
             this.GetComponent<playerController>().has_dash = 1;
             this.GetComponent<HealthManager>().player_info.dash = 1;
             text_dialog.text = dash_unlock.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, trompo_unlock.transform.position) < distance_from_player)
+        {
+            trompo_unlock.SetActive(false);
+            this.GetComponent<HealthManager>().update_weapon(3, 2);
+            text_dialog.text = trompo_unlock.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+        
+        if (Vector3.Distance(transform.position, balero_unlock.transform.position) < distance_from_player)
+        {
+            balero_unlock.SetActive(false);
+            this.GetComponent<HealthManager>().update_weapon(2, 1);
+            text_dialog.text = balero_unlock.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Alex";
             dialog_image.sprite = alex;
             dialog_box.SetActive(true);
