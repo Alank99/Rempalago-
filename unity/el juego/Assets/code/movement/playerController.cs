@@ -48,7 +48,7 @@ public class playerController : MonoBehaviour
     public int has_dash;
     public Vector2 dashForce;
     //If the player currently can dash
-    private int hasDash = 1;
+    private bool hasDash = true;
     //1=left, 0=right
     private int moving_left = 0;
 
@@ -86,27 +86,26 @@ public class playerController : MonoBehaviour
         grounded = true;
         playerAnim.SetTrigger("fall");
         stopJump();
+        hasDash = true;
     }
     public void StopTouchGrass(){
         grounded = false;
-        //stopJump();
     }
 
     private void Update() {
         var cacheSens = grounded ? sensitivity : sensitivity * airtimeControlReduction;
-        playerRB.AddForce(new Vector2(movement.x * cacheSens.x * Time.deltaTime, 
-                                      movement.y * cacheSens.y * Time.deltaTime));
+        playerRB.AddForce(new Vector2(movement.x * cacheSens.x * Time.deltaTime * buffSpeed, 
+                                      movement.y * cacheSens.y * Time.deltaTime * buffSpeed));
 
-        if (playerRB.velocity.x >  maxSpeedX){
+        if (playerRB.velocity.x >  maxSpeedX + buffMaxSpeed){
             playerRB.velocity = new Vector2(maxSpeedX, playerRB.velocity.y);
             playerSprites.localScale = new Vector3(-spriteScale,spriteScale,spriteScale);
         }
 
-        if (playerRB.velocity.x <  -maxSpeedX){
+        if (playerRB.velocity.x <  -maxSpeedX - buffMaxSpeed){
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
             playerSprites.localScale = new Vector3(spriteScale,spriteScale,spriteScale);
         }
-        if (grounded && hasDash == 0) hasDash = 1;       
     }
 
     // no puedes usar un collision 2d!!! necesitas tener un collider2d para un trigger. El collider es cuando no es trigger
@@ -124,7 +123,7 @@ public class playerController : MonoBehaviour
         if (has_dash == 0) return;
         Vector2 force = new Vector2(0, 0);
         //Checa si toco el piso antes del dash
-        if (hasDash == 1){
+        if (hasDash){
             if (moving_left == 0 && playerRB.velocity.x != 0)
                 force.x = dashForce.x;
             else if (moving_left == 1 && playerRB.velocity.x != 0)
@@ -137,7 +136,7 @@ public class playerController : MonoBehaviour
             else
                 StartCoroutine(MoveFunction(playerRB.position + force));
 
-            hasDash = 0;
+            hasDash = false;
         }
     }
 
@@ -263,6 +262,7 @@ public class playerController : MonoBehaviour
 /// <summary>
 /// Class that defines a buff type. it needs a buffType, a value and a duration
 /// </summary>
+[System.Serializable]
 public class buff {
     public buffTypes type;
     public float value;

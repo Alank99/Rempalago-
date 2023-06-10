@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class lootItem : MonoBehaviour
 {
+    [SerializeField]
     private buff attachedBuff;
 
+    [SerializeField]
     public Sprite spriteSpeed;
+    [SerializeField]
     public Sprite spriteMaxSpeed;
+    [SerializeField]
     public Sprite spriteJump;
+    [SerializeField]
     public Sprite spriteDash;
+    [SerializeField]
     public Sprite spriteDamage;
+    [SerializeField]
     public Sprite spriteAttackSpeed;
+    [SerializeField]
     public Sprite spriteHealth;
 
     void Start()
@@ -43,6 +51,13 @@ public class lootItem : MonoBehaviour
             default:
                 break;
         }
+
+        StartCoroutine(destroyAfterTime(10f));
+    }
+
+    IEnumerator destroyAfterTime(float time){
+        yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
