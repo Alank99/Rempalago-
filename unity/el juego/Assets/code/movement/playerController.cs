@@ -48,7 +48,7 @@ public class playerController : MonoBehaviour
     public int has_dash;
     public Vector2 dashForce;
     //If the player currently can dash
-    private int hasDash = 1;
+    private bool hasDash = true;
     //1=left, 0=right
     private int moving_left = 0;
 
@@ -59,7 +59,25 @@ public class playerController : MonoBehaviour
     public float elapsed;
     public Vector2 movement;
 
+    [Header("Cosas para buffs")]
+    public float buffSpeed = 1f;
+    public float buffJump = 1f;
+    public float buffAttackDamage = 1f;
+    public float buffMaxSpeed = 0f;
+    public float buffDash = 0f;
+    public float buffAttackSpeed = 0f;
+
+    public List<buff> buffs = new List<buff>();
+
+    public static playerController playerSingleton;
+
     private void Start() {
+        if (playerSingleton == null){
+            playerSingleton = this;
+        }else{
+            Destroy(gameObject);
+            return;
+        }
         playerRB = gameObject.GetComponent<Rigidbody2D>();
         grounded = true;
     }
@@ -68,27 +86,26 @@ public class playerController : MonoBehaviour
         grounded = true;
         playerAnim.SetTrigger("fall");
         stopJump();
+        hasDash = true;
     }
     public void StopTouchGrass(){
         grounded = false;
-        //stopJump();
     }
 
     private void Update() {
         var cacheSens = grounded ? sensitivity : sensitivity * airtimeControlReduction;
-        playerRB.AddForce(new Vector2(movement.x * cacheSens.x * Time.deltaTime, 
-                                      movement.y * cacheSens.y * Time.deltaTime));
+        playerRB.AddForce(new Vector2(movement.x * cacheSens.x * Time.deltaTime * buffSpeed, 
+                                      movement.y * cacheSens.y * Time.deltaTime * buffSpeed));
 
-        if (playerRB.velocity.x >  maxSpeedX){
+        if (playerRB.velocity.x >  maxSpeedX + buffMaxSpeed){
             playerRB.velocity = new Vector2(maxSpeedX, playerRB.velocity.y);
             playerSprites.localScale = new Vector3(-spriteScale,spriteScale,spriteScale);
         }
 
-        if (playerRB.velocity.x <  -maxSpeedX){
+        if (playerRB.velocity.x <  -maxSpeedX - buffMaxSpeed){
             playerRB.velocity = new Vector2(-maxSpeedX, playerRB.velocity.y);
             playerSprites.localScale = new Vector3(spriteScale,spriteScale,spriteScale);
         }
-        if (grounded && hasDash == 0) hasDash = 1;       
     }
 
     // no puedes usar un collision 2d!!! necesitas tener un collider2d para un trigger. El collider es cuando no es trigger
@@ -106,7 +123,7 @@ public class playerController : MonoBehaviour
         if (has_dash == 0) return;
         Vector2 force = new Vector2(0, 0);
         //Checa si toco el piso antes del dash
-        if (hasDash == 1){
+        if (hasDash){
             if (moving_left == 0 && playerRB.velocity.x != 0)
                 force.x = dashForce.x;
             else if (moving_left == 1 && playerRB.velocity.x != 0)
@@ -119,7 +136,7 @@ public class playerController : MonoBehaviour
             else
                 StartCoroutine(MoveFunction(playerRB.position + force));
 
-            hasDash = 0;
+            hasDash = false;
         }
     }
 
@@ -236,4 +253,121 @@ public class playerController : MonoBehaviour
     public static Vector2 mousePosVector(Vector2 pointOfReference){
         return (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - pointOfReference;
     }
+
+    public void addBuff(buff buffToAdd){
+        StartCoroutine(buffToAdd.buffTimer());
+    }
+}
+
+/// <summary>
+/// Class that defines a buff type. it needs a buffType, a value and a duration
+/// </summary>
+[System.Serializable]
+public class buff {
+    public buffTypes type;
+    public float value;
+    public float duration;
+    public float startTime;
+
+    public buff(buffTypes type, float value, float duration){
+        this.type = type;
+        this.value = value;
+        this.duration = duration;
+    }
+
+    private void testRemoveBuffs(){
+        playerController.playerSingleton.buffs.Remove(this);
+
+        if (playerController.playerSingleton.buffs.Count == 0)
+        {
+            // remove buff
+            playerController.playerSingleton.buffJump = 1f;
+            playerController.playerSingleton.buffSpeed = 1f;
+            playerController.playerSingleton.buffAttackDamage = 1f;
+            playerController.playerSingleton.buffMaxSpeed = 0f;
+        }
+    }
+
+    /// <summary>
+    /// Call this when the player picks up the buff!!!
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator buffTimer(){
+        playerController.playerSingleton.buffs.Add(this);
+        // apply buff
+
+        switch (type)
+        {
+            case buffTypes.speed:
+                playerController.playerSingleton.buffSpeed += value;
+                break;
+            case buffTypes.maxSpeed:
+                playerController.playerSingleton.buffMaxSpeed += value;
+                break;
+            case buffTypes.jump:
+                playerController.playerSingleton.buffJump += value;
+                break;
+            case buffTypes.dash:
+                playerController.playerSingleton.buffDash += value;
+                break;
+            case buffTypes.damage:
+                playerController.playerSingleton.buffAttackDamage += value;
+                break;
+            case buffTypes.attackSpeed:
+                playerController.playerSingleton.buffAttackSpeed += value;
+                break;
+            case buffTypes.health:
+                HealthManager.healthSingleton.HealInternal((int)value);
+                testRemoveBuffs();
+                yield break;
+            default:
+                break;
+        }
+
+        // delay for duration
+        yield return new WaitForSeconds(duration);
+
+        // remove buff
+        switch (type)
+        {
+            case buffTypes.speed:
+                playerController.playerSingleton.buffSpeed -= value;
+                break;
+            case buffTypes.maxSpeed:
+                playerController.playerSingleton.buffMaxSpeed -= value;
+                break;
+            case buffTypes.jump:
+                playerController.playerSingleton.buffJump -= value;
+                break;
+            case buffTypes.dash:
+                playerController.playerSingleton.buffDash -= value;
+                break;
+            case buffTypes.damage:
+                playerController.playerSingleton.buffAttackDamage -= value;
+                break;
+            case buffTypes.attackSpeed:
+                playerController.playerSingleton.buffAttackSpeed -= value;
+                break;
+            default:
+                break;
+        }
+
+        // return to default state
+        testRemoveBuffs();
+    }
+}
+
+/// <summary>
+/// Types of buffs that a droppable can have
+/// </summary>
+public enum buffTypes {
+    
+    speed = 0,
+    maxSpeed = 1,
+
+    jump = 10,
+    dash = 20,
+    damage = 30,
+    attackSpeed = 40,
+    health = 50
 }

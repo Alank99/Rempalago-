@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2949591457604065959}
   - component: {fileID: 6160962907733881939}
-  - component: {fileID: 2048384398661653776}
+  - component: {fileID: 1776047037693035879}
   - component: {fileID: 3018055384799598434}
   - component: {fileID: 2693975650354166717}
   m_Layer: 0
@@ -87,8 +87,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &2048384398661653776
-CapsuleCollider2D:
+--- !u!58 &1776047037693035879
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -101,8 +101,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 2.54
 --- !u!50 &3018055384799598434
 Rigidbody2D:
   serializedVersion: 4
@@ -136,11 +136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8e1473ca4b4aa989d06468d137d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeedX: 0
-  Force: 0
-  jumpForce: 0
-  waitTime: {x: 0, y: 0}
+  maxSpeedX: 2
+  Force: 5
+  jumpForce: 5
+  waitTime: {x: 5, y: 10}
   monsterTargetMethod: 0
-  damage: 0
-  distance: 0
+  damage: 1
+  distance: 20
   player: {fileID: 0}
