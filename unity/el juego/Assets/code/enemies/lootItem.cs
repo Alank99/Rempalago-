@@ -22,8 +22,10 @@ public class lootItem : MonoBehaviour
     [SerializeField]
     public Sprite spriteHealth;
 
-    void Start()
+    public void StartAndAttach(buff buffToAttach)
     {
+        attachedBuff = buffToAttach;
+
         var playerSprite = GetComponent<SpriteRenderer>();
         switch (attachedBuff.type)
         {
@@ -52,7 +54,9 @@ public class lootItem : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(destroyAfterTime(10f));
+        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1,1) * 1f, 1f), ForceMode2D.Impulse);
+
+        StartCoroutine("destroyAfterTime", 10f);
     }
 
     IEnumerator destroyAfterTime(float time){
@@ -61,8 +65,9 @@ public class lootItem : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "Player"){
-            var player = other.gameObject.GetComponent<playerController>();
+        if (other.gameObject.tag == "PlayerPickup"){
+            Debug.Log("Player picked up a buff");
+            var player = other.transform.parent.parent.gameObject.GetComponent<playerController>();
             player.addBuff(attachedBuff);
             Destroy(this.gameObject);
         }

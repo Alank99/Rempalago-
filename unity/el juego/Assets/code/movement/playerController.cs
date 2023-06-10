@@ -192,7 +192,7 @@ public class playerController : MonoBehaviour
         jumping = true;
         playerAnim.SetTrigger("jump");
         // la x se mantiene para que no interferimos con ella
-        playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
+        playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce * buffJump);
         playerRB.gravityScale = initialGravity;
 
         // Cálculos generales de tiempo
@@ -264,10 +264,12 @@ public class playerController : MonoBehaviour
 /// </summary>
 [System.Serializable]
 public class buff {
+    [Tooltip("The type of buff that this is")]
     public buffTypes type;
+    [Tooltip("The amount of type that will get affected")]
     public float value;
+    [Tooltip("How long will the buff last")]
     public float duration;
-    public float startTime;
 
     public buff(buffTypes type, float value, float duration){
         this.type = type;

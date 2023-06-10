@@ -142,5 +142,6 @@ MonoBehaviour:
   waitTime: {x: 3, y: 8}
   monsterTargetMethod: 1
   damage: 20
+  lootPrefab: {fileID: 6803901021863575671, guid: 156296e30f4aa87c4a2f9f9f6e225134, type: 3}
   distance: 20
   player: {fileID: 0}

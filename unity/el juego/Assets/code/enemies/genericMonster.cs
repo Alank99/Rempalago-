@@ -20,7 +20,7 @@ public abstract class genericMonster : MonoBehaviour
     public float jumpForce;
     public Vector2 waitTime;
 
-    bool alive = true;
+    protected bool alive = true;
     /// <summary>
     /// Define si el mounstro se encuentra activo o no. 
     /// </summary>
@@ -32,6 +32,9 @@ public abstract class genericMonster : MonoBehaviour
     public MonsterTargetingType monsterTargetMethod;
 
     public int damage;
+
+    [Header("Loot references")]
+    public GameObject lootPrefab;
     
     
     // get rb reference from self on start
@@ -88,15 +91,32 @@ public abstract class genericMonster : MonoBehaviour
     IEnumerator dropLoot(){
         // TODO agregar aquí lo que se supone que se debe dropear de la base de datos
 
-        var dropItems = new List<GameObject>();
+        var dropItems = new List<buff>();
+
+        dropItems.Add(new buff(buffTypes.speed, 0.2f, 10f));
+        dropItems.Add(new buff(buffTypes.health, 3f, 10f));
+        dropItems.Add(new buff(buffTypes.jump, 0.2f, 10f));
+        dropItems.Add(new buff(buffTypes.maxSpeed, 1f, 10f));
+
+        yield return new WaitForEndOfFrame();
+        foreach (var dropItem in dropItems)
+        {
+            var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+            item.GetComponent<lootItem>().StartAndAttach(dropItem);
+        }
 
         // testing each drop item
 
         yield return new WaitForSeconds(1);
     }
 
+    /// <summary>
+    /// Kills the monster
+    /// Does all the things it has to do when it dies
+    /// </summary>
     private void killSelf(){
         alive = false;
+        StartCoroutine(dropLoot());
         var rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false;
         var amount = 10f;
