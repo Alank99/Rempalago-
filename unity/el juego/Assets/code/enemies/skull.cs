@@ -30,11 +30,11 @@ public class skull : genericMonster
 
     public override void monsterHasActivated()
     {
-        Debug.Log("Calavera activada");
+        //Debug.Log("Calavera activada");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("Calavera desactivada");
+        //Debug.Log("Calavera desactivada");
     }
 }

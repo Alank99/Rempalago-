@@ -4,6 +4,7 @@
 Es necesario decidir donde crear llaves foráneas (foreign keys) y que atributos deben ser llaves primarias (primary keys) de acuerdo a la lógica del problema y las instrucciones de SQL. También se explica.
 
 - [Explicación sobre nuestro schema](#explicación-sobre-nuestro-schema)
+- [Parte 0: Forma Normal](#parte-11-forma-normal)
 - [Parte 1: Tablas](#parte-1-tablas)
   - [Checkpoint](#checkpoint)
   - [Enemy](#enemy)
@@ -16,7 +17,6 @@ Es necesario decidir donde crear llaves foráneas (foreign keys) y que atributos
   - [User](#user)
   - [Weapon](#weapon)
   - [Weapon\_type](#weapon_type)
-  - [Parte 1.1: Forma Normal](#parte-11-forma-normal)
 - [Parte 2: Vistas](#parte-2-vistas)
   - [V\_user\_playthrough](#v_user_playthrough)
   - [Active\_players](#active_players)
@@ -33,6 +33,13 @@ Es necesario decidir donde crear llaves foráneas (foreign keys) y que atributos
     - [type\_id en weapon](#type_id-en-weapon)
 - [Parte 4: instrucciones de MySql que usamos](#parte-4-instrucciones-de-mysql-que-usamos)
 
+# Parte 0: Forma Normal 
+
+1.- La primera forma normal indica que cada tabla tiene una llave única, y cuyo es elementos sean atómicos e indivisibles. También indica que no se deben tener datos repetitivos. En nuestra base de datos se cumple con esto ya que no hay elementos repetidos en ninguna tabla.
+
+2.- La segunda forma normal indica que los atributos no claves no dependan de otros que no sean la llave primaria. En nuestra base de datos se cumple con esto ya que no hay atributos que dependan de otros que no sean la llave primaria.
+
+3.- La tercera forma normal habla de la transitividad. Las llaves primarias no se deben usar en otras entidades, sin embargo, se usan como atributos en diferentes contextos, por lo cual se consideran atributos normales. En nuestra base de datos se cumple con esto ya que separamos las diferentes dependencias en sus propias tablas.
 
 # Parte 1: Tablas
 
@@ -83,14 +90,6 @@ Guarda los valores de un arma y define sus estadísticas necesarias.
 ## Weapon_type
 
 Para mantener la forma normal tercera se separa el tipo de arma de Weapon. Existen 3 tipos de arma. 
-
-## Parte 1.1: Forma Normal 
-
-1.- La primera forma normal indica que cada tabla tiene una llave única, y cuyo es elementos sean atómicos e indivisibles. También indica que no se deben tener datos repetitivos.
-
-2.- La segunda forma normal indica que los atributos no claves no dependan de otros que no sean la llave primaria.
-
-3.- La tercera forma normal habla de la transitividad. Las llaves primarias no se deben usar en otras entidades, sin embargo, se usan como atributos en diferentes contextos, por lo cual se consideran atributos normales.
 
 # Parte 2: Vistas 
 

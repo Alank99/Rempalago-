@@ -20,7 +20,7 @@ public abstract class genericMonster : MonoBehaviour
     public float jumpForce;
     public Vector2 waitTime;
 
-    bool alive = true;
+    protected bool alive = true;
     /// <summary>
     /// Define si el mounstro se encuentra activo o no. 
     /// </summary>
@@ -32,7 +32,12 @@ public abstract class genericMonster : MonoBehaviour
     public MonsterTargetingType monsterTargetMethod;
 
     public int damage;
-    
+
+    [Header("Loot references")]
+    public GameObject lootPrefab;
+
+    [Header("End of genericMonster")]
+    public bool invertAnimation = false;
     
     // get rb reference from self on start
     protected void StartMonster() {
@@ -56,16 +61,24 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Make sure the monster is looking the right way when calling this frame
+    /// </summary>
+    protected void lookCorrectWay(){
+        if (targetPos.x > transform.position.x){
+            transform.GetChild(0).localScale = new Vector3(invertAnimation? 1 : -1,1,1);
+        } else {
+            transform.GetChild(0).localScale = new Vector3(invertAnimation? -1 : 1,1,1);
+        }
+    }
+
 
     IEnumerator randomJumps(){
         while (alive){
-            // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
-            //     Debug.Log("Changind dir");
-            //     currentLock = currentLock == pos1 ? pos2 : pos1;
-            // }
-
-            var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
+            var moveTowards = Vector3.MoveTowards(transform.position, targetPos, 1f) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
+            
+            lookCorrectWay();
             
             yield return new WaitForSeconds(Random.Range(waitTime.x, waitTime.y));
         }
@@ -73,23 +86,47 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomWalk(){
         while (alive){
-            // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
-            //     Debug.Log("Changind dir");
-            //     currentLock = currentLock == pos1 ? pos2 : pos1;
-            // }
-
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
-            rb.velocity =  moveTowards;
+            rb.velocity =  new Vector2(moveTowards.x, rb.velocity.y);
+
+            lookCorrectWay();
             
-           yield return new WaitForEndOfFrame();
+           yield return new WaitForFixedUpdate(); // makes it update on a physics update
         }
     }
 
+    IEnumerator dropLoot(){
+        // TODO agregar aquí lo que se supone que se debe dropear de la base de datos
+
+        var dropItems = new List<buff>();
+
+        dropItems.Add(new buff(buffTypes.speed, 0.2f, 10f));
+        dropItems.Add(new buff(buffTypes.health, 3f, 10f));
+        dropItems.Add(new buff(buffTypes.jump, 0.2f, 10f));
+        dropItems.Add(new buff(buffTypes.maxSpeed, 1f, 10f));
+
+        yield return new WaitForEndOfFrame();
+        foreach (var dropItem in dropItems)
+        {
+            var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+            item.GetComponent<lootItem>().StartAndAttach(dropItem);
+        }
+
+        // testing each drop item
+
+        yield return new WaitForSeconds(1);
+    }
+
+    /// <summary>
+    /// Kills the monster
+    /// Does all the things it has to do when it dies
+    /// </summary>
     private void killSelf(){
         alive = false;
+        StartCoroutine(dropLoot());
         var rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false;
-        var amount = 100f;
+        var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
         StartCoroutine(dieDelay());

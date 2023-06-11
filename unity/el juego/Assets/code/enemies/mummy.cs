@@ -31,11 +31,11 @@ public class mummy : genericMonster
 
     public override void monsterHasActivated()
     {
-        Debug.Log("Momia activada");
+        //Debug.Log("Momia activada");
     }
 
     public override void monsterHasDeactivated()
     {
-        Debug.Log("Momia desactivada");
+        //Debug.Log("Momia desactivada");
     }
 }

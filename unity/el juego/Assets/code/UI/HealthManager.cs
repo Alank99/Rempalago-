@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 public class HealthManager : MonoBehaviour
 {
@@ -17,10 +19,19 @@ public class HealthManager : MonoBehaviour
     [Header("Player Info")]
     public player player_info;
     public ChangeWeapon change;
+    private float startTime;
+
+    public Volume postProcessingVolume;
+    public FilmGrain FuckedUpMeter;
+    public ChromaticAberration FuckedUpIntensityAberration;
+    public LensDistortion FuckedUpIntensityLens;
+
+    public bool isInMidOfAnim;
 
     // Start is called before the first frame update
     void Start()
     {
+        startTime = Time.time;
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;
@@ -29,6 +40,10 @@ public class HealthManager : MonoBehaviour
             Destroy(this);
         }
         health = MaxHealth;
+
+        postProcessingVolume.profile.TryGet(out FuckedUpMeter);
+        postProcessingVolume.profile.TryGet(out FuckedUpIntensityAberration);
+        postProcessingVolume.profile.TryGet(out FuckedUpIntensityLens);
 
         StartCoroutine("passiveHeals");
     }
@@ -47,14 +62,59 @@ public class HealthManager : MonoBehaviour
         }
     }
 
+    private void updateVisualStuff(){
+        healthBar.fillAmount = (float)health / 100;
+        FuckedUpMeter.intensity.Override(1f - ((float)health / 100));
+    }
+
+    IEnumerator takeDamageAnim(int damage){
+        if (isInMidOfAnim) yield break;
+        var secondsToStop = Mathf.Clamp((float)damage / 20f, 0.3f, 3f);
+        var vignetteAmount = 0.1f + secondsToStop/2f;
+
+        // make game seem like serious stuff
+
+        // make the game stop in 5 frames:
+
+        isInMidOfAnim = true;
+
+        var repetitions = 10;
+        for (var i = 0; i <= repetitions; i++){
+            Time.timeScale = Mathf.Lerp(1f, 0.6f, (float)i / (float)repetitions);
+            FuckedUpIntensityAberration.intensity.Override(Mathf.Lerp(0.15f, 1f, (float)i / (float)repetitions));
+            FuckedUpIntensityLens.intensity.Override(Mathf.Lerp(-0.2f, -0.35f, (float)i / (float)repetitions));
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return new WaitForSecondsRealtime(secondsToStop);
+
+        for (var i = 0; i <= repetitions; i++){
+            Time.timeScale = Mathf.Lerp(0.6f, 1f, (float)i / (float)repetitions);
+            FuckedUpIntensityAberration.intensity.Override(Mathf.Lerp(1f, 0.15f, (float)i / (float)repetitions));
+            FuckedUpIntensityLens.intensity.Override(Mathf.Lerp(-0.35f, -0.2f, (float)i / (float)repetitions));
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        // return tooriginal
+        Time.timeScale = 1f;
+        FuckedUpIntensityAberration.intensity.Override(0.15f);
+        FuckedUpIntensityLens.intensity.Override(-0.2f);
+
+        isInMidOfAnim = false;
+    }
+
     public void receiveDamage(int damage){
         health -= damage;
-        healthBar.fillAmount = (float)health / 100f;
+        updateVisualStuff();
 
         if (health <= 0)
         {
             SceneManager.LoadScene("DeadScreen"); // TODO: Osvald cambiar a la escena de muerte
         }
+
+        StartCoroutine(takeDamageAnim(damage));
 
         lastHitTime = Time.time;
     }
@@ -63,7 +123,7 @@ public class HealthManager : MonoBehaviour
         health += healingAmount;
         health = Mathf.Clamp(health, 0, 100);
 
-        healthBar.fillAmount = (float)health / 100;
+        updateVisualStuff();
     }
 
     IEnumerator QueryData(string EP)
@@ -91,6 +151,7 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     private void save_info()
     {
+        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
         health = player_info.health;
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;
@@ -100,4 +161,92 @@ public class HealthManager : MonoBehaviour
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
     }
+
+    public void update_weapon(int weapon_id, int type)
+    {
+        
+        change.set_damage(weapon_id, type);
+        if (type == 0)
+            player_info.espada = weapon_id;
+        else if (type == 1)
+            player_info.balero = weapon_id;
+        else if (type == 2)
+            player_info.trompo = weapon_id;
+    }
+
+    public void save_to_sql(int id)
+    {
+        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
+        player_info.checkpoint_id = id;
+        player_info.money = CoinCounter.instance.currentCoins;
+        StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
+        StartCoroutine(SaveGame("playthroughs/update/" + player_info.player_id + "/" + (int)(Time.time - startTime) + "/0"));
+        startTime = Time.time;
+    }
+
+    IEnumerator SaveGame(string EP, object data)
+    {
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson(data);
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, jsonData))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Guardado exitoso");
+            }
+            else
+            {
+                Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator SaveGame(string EP)
+    {
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, ""))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Guardado exitoso");
+            }
+            else
+            {
+                Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
+    }
+
+    IEnumerator GetCheckpoint(string EP)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+                checkpoint check = JsonUtility.FromJson<checkpointList>(jsonString).list[0];
+                PlayerPrefs.SetInt("pos_x", check.position_x);
+                PlayerPrefs.SetInt("pos_y", check.position_y);
+            }
+            else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
+    }
+
 }

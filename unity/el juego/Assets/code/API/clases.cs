@@ -59,6 +59,15 @@ public class user
 }
 
 [System.Serializable]
+public class checkpoint
+{
+    public int checkpoint_id;
+    public int level_id;
+    public int position_x;
+    public int position_y;
+}
+
+[System.Serializable]
 public class playthroughList
 {
     public List<playthrough> list;
@@ -74,4 +83,10 @@ public class playerList
 public class weaponList
 {
     public List<weapon> list;
+}
+
+[System.Serializable]
+public class checkpointList
+{
+    public List<checkpoint> list;
 }
