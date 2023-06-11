@@ -182,7 +182,7 @@ MonoBehaviour:
   jumpForce: 0
   waitTime: {x: 0, y: 0}
   monsterTargetMethod: 0
-  damage: 10
+  damage: 20
   lootPrefab: {fileID: 0}
   invertAnimation: 0
   distance: 0

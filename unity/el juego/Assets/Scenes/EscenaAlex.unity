@@ -343,7 +343,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4412988339343320897, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
       propertyPath: m_Name
-      value: Charro_mano (1)
+      value: Charro_mano-2
       objectReference: {fileID: 0}
     - target: {fileID: 4412988339343320956, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
       propertyPath: m_RootOrder
@@ -408,6 +408,14 @@ PrefabInstance:
     - target: {fileID: 4412988339343320959, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531865973702785195, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
+      propertyPath: Force
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531865973702785195, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
+      propertyPath: maxSpeedX
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
@@ -750,7 +758,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4412988339343320897, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
       propertyPath: m_Name
-      value: Charro_mano
+      value: Charro_mano-1
       objectReference: {fileID: 0}
     - target: {fileID: 4412988339343320956, guid: 96afcd1561814364fa2a327f60f41bdd, type: 3}
       propertyPath: m_RootOrder
