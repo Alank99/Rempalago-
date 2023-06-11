@@ -35,7 +35,9 @@ public abstract class genericMonster : MonoBehaviour
 
     [Header("Loot references")]
     public GameObject lootPrefab;
-    
+
+    [Header("End of genericMonster")]
+    public bool invertAnimation = false;
     
     // get rb reference from self on start
     protected void StartMonster() {
@@ -59,16 +61,24 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Make sure the monster is looking the right way when calling this frame
+    /// </summary>
+    protected void lookCorrectWay(){
+        if (targetPos.x > transform.position.x){
+            transform.GetChild(0).localScale = new Vector3(invertAnimation? 1 : -1,1,1);
+        } else {
+            transform.GetChild(0).localScale = new Vector3(invertAnimation? -1 : 1,1,1);
+        }
+    }
+
 
     IEnumerator randomJumps(){
         while (alive){
-            // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
-            //     Debug.Log("Changind dir");
-            //     currentLock = currentLock == pos1 ? pos2 : pos1;
-            // }
-
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, 1f) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
+            
+            lookCorrectWay();
             
             yield return new WaitForSeconds(Random.Range(waitTime.x, waitTime.y));
         }
@@ -76,15 +86,12 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomWalk(){
         while (alive){
-            // if (Vector3.Magnitude(transform.position - targetPos) < 3f){
-            //     Debug.Log("Changind dir");
-            //     currentLock = currentLock == pos1 ? pos2 : pos1;
-            // }
-
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
-            rb.velocity =  moveTowards;
+            rb.velocity =  new Vector2(moveTowards.x, rb.velocity.y);
+
+            lookCorrectWay();
             
-           yield return new WaitForEndOfFrame();
+           yield return new WaitForFixedUpdate(); // makes it update on a physics update
         }
     }
 

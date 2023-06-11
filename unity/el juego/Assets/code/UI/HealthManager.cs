@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 public class HealthManager : MonoBehaviour
 {
@@ -19,6 +21,13 @@ public class HealthManager : MonoBehaviour
     public ChangeWeapon change;
     private float startTime;
 
+    public Volume postProcessingVolume;
+    public FilmGrain FuckedUpMeter;
+    public ChromaticAberration FuckedUpIntensityAberration;
+    public LensDistortion FuckedUpIntensityLens;
+
+    public bool isInMidOfAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +40,10 @@ public class HealthManager : MonoBehaviour
             Destroy(this);
         }
         health = MaxHealth;
+
+        postProcessingVolume.profile.TryGet(out FuckedUpMeter);
+        postProcessingVolume.profile.TryGet(out FuckedUpIntensityAberration);
+        postProcessingVolume.profile.TryGet(out FuckedUpIntensityLens);
 
         StartCoroutine("passiveHeals");
     }
@@ -49,14 +62,59 @@ public class HealthManager : MonoBehaviour
         }
     }
 
+    private void updateVisualStuff(){
+        healthBar.fillAmount = (float)health / 100;
+        FuckedUpMeter.intensity.Override(1f - ((float)health / 100));
+    }
+
+    IEnumerator takeDamageAnim(int damage){
+        if (isInMidOfAnim) yield break;
+        var secondsToStop = Mathf.Clamp((float)damage / 20f, 0.3f, 3f);
+        var vignetteAmount = 0.1f + secondsToStop/2f;
+
+        // make game seem like serious stuff
+
+        // make the game stop in 5 frames:
+
+        isInMidOfAnim = true;
+
+        var repetitions = 10;
+        for (var i = 0; i <= repetitions; i++){
+            Time.timeScale = Mathf.Lerp(1f, 0.6f, (float)i / (float)repetitions);
+            FuckedUpIntensityAberration.intensity.Override(Mathf.Lerp(0.15f, 1f, (float)i / (float)repetitions));
+            FuckedUpIntensityLens.intensity.Override(Mathf.Lerp(-0.2f, -0.35f, (float)i / (float)repetitions));
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        yield return new WaitForSecondsRealtime(secondsToStop);
+
+        for (var i = 0; i <= repetitions; i++){
+            Time.timeScale = Mathf.Lerp(0.6f, 1f, (float)i / (float)repetitions);
+            FuckedUpIntensityAberration.intensity.Override(Mathf.Lerp(1f, 0.15f, (float)i / (float)repetitions));
+            FuckedUpIntensityLens.intensity.Override(Mathf.Lerp(-0.35f, -0.2f, (float)i / (float)repetitions));
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        // return tooriginal
+        Time.timeScale = 1f;
+        FuckedUpIntensityAberration.intensity.Override(0.15f);
+        FuckedUpIntensityLens.intensity.Override(-0.2f);
+
+        isInMidOfAnim = false;
+    }
+
     public void receiveDamage(int damage){
         health -= damage;
-        healthBar.fillAmount = (float)health / 100f;
+        updateVisualStuff();
 
         if (health <= 0)
         {
             SceneManager.LoadScene("DeadScreen"); // TODO: Osvald cambiar a la escena de muerte
         }
+
+        StartCoroutine(takeDamageAnim(damage));
 
         lastHitTime = Time.time;
     }
@@ -65,7 +123,7 @@ public class HealthManager : MonoBehaviour
         health += healingAmount;
         health = Mathf.Clamp(health, 0, 100);
 
-        healthBar.fillAmount = (float)health / 100;
+        updateVisualStuff();
     }
 
     IEnumerator QueryData(string EP)
