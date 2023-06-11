@@ -6,7 +6,7 @@ public class mummy : genericMonster
 {
 
     public float distance;
-
+    
     public GameObject player;
     public void Update() {
 
