@@ -33,6 +33,11 @@ public class rainBullets : MonoBehaviour
         CancelInvoke("CreateBullet");
     }
 
+    public void SetLimit(float playerPosition)
+    {
+        limit = playerPosition + 1;
+    }
+
     void CreateBullet()
     {
         // Generate a random position in X and over the view of the camera
