@@ -75,6 +75,7 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomJumps(){
         while (alive){
+            updateWalkMovement();
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, 1f) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
             
@@ -86,6 +87,7 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomWalk(){
         while (alive){
+            updateWalkMovement();
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x, rb.velocity.y);
 
@@ -183,7 +185,19 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Gets called before the monster calculates the next pos it has to be in
+    /// </summary>
+    public abstract void updateWalkMovement();
+
+    /// <summary>
+    /// gets called whenever the player gets close enough to the monster
+    /// </summary>
     public abstract void monsterHasActivated();
+    
+    /// <summary>
+    /// gets called whenever the monster leaves the player radius
+    /// </summary>
     public abstract void monsterHasDeactivated();
 }
 
