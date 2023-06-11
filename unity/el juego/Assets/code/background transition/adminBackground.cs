@@ -5,7 +5,9 @@ using UnityEngine;
 public class adminBackground : MonoBehaviour
 {
     public List<SpriteRenderer> backgrounds;
+    public List<AudioClip> songs;
     public SpriteRenderer active;
+    public AudioSource audioSource;
     private void Start() {
         callAdmin.admin = this;
     }
@@ -32,6 +34,42 @@ public class adminBackground : MonoBehaviour
 
             active = backgrounds[id];
         }
+    }
+
+    public void changesong(int newSong)
+    {
+        if (newSong >= 0 && newSong < songs.Count)
+        {
+            StartCoroutine(FadeOutAndChangeSong(newSong));
+        }
+        else
+        {
+            Debug.LogWarning("Invalid song index: " + newSong);
+        }
+    }
+
+    IEnumerator FadeOutAndChangeSong(int newSong)
+    {
+        float fadeDuration = 1.0f;
+        float fadeSpeed = 1.0f / fadeDuration;
+
+        while (audioSource.volume > 0.01f)
+        {
+            audioSource.volume -= fadeSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        audioSource.Stop();
+        audioSource.clip = songs[newSong];
+        audioSource.Play();
+
+        while (audioSource.volume < 1.0f)
+        {
+            audioSource.volume += fadeSpeed * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        audioSource.volume = 1.0f;
     }
     
 }

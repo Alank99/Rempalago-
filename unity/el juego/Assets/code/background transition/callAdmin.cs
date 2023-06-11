@@ -11,6 +11,7 @@ public class callAdmin : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Transition"){
             admin.changebackground(id);
+            admin.changesong(id);
         }
     }
 }
