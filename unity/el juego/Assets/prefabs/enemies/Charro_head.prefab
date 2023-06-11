@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2044536458447044005}
   - component: {fileID: 2044536458447044004}
   - component: {fileID: 2044536458447044003}
-  - component: {fileID: 2044536458447044007}
+  - component: {fileID: 349353548208606688}
   m_Layer: 0
   m_Name: Charro_head
   m_TagString: Untagged
@@ -165,7 +165,7 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &2044536458447044007
+--- !u!114 &349353548208606688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
