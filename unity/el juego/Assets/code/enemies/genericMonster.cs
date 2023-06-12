@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public abstract class genericMonster : MonoBehaviour
 {
@@ -100,6 +101,7 @@ public abstract class genericMonster : MonoBehaviour
     }
 
     IEnumerator dropLoot(){
+        
         // TODO agregar aquí lo que se supone que se debe dropear de la base de datos
 
         var dropItems = new List<buff>();
@@ -119,6 +121,25 @@ public abstract class genericMonster : MonoBehaviour
         // testing each drop item
 
         yield return new WaitForSeconds(1);
+    }
+
+    //Gets which drop should be given
+    IEnumerator QueryData(string EP)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                //Debug.Log("Response: " + www.downloadHandler.text);
+                // Compose the response to look like the object we want to extract
+                // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+            }
+            else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
     }
 
     /// <summary>

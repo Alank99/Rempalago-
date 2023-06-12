@@ -164,6 +164,7 @@ public class HealthManager : MonoBehaviour
         health = player_info.health;
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;
+        change.set_multiplier(player_info.attack);
         this.GetComponent<playerController>().maxSpeedX = player_info.speed;
         change.set_damage(player_info.espada, 0);
         change.set_damage(player_info.balero, 1);
@@ -173,7 +174,6 @@ public class HealthManager : MonoBehaviour
 
     public void update_weapon(int weapon_id, int type)
     {
-        
         change.set_damage(weapon_id, type);
         if (type == 0)
             player_info.espada = weapon_id;

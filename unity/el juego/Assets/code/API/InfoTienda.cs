@@ -27,13 +27,16 @@ public class InfoTienda : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] int multiplicador_precio;
-    [SerializeField] int precio_vida;
-    [SerializeField] int precio_mejora;
-    [SerializeField] int precio_buff;
+    [SerializeField] int precio1;
+    [SerializeField] int precio2;
+    [SerializeField] int precio3;
 
     // Start is called before the first frame update
     void Start()
     {
+        one.text = "Mejora de vida\n$" + precio1;
+        two.text = "Mejora de ataque\n$" + precio2;
+        three.text = "Mejora de velocidad\n$" + precio3;
         StartCoroutine(QueryData("weapons"));
     }
 
@@ -95,7 +98,8 @@ public class InfoTienda : MonoBehaviour
         switch (button_id)
         {
             case 1:
-                if (try_buy(precio_vida))
+                if (try_buy(precio1))
+                    manager.MaxHealth += 10;
                     manager.health = manager.MaxHealth;
                 break;
             case 2:
@@ -103,16 +107,16 @@ public class InfoTienda : MonoBehaviour
                     manager.update_weapon(espada_vender.weapon_id, 1);
                 break;
             case 3:
-                if (try_buy(precio_buff))
-                    Debug.Log("Compraste un buff");
+                if (try_buy(precio2))
+                    manager.player_info.attack += 0.2f;
                 break;
             case 4:
                 if (try_buy(balero_vender.damage * multiplicador_precio))
                     manager.update_weapon(balero_vender.weapon_id, 2);
                 break;
             case 5:
-                if (try_buy(precio_mejora))
-                    Debug.Log("Compraste una mejora");
+                if (try_buy(precio3))
+                    manager.player_info.speed += 0.2f;
                 break;
             case 6:
                 if (try_buy(trompo_vender.damage * multiplicador_precio))
