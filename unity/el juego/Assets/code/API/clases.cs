@@ -68,6 +68,14 @@ public class checkpoint
 }
 
 [System.Serializable]
+public class loot_db
+{
+    public string name;
+    public int modifier;
+    public int probability;
+}
+
+[System.Serializable]
 public class playthroughList
 {
     public List<playthrough> list;
@@ -89,4 +97,10 @@ public class weaponList
 public class checkpointList
 {
     public List<checkpoint> list;
+}
+
+[System.Serializable]
+public class loot_dbList
+{
+    public List<loot_db> list;
 }
