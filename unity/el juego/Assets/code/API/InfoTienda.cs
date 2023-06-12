@@ -35,8 +35,8 @@ public class InfoTienda : MonoBehaviour
     void Start()
     {
         one.text = "Mejora de vida\n$" + precio1;
-        two.text = "Mejora de ataque\n$" + precio2;
-        three.text = "Mejora de velocidad\n$" + precio3;
+        three.text = "Mejora de ataque\n$" + precio2;
+        five.text = "Mejora de velocidad\n$" + precio3;
         StartCoroutine(QueryData("weapons"));
     }
 
@@ -56,12 +56,12 @@ public class InfoTienda : MonoBehaviour
         int a = espadas[Random.Range(0, espadas.Count)];
         int b = baleros[Random.Range(0, baleros.Count)];
         int c = trompos[Random.Range(0, trompos.Count)];
-        Debug.Log("a:" + a + "b:" + b + "c:" + c);
+        //Debug.Log("a:" + a + "b:" + b + "c:" + c);
         espada_vender = weapons.list[a];
         balero_vender = weapons.list[b];
         trompo_vender = weapons.list[c];
-        four.text = espada_vender.name + "\n$" + espada_vender.damage * 10;
-        five.text = balero_vender.name + "\n$" + balero_vender.damage * 10;
+        two.text = espada_vender.name + "\n$" + espada_vender.damage * 10;
+        four.text = balero_vender.name + "\n$" + balero_vender.damage * 10;
         six.text = trompo_vender.name + "\n$" + trompo_vender.damage * 10;
     }
 
@@ -108,7 +108,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 3:
                 if (try_buy(precio2))
-                    manager.player_info.attack += 0.2f;
+                    manager.update_attack(manager.player_info.attack + 1f);
                 break;
             case 4:
                 if (try_buy(balero_vender.damage * multiplicador_precio))
@@ -116,7 +116,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 5:
                 if (try_buy(precio3))
-                    manager.player_info.speed += 0.2f;
+                    manager.update_speed(manager.player_info.speed + 1f);
                 break;
             case 6:
                 if (try_buy(trompo_vender.damage * multiplicador_precio))

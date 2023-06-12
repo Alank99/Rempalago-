@@ -26,7 +26,6 @@ public class ChangeWeapon : MonoBehaviour
 
     private int actual = 0;
     private float lastUpdate;
-    private float damageMult;
 
     void start()
     {
@@ -38,11 +37,6 @@ public class ChangeWeapon : MonoBehaviour
     {
         if (weapon_id > 0)
             StartCoroutine(QueryData("weapons/" + weapon_id, type));
-    }
-
-    public void set_multiplier(float mult)
-    {
-        damageMult = mult;
     }
 
     IEnumerator QueryData(string EP, int type)
@@ -59,17 +53,17 @@ public class ChangeWeapon : MonoBehaviour
                 int damage = JsonUtility.FromJson<weaponList>(jsonString).list[0].damage;
                 if (type == 0)
                 {
-                    espada.set_damage(Mathf.RoundToInt(damage * damageMult));
+                    espada.set_damage(damage);
                     weapons.list.Add(object_espada);
                 }
                 else if (type == 1)
                 {
-                    balero.set_damage(Mathf.RoundToInt(damage * damageMult));
+                    balero.set_damage(damage);
                     weapons.list.Add(object_balero);
                 }
                 else if (type == 2)
                 {
-                    trompo.set_damage(Mathf.RoundToInt(damage * damageMult));
+                    trompo.set_damage(damage);
                     weapons.list.Add(object_trompo);
                 }
 

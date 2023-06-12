@@ -122,7 +122,7 @@ public abstract class genericMonster : MonoBehaviour
 
         yield return new WaitForSeconds(1);
     }
-
+ 
     //Gets which drop should be given
     IEnumerator QueryData(string EP)
     {
@@ -135,6 +135,7 @@ public abstract class genericMonster : MonoBehaviour
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+
             }
             else {
                 Debug.Log("Error: " + www.error);
