@@ -28,7 +28,7 @@ public abstract class genericMonster : MonoBehaviour
     /// <value></value>
     public bool active { get; private set; } = false;
 
-    public int salud { get; private set; } //salud del mostro
+    public int salud { get; set; } //salud del mostro
 
     public MonsterTargetingType monsterTargetMethod;
 
