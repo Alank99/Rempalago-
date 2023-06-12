@@ -20,6 +20,9 @@ public class Interact : MonoBehaviour
     [SerializeField] Sprite ajolote;
     [SerializeField] Sprite alex;
 
+    [Header("Interact")]
+    [SerializeField] GameObject note1;
+
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
     [SerializeField] GameObject trompo_unlock;
@@ -90,6 +93,16 @@ public class Interact : MonoBehaviour
             balero_unlock.SetActive(false);
             this.GetComponent<HealthManager>().update_weapon(2, 1);
             text_dialog.text = balero_unlock.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, note1.transform.position) < distance_from_player)
+        {
+            note1.SetActive(false);
+            text_dialog.text = note1.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Alex";
             dialog_image.sprite = alex;
             dialog_box.SetActive(true);

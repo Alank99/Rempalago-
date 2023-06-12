@@ -20,6 +20,7 @@ public class HealthManager : MonoBehaviour
     public player player_info;
     public ChangeWeapon change;
     private float startTime;
+    public GameObject iluminacion;
 
     public Volume postProcessingVolume;
     public FilmGrain FuckedUpMeter;
@@ -32,6 +33,14 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+        if (PlayerPrefs.GetInt("ilumination") == 1)
+            iluminacion.SetActive(true);
+        else
+        {
+            this.GetComponentInChildren<Light2D>().intensity = 2f;
+            iluminacion.SetActive(false);
+        }
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;
@@ -155,6 +164,7 @@ public class HealthManager : MonoBehaviour
         health = player_info.health;
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;
+        change.set_multiplier(player_info.attack);
         this.GetComponent<playerController>().maxSpeedX = player_info.speed;
         change.set_damage(player_info.espada, 0);
         change.set_damage(player_info.balero, 1);
@@ -164,7 +174,6 @@ public class HealthManager : MonoBehaviour
 
     public void update_weapon(int weapon_id, int type)
     {
-        
         change.set_damage(weapon_id, type);
         if (type == 0)
             player_info.espada = weapon_id;

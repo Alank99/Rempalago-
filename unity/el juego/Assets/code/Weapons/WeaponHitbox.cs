@@ -6,10 +6,11 @@ using UnityEngine.Networking;
 public class WeaponHitbox : MonoBehaviour
 {
     public int damage;
+    [SerializeField] HealthManager manager;
 
     public void set_damage(int weapon_damage)
     {
-        damage = weapon_damage;
+        damage = Mathf.RoundToInt(weapon_damage * manager.player_info.attack);
     }
 
     /// <summary>
