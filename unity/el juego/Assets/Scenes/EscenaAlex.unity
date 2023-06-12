@@ -679,6 +679,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 349353548208606688, guid: 0f8f688d7268db74cb8df7a8e006f91f, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 349353548208606688, guid: 0f8f688d7268db74cb8df7a8e006f91f, type: 3}
+      propertyPath: monsterTargetMethod
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2044536458447044002, guid: 0f8f688d7268db74cb8df7a8e006f91f, type: 3}
       propertyPath: m_Name
       value: Charro_head

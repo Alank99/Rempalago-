@@ -63,13 +63,13 @@ public class adminBackground : MonoBehaviour
         audioSource.clip = songs[newSong];
         audioSource.Play();
 
-        while (audioSource.volume < 1.0f)
+        while (audioSource.volume < .6f)
         {
             audioSource.volume += fadeSpeed * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
-        audioSource.volume = 1.0f;
+        audioSource.volume = .6f;
     }
     
 }
