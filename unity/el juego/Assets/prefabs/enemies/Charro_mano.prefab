@@ -124,7 +124,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &3567538031700496808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPoints: []
   moveSpeed: 10
-  patrolDestination: 0
 --- !u!114 &1823267914320091872
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2044536458447044004}
   - component: {fileID: 2044536458447044003}
   - component: {fileID: 349353548208606688}
+  - component: {fileID: 518514581447604683}
   m_Layer: 0
   m_Name: Charro_head
   m_TagString: Untagged
@@ -180,3 +181,19 @@ MonoBehaviour:
   player: {fileID: 0}
   rb: {fileID: 0}
   speed: 10
+--- !u!114 &518514581447604683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044536458447044002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ffc2463fa5d7f4d8451884ddc1f2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1137202050280590024, guid: e3686d9a05dfb9649a2b44c178f64b0e, type: 3}
+  delay: 0.4
+  limit_a: -18.5
+  limit_b: 21.9
