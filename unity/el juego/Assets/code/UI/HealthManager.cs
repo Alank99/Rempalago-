@@ -38,7 +38,8 @@ public class HealthManager : MonoBehaviour
             iluminacion.SetActive(true);
         else
         {
-            this.GetComponentInChildren<Light2D>().intensity = 2f;
+            this.GetComponentInChildren<Light2D>().intensity = 1f;
+            this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 30f;
             iluminacion.SetActive(false);
         }
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));

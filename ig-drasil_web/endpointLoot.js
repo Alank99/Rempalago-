@@ -26,7 +26,7 @@ export function addEndpoints(app, conn) {
     app.get(prefix + ":id", async (request, response)=>{
         try
         {
-            const query = `select 'name', 'modifier', 'ammount' as 'probability' from loot_MTM where id = ${request.params.id} LEFT JOIN loot ON loot_id = loot.id`
+            const query = `select 'name', 'modifier', 'ammount' as 'probability' from loot_MTM LEFT JOIN loot ON loot_MTM.loot_id = loot.id where loot_MTM.id = ${request.params.id}`
             const [results, fields] = await connection.execute(query);
     
             console.log(`${results.length} rows returned`)
