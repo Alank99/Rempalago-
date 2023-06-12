@@ -93,7 +93,7 @@ public abstract class genericMonster : MonoBehaviour
 
             lookCorrectWay();
             
-           yield return new WaitForFixedUpdate(); // makes it update on a physics update
+            yield return new WaitForFixedUpdate(); // makes it update on a physics update
         }
     }
 
@@ -154,24 +154,21 @@ public abstract class genericMonster : MonoBehaviour
             HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
-/*
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        Debug.Log($"Mostro toco a {other.collider.tag}");
 
-        if (other.collider.tag == "PlayerCollider")
-        {
-            HealthManager health_manager = other.gameObject.GetComponent<HealthManager>();
-            health_manager.recieveDamage(damage);
+    // private void OnCollisionEnter2D(Collision2D other) 
+    // {
+    //     Debug.Log($"Mostro toco a {other.collider.tag}");
+
+    //     if (other.collider.tag == "PlayerCollider")
+    //     {
+    //         HealthManager health_manager = other.gameObject.GetComponent<HealthManager>();
+    //         health_manager.recieveDamage(damage);
             
-            Debug.Log($"Player health: {health_manager.health}");
-        }
-    }
-*/
+    //         Debug.Log($"Player health: {health_manager.health}");
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // if (other.tag == "PlayerCollider"){giveDamage(other.gameObject);}
-
         if (other.tag == "PlayerRadius"){
             StartMonster();
         }
