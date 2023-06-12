@@ -8,7 +8,7 @@ public class skull : genericMonster
     public float distance;
 
     public GameObject player;
-    public void Update() {
+    public override void updateWalkMovement() {
 
         distance = Vector2.Distance(transform.position, player.transform.position);
         // Debug.Log("Distance from skull: " + distance); 
