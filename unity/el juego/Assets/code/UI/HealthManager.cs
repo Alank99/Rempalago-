@@ -20,6 +20,7 @@ public class HealthManager : MonoBehaviour
     public player player_info;
     public ChangeWeapon change;
     private float startTime;
+    public GameObject iluminacion;
 
     public Volume postProcessingVolume;
     public FilmGrain FuckedUpMeter;
@@ -32,6 +33,14 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+        if (PlayerPrefs.GetInt("ilumination") == 1)
+            iluminacion.SetActive(true);
+        else
+        {
+            this.GetComponentInChildren<Light2D>().intensity = 2f;
+            iluminacion.SetActive(false);
+        }
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;

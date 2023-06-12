@@ -65,11 +65,13 @@ public abstract class genericMonster : MonoBehaviour
     /// Make sure the monster is looking the right way when calling this frame
     /// </summary>
     protected void lookCorrectWay(){
+        try{
         if (targetPos.x > transform.position.x){
             transform.GetChild(0).localScale = new Vector3(invertAnimation? 1 : -1,1,1);
         } else {
             transform.GetChild(0).localScale = new Vector3(invertAnimation? -1 : 1,1,1);
         }
+        } catch{}
     }
 
 

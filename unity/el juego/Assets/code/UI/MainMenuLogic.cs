@@ -40,4 +40,14 @@ public class MainMenuLogic : MonoBehaviour
         mainMenu.GetComponent<Canvas>().enabled = true;
         optionsMenu.GetComponent<Canvas>().enabled = false;
     }
+
+    public void SetVolume(float value)
+    {
+        PlayerPrefs.SetFloat("volume", value);
+    }
+
+    public void SetIlumination(bool value)
+    {
+        PlayerPrefs.SetInt("ilumination", value? 1 : 0);
+    }
 }
