@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4412988339343320959}
   - component: {fileID: 4412988339343320958}
   - component: {fileID: 8249292554755122402}
-  - component: {fileID: 8531865973702785195}
+  - component: {fileID: 3567538031700496808}
   m_Layer: 0
   m_Name: Charro_mano
   m_TagString: Untagged
@@ -124,7 +124,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &8531865973702785195
+--- !u!114 &3567538031700496808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,16 +133,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4412988339343320897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c0338fc0beae24b8a957aadda52f00, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ad56faf2ff1064ba60a3b9053a8f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeedX: 0
-  Force: 0
-  jumpForce: 0
-  waitTime: {x: 0, y: 0}
-  monsterTargetMethod: 0
-  damage: 20
-  lootPrefab: {fileID: 0}
-  invertAnimation: 0
-  distance: 0
-  player: {fileID: 0}

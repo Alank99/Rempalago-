@@ -177,13 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 244ee52d54b667243a42077cdb672a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeedX: 10
-  Force: 10
-  jumpForce: 0
-  waitTime: {x: 0, y: 0}
-  monsterTargetMethod: 0
-  damage: 20
-  lootPrefab: {fileID: 0}
-  invertAnimation: 0
-  distance: 0
   player: {fileID: 0}
+  rb: {fileID: 0}
+  speed: 10
