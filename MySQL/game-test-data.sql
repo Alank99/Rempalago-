@@ -95,7 +95,7 @@ INSERT INTO loot_table VALUES(1,1, "Calaverita 1"),
 (9,1, "Rata 3");
 COMMIT;
 
--- id, loot_id, loot_table_id, ammount
+-- id, loot_id, loot_table_id, amount
 SET AUTOCOMMIT=0;
 INSERT INTO loot_mtm VALUES(1,8,1,50),
 -- calaverita 2
