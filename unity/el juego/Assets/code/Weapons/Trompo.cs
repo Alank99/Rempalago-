@@ -62,6 +62,6 @@ public class Trompo : MonoBehaviour
     public void setSpinSpeed(float speed, int max_damage)
     {
         SpinSpeed = speed * SpinMult;
-        MaxDamage = Mathf.RoundToInt(max_damage * manager.player_info.attack);;
+        MaxDamage = Mathf.RoundToInt(max_damage * manager.player_info.attack);
     }
 }

@@ -108,7 +108,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 3:
                 if (try_buy(precio2))
-                    manager.player_info.attack += 0.2f;
+                    manager.update_attack(manager.player_info.attack + 1f);
                 break;
             case 4:
                 if (try_buy(balero_vender.damage * multiplicador_precio))
@@ -116,7 +116,7 @@ public class InfoTienda : MonoBehaviour
                 break;
             case 5:
                 if (try_buy(precio3))
-                    manager.player_info.speed += 0.2f;
+                    manager.update_speed(manager.player_info.speed + 1f);
                 break;
             case 6:
                 if (try_buy(trompo_vender.damage * multiplicador_precio))

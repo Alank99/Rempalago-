@@ -163,13 +163,23 @@ public class HealthManager : MonoBehaviour
         this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
         health = player_info.health;
         MaxHealth = player_info.health;
-        CoinCounter.instance.currentCoins = player_info.money;
-        change.set_multiplier(player_info.attack);
+        CoinCounter.instance.currentCoins = player_info.money;        
         this.GetComponent<playerController>().maxSpeedX = player_info.speed;
         change.set_damage(player_info.espada, 0);
         change.set_damage(player_info.balero, 1);
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
+    }
+
+    public void update_attack(float newattack)
+    {
+        player_info.attack = newattack;
+    }
+
+    public void update_speed(float newspeed)
+    {
+        player_info.speed = newspeed;
+        this.GetComponent<playerController>().maxSpeedX = player_info.speed;
     }
 
     public void update_weapon(int weapon_id, int type)

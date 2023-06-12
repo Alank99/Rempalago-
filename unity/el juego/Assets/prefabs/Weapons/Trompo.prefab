@@ -247,4 +247,5 @@ MonoBehaviour:
   SpinLoss: 1
   SpinMult: 0.5
   slowdown: 2
-  InitialDamage: 0
+  manager: {fileID: 8588142000411510584, guid: 4bdf4423ff7b6614f93bb92bedb7bd4e, type: 3}
+  MaxDamage: 0
