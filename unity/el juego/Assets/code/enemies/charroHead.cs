@@ -2,39 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class charroHead : genericMonster
+public class charroHead : MonoBehaviour
 {
-    public float distance;
-
     public GameObject player;
+    public Rigidbody2D rb;
+    public float speed;
+
     public void Update() {
+        var speedNormalized = Mathf.Abs(player.transform.position.x - transform.position.x) * speed;
 
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        // Debug.Log("Distance from mummy: " + distance);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.x, 1f) * Mathf.Rad2Deg;
-
-        if (player != null && active)
-            if (distance <100)
-                targetPos = player.transform.position;
-            else
-                targetPos = transform.position;
+        if (player.transform.position.x > transform.position.x) {
+            rb.velocity = new Vector2(speedNormalized, 0);
+        }
+        else {
+            rb.velocity = new Vector2(-speedNormalized, 0);
+        }
     }
     
     public void Start() {
         player = GameObject.FindWithTag("Player");
-        targetPos = player.transform.position;
-        damage = 10;
-    }
-
-    public override void monsterHasActivated()
-    {
-        Debug.Log("AAAAA");
-    }
-
-    public override void monsterHasDeactivated()
-    {
-        Debug.Log("BBBBB");
+        rb = GetComponent<Rigidbody2D>();
     }
 }

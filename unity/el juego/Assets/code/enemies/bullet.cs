@@ -10,11 +10,11 @@ public class bullet : MonoBehaviour
 
     public float bulletLife;
 
-
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(destroyAfterTime(bulletLife));
+        bulletRB = GetComponent<Rigidbody2D>();
         bulletRB.velocity = new Vector2(speed, bulletRB.velocity.y);
     }
     
