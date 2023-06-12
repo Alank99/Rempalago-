@@ -6,7 +6,6 @@ public class charroHand : MonoBehaviour
 {
     public Transform[] patrolPoints;
     public float moveSpeed;
-    public int patrolDestination;
     private int dado;
 
     void Start()
