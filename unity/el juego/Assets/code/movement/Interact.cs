@@ -22,6 +22,7 @@ public class Interact : MonoBehaviour
 
     [Header("Interact")]
     [SerializeField] GameObject note1;
+    [SerializeField] GameObject cartel1;
 
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
@@ -103,6 +104,15 @@ public class Interact : MonoBehaviour
         {
             note1.SetActive(false);
             text_dialog.text = note1.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, cartel1.transform.position) < distance_from_player)
+        {
+            text_dialog.text = cartel1.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Alex";
             dialog_image.sprite = alex;
             dialog_box.SetActive(true);
