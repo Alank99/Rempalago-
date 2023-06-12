@@ -275,7 +275,7 @@ public class buff {
         this.duration = duration;
     }
 
-    private void testRemoveBuffs(){
+    private void testAndRemoveBuffs(){
         playerController.playerSingleton.buffs.Remove(this);
 
         if (playerController.playerSingleton.buffs.Count == 0)
@@ -296,32 +296,60 @@ public class buff {
         playerController.playerSingleton.buffs.Add(this);
         // apply buff
 
+        var buffApplied = true;
+
         switch (type)
         {
             case buffTypes.speed:
-                playerController.playerSingleton.buffSpeed += value;
+                if (playerController.playerSingleton.buffSpeed < 5f){
+                    playerController.playerSingleton.buffSpeed += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.maxSpeed:
-                playerController.playerSingleton.buffMaxSpeed += value;
+                if (playerController.playerSingleton.buffMaxSpeed < 5f){
+                    playerController.playerSingleton.buffMaxSpeed += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.jump:
-                playerController.playerSingleton.buffJump += value;
+                if (playerController.playerSingleton.buffJump < 5f){
+                    playerController.playerSingleton.buffJump += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.dash:
-                playerController.playerSingleton.buffDash += value;
+                if (playerController.playerSingleton.buffDash < 5f){
+                    playerController.playerSingleton.buffDash += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.damage:
-                playerController.playerSingleton.buffAttackDamage += value;
+                if (playerController.playerSingleton.buffAttackDamage < 5f){
+                    playerController.playerSingleton.buffAttackDamage += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.attackSpeed:
-                playerController.playerSingleton.buffAttackSpeed += value;
+                if (playerController.playerSingleton.buffAttackSpeed < 5f){
+                    playerController.playerSingleton.buffAttackSpeed += value;
+                    buffApplied = true;
+                }
                 break;
             case buffTypes.health:
                 HealthManager.healthSingleton.HealInternal((int)value);
-                testRemoveBuffs();
+                playerController.playerSingleton.buffs.Remove(this);
+                testAndRemoveBuffs();
                 yield break;
             default:
                 break;
+        }
+
+        // stop if no buff was applied
+        if (!buffApplied){
+            playerController.playerSingleton.buffs.Remove(this);
+            testAndRemoveBuffs();
+            yield break;
         }
 
         // delay for duration
@@ -353,7 +381,7 @@ public class buff {
         }
 
         // return to default state
-        testRemoveBuffs();
+        testAndRemoveBuffs();
     }
 }
 
