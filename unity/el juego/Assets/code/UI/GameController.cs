@@ -13,14 +13,4 @@ public class GameController : MonoBehaviour
     {
         current.coins++;
     }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -75,6 +75,7 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomJumps(){
         while (alive){
+            updateWalkMovement();
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, 1f) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x * Force, jumpForce);
             
@@ -86,12 +87,13 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator randomWalk(){
         while (alive){
+            updateWalkMovement();
             var moveTowards = Vector3.MoveTowards(transform.position, targetPos, maxSpeedX) - transform.position;
             rb.velocity =  new Vector2(moveTowards.x, rb.velocity.y);
 
             lookCorrectWay();
             
-           yield return new WaitForFixedUpdate(); // makes it update on a physics update
+            yield return new WaitForFixedUpdate(); // makes it update on a physics update
         }
     }
 
@@ -152,24 +154,21 @@ public abstract class genericMonster : MonoBehaviour
             HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
-/*
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        Debug.Log($"Mostro toco a {other.collider.tag}");
 
-        if (other.collider.tag == "PlayerCollider")
-        {
-            HealthManager health_manager = other.gameObject.GetComponent<HealthManager>();
-            health_manager.recieveDamage(damage);
+    // private void OnCollisionEnter2D(Collision2D other) 
+    // {
+    //     Debug.Log($"Mostro toco a {other.collider.tag}");
+
+    //     if (other.collider.tag == "PlayerCollider")
+    //     {
+    //         HealthManager health_manager = other.gameObject.GetComponent<HealthManager>();
+    //         health_manager.recieveDamage(damage);
             
-            Debug.Log($"Player health: {health_manager.health}");
-        }
-    }
-*/
+    //         Debug.Log($"Player health: {health_manager.health}");
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        // if (other.tag == "PlayerCollider"){giveDamage(other.gameObject);}
-
         if (other.tag == "PlayerRadius"){
             StartMonster();
         }
@@ -183,7 +182,19 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Gets called before the monster calculates the next pos it has to be in
+    /// </summary>
+    public abstract void updateWalkMovement();
+
+    /// <summary>
+    /// gets called whenever the player gets close enough to the monster
+    /// </summary>
     public abstract void monsterHasActivated();
+    
+    /// <summary>
+    /// gets called whenever the monster leaves the player radius
+    /// </summary>
     public abstract void monsterHasDeactivated();
 }
 
