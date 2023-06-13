@@ -21,6 +21,8 @@ public class HealthManager : MonoBehaviour
     public ChangeWeapon change;
     private float startTime;
     public GameObject iluminacion;
+    public GameObject decoracion;
+    public Cinemachine.CinemachineVirtualCamera cam;
 
     public Volume postProcessingVolume;
     public FilmGrain FuckedUpMeter;
@@ -42,6 +44,11 @@ public class HealthManager : MonoBehaviour
             this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 30f;
             iluminacion.SetActive(false);
         }
+        if (PlayerPrefs.GetInt("decoration") != 1)
+            decoracion.SetActive(true);
+        else
+            decoracion.SetActive(false);
+
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;
@@ -115,13 +122,44 @@ public class HealthManager : MonoBehaviour
         isInMidOfAnim = false;
     }
 
+    IEnumerator getDed(){
+        
+        GetComponent<playerController>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+
+        cam.Follow = transform;
+
+        var initialSize = cam.m_Lens.OrthographicSize;
+        var initialDutch = cam.m_Lens.Dutch;
+
+        var finalSize = 2f;
+        var finalDutch = -17f;
+
+        var initialTime = Time.time;
+
+        var executionSeconds = 1f;
+
+        var executionPercentage = 0f;
+
+        while (executionPercentage < 1f){
+            yield return new WaitForEndOfFrame();
+
+            cam.m_Lens.OrthographicSize = Mathf.Lerp(initialSize, finalSize, executionPercentage);
+            cam.m_Lens.Dutch = Mathf.Lerp(initialDutch, finalDutch, executionPercentage);
+
+            executionPercentage = (Time.time - initialTime) / executionSeconds;
+        }
+
+        SceneManager.LoadScene("DeadScreen"); 
+    }
+
     public void receiveDamage(int damage){
         health -= damage;
         updateVisualStuff();
 
         if (health <= 0)
         {
-            SceneManager.LoadScene("DeadScreen"); // TODO: Osvald cambiar a la escena de muerte
+            StartCoroutine(getDed());
         }
 
         StartCoroutine(takeDamageAnim(damage));

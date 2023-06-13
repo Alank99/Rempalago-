@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="Ig-drasil" />
+        <title>Ig-drasil</title>
+        <link rel="icon" type="image/x-icon" href="assets/min-drasil_icono.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles-copy-2.css" rel="stylesheet" />
+        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js" integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="module" defer src="js/graficacion.js"></script> 
+        <!-- Unity-->
+    </head>
+    <body id="page-top">
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">Ig-drasil</a>
+
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">¿Qui&eacute;nes somos?</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Juegos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#signup">Cont&aacute;ctanos</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-uppercase">Quimera</h1>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Te encuentras en un sueño en el que deberás enfrentarte a las leyendas de tus peores pesadillas.</h2> 
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">¿Crees poder enfrentarlas?</h2>
+                        <a class="btn btn-primary" href="#projects">¡Quiero jugarlo!</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- About-->
+        <!--Quitar espacio aquí-->
+        <section class="about-section text-center" id="about">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-white mb-4">¿Quiénes somos?</h2>
+                        <p class="text-white-50-2">
+                            Ig-drasil es un equipo de jóvenes desarrolladores que buscan llevar más allá el folclore mexicano. A lo largo de los años han 
+                            existido empresas que han desarrollado múltiples videojuegos relatando diversas historias, mientras que la cultura
+                            mexicana ha quedado bajo la sombra de estas. Así, el grupo busca llevar a relucir la magia de la herencia mexicana a través de 
+                            una quimera única e inimaginable. 
+                        </p>
+                    </div>  
+        </section>
+
+        <!--Quitar espacio aquí-->
+
+        <!-- Projects-->
+        <section class="projects-section .bg-dark" id="projects">
+            <div class="container px-4 px-lg-5">
+
+                <!-- Featured Project Row-->
+                <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                    <div class="col-xl-8 col-lg-7">
+                        <!-- Meter Unity aqui-->>                        
+                        <div class="col-xl-4 col-lg-5"><br><br></div>
+                    </div>
+                </div>
+
+                <!-- Project One Row-->
+                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+
+                    <div class="col-lg-6">
+                        <canvas id="speedrun" width="200" height="200"></canvas>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white"><i>Tiempos de compleción </i></h4>
+                                    <p class="mb-0 text-white-50">Los tiempos son calculados desde la
+                                         creación del usuario hasta el momento en que se vence al jefe final dentro del juego.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Two Row-->
+                <div class="row gx-0 justify-content-center">
+                    <div class="col-lg-6"><canvas id="weapons" width="200" height="200"></canvas></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Enemigos derrotados </h4>
+                                    <p class="mb-0 text-white-50">Las armas más usadas son calculadas al agregar una
+                                         nueva derrota por cada enemigo que es derrotado por cualquier jugador con un arma especifica.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Controles etc-->
+            <div class="featured-text">
+
+                <h4 class="text-center">Controles</h4>
+                <br>
+                <div id="pc_vs_console">
+                    <div class="featured-pc" id="pc">
+                        <h5 class="text-center">PC</h5>
+                    <ul class="text-black-50 mb-0">
+                        <li id="bottonA">Moverte a la izquierda - A</li>
+                        <li id="bottonD">Moverte a la derecha - D</li>
+                        <span style="color: #067436;"><li id="bottonF">Para interactuar - F</li></span>
+                        <li id="bottonSp">Saltar - Espacio</li>
+                        <li id="bottonSH"><i>Dash</i> - Shift</li>
+                        <p></p>
+                        <span style="color: rgb(196, 193, 193)"><li>Apuntar - Usando el apuntador del <i>mouse</i></li></span>
+                        <li id="bottonCI">Atacar - Clic izquierdo</li>
+                        <li id="bottonCD">Cambiar de arma - Scroll</li>
+                    </ul>
+                    <img class="img-teclado" src="./assets/img/Teclado.png" usemap="mapteclado">
+                    <map name="mapteclado">
+                        <area shape="rect" coords="3,2,4,5" onmouseover="mostrarTexto('cdv')">
+                    </map>
+                    <img class="img-mouse" src="./assets/img/temp mouse.png">
+                        
+                    </div>
+
+                    <div  class="featured-console" id="console">
+                        <h5 class="text-center">Mando</h5>
+                    <ul class="text-black-50 mb-0">
+                        <li id="bottonA">Moverte de lado a lado - Joystick izquierdo</li>
+                        <li id="bottonSp">Saltar - Y</li>
+                        <li id="bottonSH"><i>Dash</i> - X</li>
+                        <p></p>
+                        <br>
+                        <span style="color: #c80000;"><li>Apuntar - Joystick derecho</li></span>
+                        <li id="bottonCI">Atacar - Gatillo derecho</li>
+                        <li id="bottonCD">Cambiar de arma - Gatillo izquierdo</li>
+                    </ul>
+                    <br>
+                    <br>
+                        <img class="img-teclado"src="./assets/img/Mando.png">
+                    </div>
+                </div>
+            
+            </div>
+
+        </section>
+
+    </body>
+</html>
+
+<!-- Este texto te va a servir para hacer el mapa del teclado: pruebala aquí https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default
+    <style>
+.compu:hover::before {
+  content: attr(alt);
+  position: absolute;
+  background-color: #ffffff;
+  padding: 5px;
+  margin: 5px;
+  border: 1px groove #000000;
+  /* Otros estilos que desees aplicar */
+}
+</style>
+<body>
+
+<h2>Image Maps</h2>
+<p>Click on the computer to go to a new page and read more about the topic:</p>
+
+<img src="workplace.jpg" alt="Workplace" usemap="#workmap" width="400" height="379">
+
+<map name="workmap">
+  <area class="compu" shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+</map>
+-->

@@ -50,4 +50,9 @@ public class MainMenuLogic : MonoBehaviour
     {
         PlayerPrefs.SetInt("ilumination", value? 1 : 0);
     }
+
+    public void SetDecoration(bool value)
+    {
+        PlayerPrefs.SetInt("decoration", value? 1 : 0);
+    }
 }

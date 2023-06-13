@@ -24,11 +24,11 @@ COMMIT;
 -- enemy_id, enemy_name, kills, level_id, health, attack, speed, money_drop
 SET AUTOCOMMIT=0;
 INSERT INTO enemy VALUES(1, "slime", 0, 3, 10, 1, 1, 1),
-(2, "nahual", 5, 3, 10, 1, 1, 12),
-(3, "caravera", 10, 1, 10, 19, 1, 15),
-(4, "momia", 20, 1, 10, 20, 5, 20),
-(5, "charro negro", 6, 3, 10, 1, 12, 50),
-(6, "llorona", 1, 4, 45, 50, 15, 100);
+(2, "rata", 0, 3, 10, 1, 1, 12),
+(3, "caravera", 0, 1, 10, 19, 1, 15),
+(4, "momia", 0, 1, 10, 20, 5, 20),
+(5, "charro negro", 0, 3, 10, 1, 12, 50),
+(6, "llorona", 0, 4, 45, 50, 15, 100);
 COMMIT;
 
 -- type_id, name
@@ -61,7 +61,7 @@ COMMIT;
 
 -- id,name,modifier
 SET AUTOCOMMIT=0;
-INSERT INTO loot VALUES(1, "coin",1),
+INSERT INTO loot VALUES(1, "coin", 1),
 (2, "elote", 5),
 (3, "elote", 10),
 (4, "elote", 20),
@@ -70,7 +70,7 @@ INSERT INTO loot VALUES(1, "coin",1),
 (7, "pan de muerto", 20),
 (8, "mazapan",5),
 (9, "mazapan",10),
-(10, "mazapan"203),
+(10, "mazapan", 20),
 (11, "oblea",5),
 (12, "oblea",10),
 (13, "oblea",20),
@@ -84,53 +84,41 @@ COMMIT;
 
 -- id, level, nombre
 SET AUTOCOMMIT=0;
-INSERT INTO loot_table VALUES(1,1, "Calaverita 1"),
-(2,1, "Calaverita 2"),
-(3,1, "Calaverita 3"),
-(4,1, "Momia 1"),
-(5,1, "Momia 2"),
-(6,1, "Momia 3"),
-(7,1, "Rata 1"),
-(8,1, "Rata 2"),
-(9,1, "Rata 3");
+INSERT INTO loot_table VALUES(2,2, "Calaverita"),
+(3,2, "Momia"),
+(4,4, "Rata");
 COMMIT;
 
 -- id, loot_id, loot_table_id, amount
 SET AUTOCOMMIT=0;
-INSERT INTO loot_mtm VALUES(1,8,1,50),
--- calaverita 2
-(2, 9, 2, 60),
-(2, 3, 2, 60),
+INSERT INTO loot_mtm VALUES
+-- calaverita
+(1, 1, 2, 100),
+(2, 8, 2, 50),
+(3, 9, 2, 60),
+(4, 3, 2, 60),
+(5, 10, 2, 70),
+(6, 4, 2, 70),
+(7, 13, 2, 70),
 
--- calaverita 3
-(2, 10, 3, 70),
-(2, 4, 3, 70),
-(2, 13, 3, 70),
+-- momia
+(8, 1, 3, 100),
+(9, 8, 3, 50),
+(10, 2, 3, 50),
+(11, 9, 3, 60),
+(12, 3, 3, 60),
+(13, 11, 3, 60),
+(14, 10, 3, 70),
+(15, 4, 3, 70),
+(16, 8, 3, 70),
+(17, 13, 3, 70),
 
--- momia 1
-(2, 8, 4, 50),
-(2, 2, 4, 50),
-
--- momia 2
-(2, 9, 5, 60),
-(2, 3, 5, 60),
-(2, 11, 5, 60),
-
--- momia 3
-(2, 10, 6, 70),
-(2, 4, 6, 70),
-(2, 8, 6, 70),
-(2, 13, 6, 70),
-
--- rata 1
-(2, 14, 6, 80),
-
--- rata 2
-(2, 15, 6, 90),
-(2, 18, 6, 90),
-
--- rata 3
-(2, 16, 6, 100),
-(2, 19, 6, 100),
-(2, 11, 6, 100),
+-- rata
+(18, 1, 4, 100),
+(19, 14, 4, 80),
+(20, 15, 4, 90),
+(21, 18, 4, 90),
+(22, 16, 4, 100),
+(23, 19, 4, 100),
+(24, 11, 4, 100);
 COMMIT;

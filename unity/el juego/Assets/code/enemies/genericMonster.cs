@@ -33,9 +33,11 @@ public abstract class genericMonster : MonoBehaviour
     public MonsterTargetingType monsterTargetMethod;
 
     public int damage;
+    private bool recently_hit;
 
     [Header("Loot references")]
     public GameObject lootPrefab;
+    public GameObject coinPrefab;
     public int id;
 
     [Header("End of genericMonster")]
@@ -43,7 +45,7 @@ public abstract class genericMonster : MonoBehaviour
     
     // get rb reference from self on start
     protected void StartMonster() {
-
+        recently_hit = false;
         active = true;
         rb = gameObject.GetComponent<Rigidbody2D>();
 
@@ -102,21 +104,25 @@ public abstract class genericMonster : MonoBehaviour
     }
 
     IEnumerator dropLoot(List<buff> dropItems){
-
         yield return new WaitForEndOfFrame();
         foreach (var dropItem in dropItems)
         {
-            var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
-            item.GetComponent<lootItem>().StartAndAttach(dropItem);
+            if (dropItem.type == buffTypes.coin)
+            {
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+                item.GetComponent<lootItem>().StartAndAttach(dropItem);
+            }
         }
-
-        // testing each drop item
 
         yield return new WaitForSeconds(1);
     }
- 
+
     //Gets which drop should be given
-    IEnumerator QueryData(string EP)
+    IEnumerator GetLootList(string EP)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
         {
@@ -141,33 +147,34 @@ public abstract class genericMonster : MonoBehaviour
         var dropItems = new List<buff>();
         foreach (var drop in list)
         {
-            Debug.Log(drop.name);
             if (drop.probability < Random.Range(0, 100)){
-                continue;
-            }
-            switch (drop.name)
-            {
-                case "elote":
-                    dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 100, 10f));
-                    break;
-                case "pan de muerto":
-                    dropItems.Add(new buff(buffTypes.speed, drop.modifier / 100, 10f));
-                    break;
-                case "mazapan":
-                    dropItems.Add(new buff(buffTypes.attackSpeed, drop.modifier / 100, 10f));
-                    break;
-                case "oblea":
-                    dropItems.Add(new buff(buffTypes.dash, drop.modifier / 100, 10f));
-                    break;
-                case "Borrachito":
-                    dropItems.Add(new buff(buffTypes.damage, drop.modifier / 100, 10f));
-                    break;
-                case "concha":
-                    dropItems.Add(new buff(buffTypes.health, drop.modifier / 100, 10f));
-                    break;
+               switch (drop.name)
+                {
+                    case "elote":
+                        dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 10, 10f));
+                        break;
+                    case "pan de muerto":
+                        dropItems.Add(new buff(buffTypes.speed, drop.modifier / 10, 10f));
+                        break;
+                    case "mazapan":
+                        dropItems.Add(new buff(buffTypes.damage, drop.modifier / 10, 10f));
+                        break;
+                    case "oblea":
+                        dropItems.Add(new buff(buffTypes.dash, drop.modifier / 10, 10f));
+                        break;
+                    case "Borrachito":
+                        dropItems.Add(new buff(buffTypes.jump, drop.modifier / 10, 10f));
+                        break;
+                    case "concha":
+                        dropItems.Add(new buff(buffTypes.health, drop.modifier / 10, 10f));
+                        break;
+                    case "coin":
+                        dropItems.Add(new buff(buffTypes.coin, drop.modifier, 10f));
+                        break;
+                }
             }
         }
-        dropLoot(dropItems);
+        StartCoroutine(dropLoot(dropItems));
     }
 
     /// <summary>
@@ -177,13 +184,12 @@ public abstract class genericMonster : MonoBehaviour
     private void killSelf(){
         alive = false;
         //Calls loot
-        QueryData("loot/" + id);
+        StartCoroutine(GetLootList("loot/" + id));
         var rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false;
         var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
-        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
         StartCoroutine(dieDelay());
     }
 
@@ -207,12 +213,19 @@ public abstract class genericMonster : MonoBehaviour
         color.color = new Color(255, 255, 255, 255);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && alive)
+        if (!recently_hit && collision.gameObject.tag == "Player" && alive)
         {
             HealthManager.healthSingleton.receiveDamage(damage);
+            recently_hit = true;
+            StartCoroutine(waiter(1f));
         }
+    }
+
+    IEnumerator waiter(float time) {
+        yield return new WaitForSeconds(time);
+        recently_hit = false;
     }
 
     // private void OnCollisionEnter2D(Collision2D other) 

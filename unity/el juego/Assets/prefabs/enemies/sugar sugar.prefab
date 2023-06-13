@@ -226,8 +226,10 @@ MonoBehaviour:
   jumpForce: 5
   waitTime: {x: 5, y: 10}
   monsterTargetMethod: 0
-  damage: 1
+  damage: 5
   lootPrefab: {fileID: 6803901021863575671, guid: 156296e30f4aa87c4a2f9f9f6e225134, type: 3}
+  coinPrefab: {fileID: 635767273146167135, guid: 53c1df9981a949445928fec34d1df060, type: 3}
+  id: 2
   invertAnimation: 1
   distance: 20
   player: {fileID: 0}
