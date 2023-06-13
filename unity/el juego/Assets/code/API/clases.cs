@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class info
 {
-    public static string url = "localhost:5000/api/";
+    public static string url = "http://localhost:5000/api/";
 }
 
 [System.Serializable]

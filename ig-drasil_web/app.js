@@ -13,6 +13,7 @@ import * as weapons from './endpointWeapons.js'
 import * as views from './endpointVistas.js'
 
 const app = express()
+const hostname = '127.0.0.1'
 const port = 5000
 
 app.use(express.json())
@@ -21,7 +22,7 @@ app.use(express.static('./public'))
 async function connectToDB()
 {
     return await mysql.createConnection({
-        host:'172.24.208.1',
+        host:'172.18.240.1',
         user:'requester',
         password:'Arbolitos',
         database:'game'
@@ -39,7 +40,7 @@ playthroughs.addEndpoints(app, conn);
 weapons.addEndpoints(app, conn);
 views.addEndpoints(app, conn);
 
-app.listen(port, ()=>
+app.listen(port, hostname, ()=>
 {
-    console.log(`App listening at http://localhost:${port}`)
+    console.log(`App listening at http://${hostname}:${port}`)
 })

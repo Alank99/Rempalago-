@@ -106,20 +106,13 @@ public class playerController : MonoBehaviour
         }
     }
 
-    // no puedes usar un collision 2d!!! necesitas tener un collider2d para un trigger. El collider es cuando no es trigger
-    // private void OnTriggerEnter2D(Collision2D col) {
-    //     if(col.gameObject.tag == "cheackpoint"){
-    //         saveGame();
-    //     }
-    // }
-
     /// <summary>
     /// Se ejecuta cuando se presiona el botón de Dodge y se regenera al tocar el piso
     /// </summary>
     /// <param name="value"></param>
     public void OnDoge(){
         if (has_dash == 0) return;
-        Vector2 force = new Vector2(0, 0);
+        Vector2 force = new Vector2(0, 0.3f);
         //Checa si toco el piso antes del dash
         if (hasDash){
             if (moving_left == 0 && playerRB.velocity.x != 0)

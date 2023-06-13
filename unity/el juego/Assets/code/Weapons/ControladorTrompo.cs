@@ -20,12 +20,12 @@ public class ControladorTrompo : FatherWeapon
     [SerializeField] float chargepersec;
     [Tooltip("Tiempo entre que el jugador recoge el trompo y lo puede volver a aventar")]
     [SerializeField] float pickupDelay;
-    [Tooltip("El daño maximo que podria hacer un trompo, por su tipo")]
     private int max_damage;
 
     private bool shot = false;
     private float startTime = 0.0f;
     private float startDelay;
+    private bool pickupable;
     private GameObject nuevoTrompo;
 
     [Tooltip("Renderer de la barra de carga")]
@@ -62,16 +62,24 @@ public class ControladorTrompo : FatherWeapon
             Vector3 initalPosition;
 
             shot = true;
+            pickupable = false;
             
             initalPosition = posicionInicial.position;
             initalPosition.x += Mathf.Sign(shootDirection.x);
 
             nuevoTrompo = Instantiate(trompo, initalPosition, Quaternion.identity);
-            nuevoTrompo.GetComponent<Rigidbody2D>().velocity = shootDirection * speed;
+            nuevoTrompo.GetComponent<Rigidbody2D>().velocity = shootDirection * speed * 2f;
             nuevoTrompo.GetComponent<Rigidbody2D>().velocity += player.GetComponent<Rigidbody2D>().velocity;
             
             //Calcular daño inicial
             nuevoTrompo.GetComponent<Trompo>().setSpinSpeed(speed, max_damage);
+            StartCoroutine(prevent_pickup(0.5f));
+    }
+
+    IEnumerator prevent_pickup(float time)
+    {
+        yield return new WaitForSeconds(time);
+        pickupable = true;
     }
 
     /// <summary>
@@ -79,8 +87,7 @@ public class ControladorTrompo : FatherWeapon
     /// </summary>
     public void pickup()
     {
-        if (Mathf.Abs(nuevoTrompo.transform.position.x - player.transform.position.x) < 3 
-        &&  Mathf.Abs(nuevoTrompo.transform.position.y - player.transform.position.y) < 3)
+        if (pickupable)
         {
             shot = false;
             Destroy(nuevoTrompo);

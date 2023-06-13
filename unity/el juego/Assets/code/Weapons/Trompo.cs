@@ -8,11 +8,11 @@ public class Trompo : MonoBehaviour
     [Header("Spin y Daño del trompo")]
     [Tooltip("Cuanto giro pierde el trompo cuando un enemigo entra en contacto con él")]
     [SerializeField] float SpinLoss;
-    [Tooltip("Multiplicador de daño la velocidad del trompo con su giro")]
-    [SerializeField] float SpinMult;
+    private float SpinMult = 0.5f;
     [Tooltip("Tiempo que tarda en reducirse el giro del trompo")]
     [SerializeField] float slowdown;
 
+    public ControladorTrompo Player;
     [SerializeField] HealthManager manager;
 
     public int MaxDamage;
@@ -38,7 +38,13 @@ public class Trompo : MonoBehaviour
         {
             this.GetComponent<Rigidbody2D>().freezeRotation = false;
             png.GetComponent<Animator>().SetBool("Spin", false);
+            StartCoroutine(reset_stuck(10f));
         }
+    }
+
+    IEnumerator reset_stuck(float time) {
+        yield return new WaitForSeconds(time);
+        Player.pickup();
     }
 
     /// <summary>
@@ -46,13 +52,10 @@ public class Trompo : MonoBehaviour
     /// </summary>
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (SpinSpeed > 0 && col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy")
         {
-            SpinSpeed -= SpinLoss;
-            try {
             col.gameObject.GetComponent<genericMonster>().takeDamage((int)(SpinSpeed * MaxDamage));
-            }
-            catch{}
+            SpinSpeed -= SpinLoss;
         }
     }
 
@@ -62,6 +65,6 @@ public class Trompo : MonoBehaviour
     public void setSpinSpeed(float speed, int max_damage)
     {
         SpinSpeed = speed * SpinMult;
-        MaxDamage = Mathf.RoundToInt(max_damage * manager.player_info.attack);
+        MaxDamage = Mathf.RoundToInt(max_damage + manager.player_info.attack);
     }
 }

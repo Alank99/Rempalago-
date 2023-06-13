@@ -599,7 +599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Return to menu
+  m_text: volver a menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: Opciones
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
@@ -2220,7 +2220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options menu
+  m_text: Opciones
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
@@ -2893,7 +2893,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3402,7 +3402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options menu
+  m_text: Opciones
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
@@ -4051,7 +4051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Live the dream
+  m_text: Iniciar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
@@ -4434,7 +4434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Salir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}
   m_sharedMaterial: {fileID: 1507236781177909109, guid: 8d8dfc88d4393df4493b8efb729e8107, type: 2}

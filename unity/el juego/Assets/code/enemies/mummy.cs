@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class mummy : genericMonster
 {
-
     public float distance;
     
     public GameObject player;
@@ -25,7 +24,8 @@ public class mummy : genericMonster
     public void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
-        damage = 10;
+        damage = 20;
+        salud = 6;
     }
 
     public override void monsterHasActivated()
