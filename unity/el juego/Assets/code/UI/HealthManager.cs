@@ -127,6 +127,8 @@ public class HealthManager : MonoBehaviour
         GetComponent<playerController>().enabled = false;
         GetComponent<Rigidbody2D>().simulated = false;
 
+        cam.Follow = transform;
+
         var initialSize = cam.m_Lens.OrthographicSize;
         var initialDutch = cam.m_Lens.Dutch;
 
