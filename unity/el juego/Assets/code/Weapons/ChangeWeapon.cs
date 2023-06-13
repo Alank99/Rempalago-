@@ -105,18 +105,13 @@ public class ChangeWeapon : MonoBehaviour
                 weapons.list[past_weapon].activa = false;
         }
 
-        switch (actual)
-        {
-            case 0:
-                arma.sprite = ImgEspada;
-                break;
-            case 1:
-                arma.sprite = ImgBalero;
-                break;
-            case 2:
-                arma.sprite = ImgTrompo;
-                break;
-        }
+        if (weapons.list[actual] == object_espada)
+            arma.sprite = ImgEspada;
+        else if (weapons.list[actual] == object_balero)
+            arma.sprite = ImgBalero;
+        else if (weapons.list[actual] == object_trompo)
+            arma.sprite = ImgTrompo;
+
         lastUpdate = Time.time;
     }
 }
