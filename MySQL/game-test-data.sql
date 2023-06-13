@@ -61,35 +61,76 @@ COMMIT;
 
 -- id,name,modifier
 SET AUTOCOMMIT=0;
-INSERT INTO loot VALUES(1, "coin",3),
-(2, "dulce",2),
-(3, "quitapena",3);
+INSERT INTO loot VALUES(1, "coin",1),
+(2, "elote", 5),
+(3, "elote", 10),
+(4, "elote", 20),
+(5, "pan de muerto", 5),
+(6, "pan de muerto", 10),
+(7, "pan de muerto", 20),
+(8, "mazapan",5),
+(9, "mazapan",10),
+(10, "mazapan"203),
+(11, "oblea",5),
+(12, "oblea",10),
+(13, "oblea",20),
+(14, "Borrachito",5),
+(15, "Borrachito",10),
+(16, "Borrachito",20),
+(17, "concha",5),
+(18, "concha",10),
+(19, "concha",20);
 COMMIT;
 
--- id, level
+-- id, level, nombre
 SET AUTOCOMMIT=0;
-INSERT INTO loot_table VALUES(1,2),
-(2,1),
-(3,2),
-(4,4),
-(5,3),
-(6,2),
-(7,1),
-(8,4),
-(9,3),
-(10,1);
+INSERT INTO loot_table VALUES(1,1, "Calaverita 1"),
+(2,1, "Calaverita 2"),
+(3,1, "Calaverita 3"),
+(4,1, "Momia 1"),
+(5,1, "Momia 2"),
+(6,1, "Momia 3"),
+(7,1, "Rata 1"),
+(8,1, "Rata 2"),
+(9,1, "Rata 3");
 COMMIT;
 
--- id, loot_id, loot_table_id, ammount
+-- id, loot_id, loot_table_id, amount
 SET AUTOCOMMIT=0;
-INSERT INTO loot_mtm VALUES(1,1,1,4),
-(2,2,2,4),
-(3,3,3,7),
-(4,1,4,5),
-(5,2,5,2),
-(6,2,6,9),
-(7,3,7,10),
-(8,3,8,2),
-(9,2,9,3),
-(10,1,10,18);
+INSERT INTO loot_mtm VALUES(1,8,1,50),
+-- calaverita 2
+(2, 9, 2, 60),
+(2, 3, 2, 60),
+
+-- calaverita 3
+(2, 10, 3, 70),
+(2, 4, 3, 70),
+(2, 13, 3, 70),
+
+-- momia 1
+(2, 8, 4, 50),
+(2, 2, 4, 50),
+
+-- momia 2
+(2, 9, 5, 60),
+(2, 3, 5, 60),
+(2, 11, 5, 60),
+
+-- momia 3
+(2, 10, 6, 70),
+(2, 4, 6, 70),
+(2, 8, 6, 70),
+(2, 13, 6, 70),
+
+-- rata 1
+(2, 14, 6, 80),
+
+-- rata 2
+(2, 15, 6, 90),
+(2, 18, 6, 90),
+
+-- rata 3
+(2, 16, 6, 100),
+(2, 19, 6, 100),
+(2, 11, 6, 100),
 COMMIT;

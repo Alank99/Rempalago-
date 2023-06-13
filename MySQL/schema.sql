@@ -1,4 +1,3 @@
--- Active: 1681846904940@@127.0.0.1@3306@owo
 
 DROP SCHEMA IF EXISTS game;
 CREATE SCHEMA game;
@@ -39,6 +38,7 @@ CREATE TABLE `loot_MTM` (
 CREATE TABLE `loot_table` (
   `id` int NOT NULL AUTO_INCREMENT,
   `level` int NOT NULL,
+  `human_tag` VARCHAR(20),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

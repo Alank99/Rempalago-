@@ -13,6 +13,9 @@ public class Trompo : MonoBehaviour
     [Tooltip("Tiempo que tarda en reducirse el giro del trompo")]
     [SerializeField] float slowdown;
 
+    public ControladorTrompo Player;
+    [SerializeField] HealthManager manager;
+
     public int MaxDamage;
 
     private float SpinSpeed;
@@ -36,7 +39,13 @@ public class Trompo : MonoBehaviour
         {
             this.GetComponent<Rigidbody2D>().freezeRotation = false;
             png.GetComponent<Animator>().SetBool("Spin", false);
+            reset_stuck(10f);
         }
+    }
+
+    IEnumerator reset_stuck(float time) {
+        yield return new WaitForSeconds(time);
+        Player.pickup();
     }
 
     /// <summary>
@@ -60,6 +69,6 @@ public class Trompo : MonoBehaviour
     public void setSpinSpeed(float speed, int max_damage)
     {
         SpinSpeed = speed * SpinMult;
-        MaxDamage = max_damage;
+        MaxDamage = Mathf.RoundToInt(max_damage * manager.player_info.attack);
     }
 }

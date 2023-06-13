@@ -18,7 +18,8 @@ public class rainBullets : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
     [SerializeField] float delay;
-    [SerializeField] float limit;
+    [SerializeField] float limit_a;
+    [SerializeField] float limit_b;
 
     // Start is called before the first frame update
     void Start()
@@ -32,16 +33,17 @@ public class rainBullets : MonoBehaviour
         // Cancel the repeated call of the function, so the bullets stop falling
         CancelInvoke("CreateBullet");
     }
-
+ 
+ /*
     public void SetLimit(float playerPosition)
     {
         limit = playerPosition + 1;
     }
-
+*/
     void CreateBullet()
     {
         // Generate a random position in X and over the view of the camera
-        Vector3 newPos = new Vector3(Random.Range(-limit, limit), 6.5f, 0);
+        Vector3 newPos = new Vector3(Random.Range(limit_a, limit_b), 6.5f, 0);
 
         // Create a copy of the bullet prefab
         Instantiate(bullet, newPos, Quaternion.identity);

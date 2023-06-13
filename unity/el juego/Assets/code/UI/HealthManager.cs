@@ -34,11 +34,12 @@ public class HealthManager : MonoBehaviour
     {
         startTime = Time.time;
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
-        if (PlayerPrefs.GetInt("ilumination") == 1)
+        if (PlayerPrefs.GetInt("ilumination") != 1)
             iluminacion.SetActive(true);
         else
         {
-            this.GetComponentInChildren<Light2D>().intensity = 2f;
+            this.GetComponentInChildren<Light2D>().intensity = 1f;
+            this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 30f;
             iluminacion.SetActive(false);
         }
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
@@ -160,20 +161,31 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     private void save_info()
     {
-        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
+        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
         health = player_info.health;
         MaxHealth = player_info.health;
-        CoinCounter.instance.currentCoins = player_info.money;
+        CoinCounter.instance.currentCoins = player_info.money;        
         this.GetComponent<playerController>().maxSpeedX = player_info.speed;
         change.set_damage(player_info.espada, 0);
         change.set_damage(player_info.balero, 1);
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
+        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
+    }
+
+    public void update_attack(float newattack)
+    {
+        player_info.attack = newattack;
+    }
+
+    public void update_speed(float newspeed)
+    {
+        player_info.speed = newspeed;
+        this.GetComponent<playerController>().maxSpeedX = player_info.speed;
     }
 
     public void update_weapon(int weapon_id, int type)
     {
-        
         change.set_damage(weapon_id, type);
         if (type == 0)
             player_info.espada = weapon_id;
@@ -209,7 +221,7 @@ public class HealthManager : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Guardado exitoso");
+                Debug.Log("Guardado exitoso player");
             }
             else
             {
@@ -231,7 +243,7 @@ public class HealthManager : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Guardado exitoso");
+                Debug.Log("Guardado exitoso playthrough");
             }
             else
             {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public abstract class genericMonster : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public abstract class genericMonster : MonoBehaviour
     /// <value></value>
     public bool active { get; private set; } = false;
 
-    public int salud { get; private set; } //salud del mostro
+    public int salud { get; set; } //salud del mostro
 
     public MonsterTargetingType monsterTargetMethod;
 
@@ -35,6 +36,7 @@ public abstract class genericMonster : MonoBehaviour
 
     [Header("Loot references")]
     public GameObject lootPrefab;
+    public int id;
 
     [Header("End of genericMonster")]
     public bool invertAnimation = false;
@@ -99,15 +101,7 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
-    IEnumerator dropLoot(){
-        // TODO agregar aquí lo que se supone que se debe dropear de la base de datos
-
-        var dropItems = new List<buff>();
-
-        dropItems.Add(new buff(buffTypes.speed, 0.2f, 10f));
-        dropItems.Add(new buff(buffTypes.health, 3f, 10f));
-        dropItems.Add(new buff(buffTypes.jump, 0.2f, 10f));
-        dropItems.Add(new buff(buffTypes.maxSpeed, 1f, 10f));
+    IEnumerator dropLoot(List<buff> dropItems){
 
         yield return new WaitForEndOfFrame();
         foreach (var dropItem in dropItems)
@@ -120,6 +114,61 @@ public abstract class genericMonster : MonoBehaviour
 
         yield return new WaitForSeconds(1);
     }
+ 
+    //Gets which drop should be given
+    IEnumerator QueryData(string EP)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(info.url + EP))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success) {
+                //Debug.Log("Response: " + www.downloadHandler.text);
+                // Compose the response to look like the object we want to extract
+                // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
+                string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
+                getdrops(JsonUtility.FromJson<loot_dbList>(jsonString).list);
+
+            }
+            else {
+                Debug.Log("Error: " + www.error);
+            }
+        }
+    }
+
+    void getdrops(List<loot_db> list)
+    {
+        var dropItems = new List<buff>();
+        foreach (var drop in list)
+        {
+            Debug.Log(drop.name);
+            if (drop.probability < Random.Range(0, 100)){
+                continue;
+            }
+            switch (drop.name)
+            {
+                case "elote":
+                    dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 100, 10f));
+                    break;
+                case "pan de muerto":
+                    dropItems.Add(new buff(buffTypes.speed, drop.modifier / 100, 10f));
+                    break;
+                case "mazapan":
+                    dropItems.Add(new buff(buffTypes.attackSpeed, drop.modifier / 100, 10f));
+                    break;
+                case "oblea":
+                    dropItems.Add(new buff(buffTypes.dash, drop.modifier / 100, 10f));
+                    break;
+                case "Borrachito":
+                    dropItems.Add(new buff(buffTypes.damage, drop.modifier / 100, 10f));
+                    break;
+                case "concha":
+                    dropItems.Add(new buff(buffTypes.health, drop.modifier / 100, 10f));
+                    break;
+            }
+        }
+        dropLoot(dropItems);
+    }
 
     /// <summary>
     /// Kills the monster
@@ -127,12 +176,14 @@ public abstract class genericMonster : MonoBehaviour
     /// </summary>
     private void killSelf(){
         alive = false;
-        StartCoroutine(dropLoot());
+        //Calls loot
+        QueryData("loot/" + id);
         var rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false;
         var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
         StartCoroutine(dieDelay());
     }
 
@@ -143,10 +194,17 @@ public abstract class genericMonster : MonoBehaviour
 
     public void takeDamage(int damage){
         salud -= damage;
-
+        SpriteRenderer sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sprite.color = Color.red;
+        StartCoroutine(colorChange(sprite, 0.2f));
         if (salud <= 0){
             killSelf();
         }
+    }
+
+    IEnumerator colorChange(SpriteRenderer color, float time) {
+        yield return new WaitForSeconds(time);
+        color.color = new Color(255, 255, 255, 255);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
