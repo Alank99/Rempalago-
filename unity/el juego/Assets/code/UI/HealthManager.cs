@@ -161,7 +161,7 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     private void save_info()
     {
-        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
+        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
         health = player_info.health;
         MaxHealth = player_info.health;
         CoinCounter.instance.currentCoins = player_info.money;        
@@ -170,6 +170,7 @@ public class HealthManager : MonoBehaviour
         change.set_damage(player_info.balero, 1);
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
+        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
     }
 
     public void update_attack(float newattack)
@@ -220,7 +221,7 @@ public class HealthManager : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Guardado exitoso");
+                Debug.Log("Guardado exitoso player");
             }
             else
             {
@@ -242,7 +243,7 @@ public class HealthManager : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("Guardado exitoso");
+                Debug.Log("Guardado exitoso playthrough");
             }
             else
             {

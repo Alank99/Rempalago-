@@ -84,7 +84,7 @@ public class InfoTienda : MonoBehaviour
 
     private bool try_buy(int precio)
     {
-        if (CoinCounter.instance.currentCoins > precio)
+        if (CoinCounter.instance.currentCoins >= precio)
         {
             CoinCounter.instance.IncreaseCoins(precio * -1);
             return true;

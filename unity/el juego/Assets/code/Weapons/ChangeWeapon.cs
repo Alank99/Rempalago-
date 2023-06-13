@@ -96,6 +96,7 @@ public class ChangeWeapon : MonoBehaviour
         }
         else if (direction.y < 0)
         {
+            past_weapon = actual;
             actual--;
             if (actual == -1)
                 actual = weapons.list.Count - 1;

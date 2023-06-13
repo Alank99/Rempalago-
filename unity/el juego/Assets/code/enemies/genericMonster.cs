@@ -127,7 +127,7 @@ public abstract class genericMonster : MonoBehaviour
                 // Compose the response to look like the object we want to extract
                 // https://answers.unity.com/questions/1503047/json-must-represent-an-object-type.html
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
-                getdrops(JsonUtility.FromJson<loot_dbList>(jsonString));
+                getdrops(JsonUtility.FromJson<loot_dbList>(jsonString).list);
 
             }
             else {
@@ -136,11 +136,15 @@ public abstract class genericMonster : MonoBehaviour
         }
     }
 
-    void getdrops(loot_dbList list)
+    void getdrops(List<loot_db> list)
     {
         var dropItems = new List<buff>();
-        foreach (var drop in list.list)
+        foreach (var drop in list)
         {
+            Debug.Log(drop.name);
+            if (drop.probability < Random.Range(0, 100)){
+                continue;
+            }
             switch (drop.name)
             {
                 case "elote":
@@ -163,6 +167,7 @@ public abstract class genericMonster : MonoBehaviour
                     break;
             }
         }
+        dropLoot(dropItems);
     }
 
     /// <summary>
@@ -178,6 +183,7 @@ public abstract class genericMonster : MonoBehaviour
         var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.red;
         StartCoroutine(dieDelay());
     }
 
@@ -188,10 +194,17 @@ public abstract class genericMonster : MonoBehaviour
 
     public void takeDamage(int damage){
         salud -= damage;
-
+        SpriteRenderer sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        sprite.color = Color.red;
+        StartCoroutine(colorChange(sprite, 0.2f));
         if (salud <= 0){
             killSelf();
         }
+    }
+
+    IEnumerator colorChange(SpriteRenderer color, float time) {
+        yield return new WaitForSeconds(time);
+        color.color = new Color(255, 255, 255, 255);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
