@@ -21,6 +21,7 @@ public class HealthManager : MonoBehaviour
     public ChangeWeapon change;
     private float startTime;
     public GameObject iluminacion;
+    public Cinemachine.CinemachineVirtualCamera cam;
 
     public Volume postProcessingVolume;
     public FilmGrain FuckedUpMeter;
@@ -115,13 +116,42 @@ public class HealthManager : MonoBehaviour
         isInMidOfAnim = false;
     }
 
+    IEnumerator getDed(){
+        
+        GetComponent<playerController>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+
+        var initialSize = cam.m_Lens.OrthographicSize;
+        var initialDutch = cam.m_Lens.Dutch;
+
+        var finalSize = 2f;
+        var finalDutch = -17f;
+
+        var initialTime = Time.time;
+
+        var executionSeconds = 1f;
+
+        var executionPercentage = 0f;
+
+        while (executionPercentage < 1f){
+            yield return new WaitForEndOfFrame();
+
+            cam.m_Lens.OrthographicSize = Mathf.Lerp(initialSize, finalSize, executionPercentage);
+            cam.m_Lens.Dutch = Mathf.Lerp(initialDutch, finalDutch, executionPercentage);
+
+            executionPercentage = (Time.time - initialTime) / executionSeconds;
+        }
+
+        SceneManager.LoadScene("DeadScreen"); 
+    }
+
     public void receiveDamage(int damage){
         health -= damage;
         updateVisualStuff();
 
         if (health <= 0)
         {
-            SceneManager.LoadScene("DeadScreen"); // TODO: Osvald cambiar a la escena de muerte
+            StartCoroutine(getDed());
         }
 
         StartCoroutine(takeDamageAnim(damage));
