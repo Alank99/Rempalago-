@@ -37,6 +37,7 @@ public abstract class genericMonster : MonoBehaviour
 
     [Header("Loot references")]
     public GameObject lootPrefab;
+    public GameObject coinPrefab;
     public int id;
 
     [Header("End of genericMonster")]
@@ -106,8 +107,15 @@ public abstract class genericMonster : MonoBehaviour
         yield return new WaitForEndOfFrame();
         foreach (var dropItem in dropItems)
         {
-            var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
-            item.GetComponent<lootItem>().StartAndAttach(dropItem);
+            if (dropItem.type == buffTypes.coin)
+            {
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                var item = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+                item.GetComponent<lootItem>().StartAndAttach(dropItem);
+            }
         }
 
         yield return new WaitForSeconds(1);
@@ -143,22 +151,25 @@ public abstract class genericMonster : MonoBehaviour
                switch (drop.name)
                 {
                     case "elote":
-                        dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 10, 10f));
                         break;
                     case "pan de muerto":
-                        dropItems.Add(new buff(buffTypes.speed, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.speed, drop.modifier / 10, 10f));
                         break;
                     case "mazapan":
-                        dropItems.Add(new buff(buffTypes.attackSpeed, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.damage, drop.modifier / 10, 10f));
                         break;
                     case "oblea":
-                        dropItems.Add(new buff(buffTypes.dash, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.dash, drop.modifier / 10, 10f));
                         break;
                     case "Borrachito":
-                        dropItems.Add(new buff(buffTypes.damage, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.jump, drop.modifier / 10, 10f));
                         break;
                     case "concha":
-                        dropItems.Add(new buff(buffTypes.health, drop.modifier / 100, 10f));
+                        dropItems.Add(new buff(buffTypes.health, drop.modifier / 10, 10f));
+                        break;
+                    case "coin":
+                        dropItems.Add(new buff(buffTypes.coin, drop.modifier, 10f));
                         break;
                 }
             }

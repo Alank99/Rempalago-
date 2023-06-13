@@ -21,6 +21,7 @@ public class HealthManager : MonoBehaviour
     public ChangeWeapon change;
     private float startTime;
     public GameObject iluminacion;
+    public GameObject decoracion;
     public Cinemachine.CinemachineVirtualCamera cam;
 
     public Volume postProcessingVolume;
@@ -43,6 +44,11 @@ public class HealthManager : MonoBehaviour
             this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 30f;
             iluminacion.SetActive(false);
         }
+        if (PlayerPrefs.GetInt("decoration") != 1)
+            decoracion.SetActive(true);
+        else
+            decoracion.SetActive(false);
+
         StartCoroutine(QueryData("player/stats/" + PlayerPrefs.GetInt("player_id", 2)));
         if (healthSingleton == null){
             healthSingleton = this;

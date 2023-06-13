@@ -62,16 +62,18 @@ public class playerController : MonoBehaviour
     public float buffJump = 1f;
     public float buffAttackDamage = 1f;
     public float buffMaxSpeed = 0f;
-    public float buffDash = 0f;
+    public float buffDash = 1f;
     public float buffAttackSpeed = 0f;
 
     public List<buff> buffs = new List<buff>();
 
     public static playerController playerSingleton;
+    public static HealthManager manager;
 
     private void Start() {
         if (playerSingleton == null){
             playerSingleton = this;
+            manager = this.GetComponent<HealthManager>();
         }else{
             Destroy(gameObject);
             return;
@@ -116,9 +118,9 @@ public class playerController : MonoBehaviour
         //Checa si toco el piso antes del dash
         if (hasDash){
             if (moving_left == 0 && playerRB.velocity.x != 0)
-                force.x = dashForce.x;
+                force.x = dashForce.x * buffDash;
             else if (moving_left == 1 && playerRB.velocity.x != 0)
-                force.x = -dashForce.x;
+                force.x = -dashForce.x * buffDash;
 
             //Checa si hay algo en la direccion de la fuerza
             RaycastHit2D hit = Physics2D.Raycast(transform.position, force, Mathf.Abs(force.x), LayerMask.GetMask("Ground"));
@@ -320,6 +322,7 @@ public class buff {
             case buffTypes.damage:
                 if (playerController.playerSingleton.buffAttackDamage < 5f){
                     playerController.playerSingleton.buffAttackDamage += value;
+                    playerController.manager.player_info.attack *= playerController.playerSingleton.buffAttackDamage;
                     buffApplied = true;
                 }
                 break;
@@ -364,6 +367,7 @@ public class buff {
                 playerController.playerSingleton.buffDash -= value;
                 break;
             case buffTypes.damage:
+                playerController.manager.player_info.attack /= playerController.playerSingleton.buffAttackDamage;
                 playerController.playerSingleton.buffAttackDamage -= value;
                 break;
             case buffTypes.attackSpeed:
@@ -390,5 +394,6 @@ public enum buffTypes {
     dash = 20,
     damage = 30,
     attackSpeed = 40,
-    health = 50
+    health = 50,
+    coin = 1
 }
