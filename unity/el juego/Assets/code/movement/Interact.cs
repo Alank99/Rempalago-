@@ -19,9 +19,15 @@ public class Interact : MonoBehaviour
     [Header("NPCS")]
     [SerializeField] Sprite ajolote;
     [SerializeField] Sprite alex;
+    [SerializeField] Sprite Cami;
 
     [Header("Interact")]
     [SerializeField] GameObject note1;
+    [SerializeField] GameObject cartel1;
+    [SerializeField] GameObject sobre1;
+    [SerializeField] GameObject cartel2;
+    [SerializeField] GameObject cami;
+    [SerializeField] GameObject peligro;
 
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
@@ -99,10 +105,57 @@ public class Interact : MonoBehaviour
             StartCoroutine(Waiter(dialog_box));
         }
 
+        //Objetos interactivos
         if (Vector3.Distance(transform.position, note1.transform.position) < distance_from_player)
         {
             note1.SetActive(false);
             text_dialog.text = note1.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, sobre1.transform.position) < distance_from_player)
+        {
+            sobre1.SetActive(false);
+            text_dialog.text = sobre1.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, cartel1.transform.position) < distance_from_player)
+        {
+            text_dialog.text = cartel1.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, cartel2.transform.position) < distance_from_player)
+        {
+            text_dialog.text = cartel2.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, cami.transform.position) < distance_from_player)
+        {
+            text_dialog.text = cami.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Cami";
+            dialog_image.sprite = Cami;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, peligro.transform.position) < distance_from_player)
+        {
+            text_dialog.text = peligro.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Alex";
             dialog_image.sprite = alex;
             dialog_box.SetActive(true);
