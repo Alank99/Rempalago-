@@ -83,6 +83,14 @@
   --bs-highlight-bg: #faf4e0;
 }
 
+
+/*canvas*/
+canvas{
+  flex-grow: 1;
+  max-width: 30%; 
+  max-height: 600px;
+}
+
 *,
 *::before,
 *::after {
