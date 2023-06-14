@@ -17,7 +17,6 @@ public class charroHand : MonoBehaviour
     void Tirar_dado()
     {
         dado = Random.Range(0, 3); 
-        dado = 1;
         Coroutine();
     }
 
@@ -33,7 +32,7 @@ public class charroHand : MonoBehaviour
                 StartCoroutine(Update_pat1(new int[] { 0, 2, 0}));
                 break;
             case 2:
-                StartCoroutine(Update_pat1(new int[] { 0, 3, 1, 0}));
+                StartCoroutine(Update_pat1(new int[] { 0, 2, 1, 0}));
                 break;
         }
     }
@@ -52,8 +51,8 @@ public class charroHand : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, patrolPoints[i].position, moveSpeed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
+            
         }
-        Debug.Log("DONE");
         
         Tirar_dado();
         
