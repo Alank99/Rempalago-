@@ -152,3 +152,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPoints: []
   moveSpeed: 10
+  d_away: 1

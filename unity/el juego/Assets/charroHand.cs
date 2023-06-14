@@ -26,13 +26,13 @@ public class charroHand : MonoBehaviour
         switch (dado)
         {
             case 0:
-                StartCoroutine(Update_pat1(new int[] { 0, 1, 0}));
+                StartCoroutine(Update_pat1(new int[] { 0, 1, 0})); //funciona
                 break;
             case 1:
-                StartCoroutine(Update_pat1(new int[] { 0, 2, 0}));
+                StartCoroutine(Update_pat1(new int[] { 0, 2, 0})); //se traba
                 break;
             case 2:
-                StartCoroutine(Update_pat1(new int[] { 0, 2, 1, 0}));
+                StartCoroutine(Update_pat1(new int[] { 0, 3, 1, 0})); //se traba
                 break;
         }
     }
@@ -42,7 +42,7 @@ public class charroHand : MonoBehaviour
      // Update is called once per frame
     IEnumerator Update_pat1(int[] patternPoints)
     {
-        // regresar mano al origen
+        
         foreach(int i in patternPoints) 
         {
             Debug.Log("Going to " + i);

@@ -14,12 +14,4 @@ public class damager : MonoBehaviour
             HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            HealthManager.healthSingleton.receiveDamage(damage);
-        }
-    }
 }

@@ -22,4 +22,15 @@ public class bullet : MonoBehaviour
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
+
+/*
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            HealthManager.healthSingleton.receiveDamage(damage);
+            Destroy(gameObject);
+        }
+    }
+*/
 }
