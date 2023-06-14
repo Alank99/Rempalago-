@@ -23,8 +23,8 @@ async function connectToDB()
 {
     return await mysql.createConnection({
         host:'localhost',
-        user:'requester',
-        password:'Arbolitos',
+        user:'API',
+        password:'api123',
         database:'game'
     })
 }
