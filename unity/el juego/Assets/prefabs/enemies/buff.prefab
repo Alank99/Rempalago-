@@ -121,7 +121,7 @@ MonoBehaviour:
     duration: 0
   spriteSpeed: {fileID: 21300000, guid: d061b066edbab8f0998ac5b1fed56f8f, type: 3}
   spriteMaxSpeed: {fileID: 21300000, guid: f5917ffc09acf07b8a0e0d1f7cbc37f8, type: 3}
-  spriteJump: {fileID: 21300000, guid: 5307083ea1140154bbe8e655f298cd2c, type: 3}
+  spriteJump: {fileID: 21300000, guid: 490d454dc5e60d944924ae2eba740b43, type: 3}
   spriteDash: {fileID: 21300000, guid: 2878376c9c114f49ea9701a666843402, type: 3}
   spriteDamage: {fileID: 21300000, guid: 7960938fa480ba137b97a0742efa6365, type: 3}
   spriteAttackSpeed: {fileID: 0}

@@ -22,7 +22,7 @@ app.use(express.static('./public'))
 async function connectToDB()
 {
     return await mysql.createConnection({
-        host:'localhost',
+        host:'172.18.240.1',
         user:'requester',
         password:'Arbolitos',
         database:'game'

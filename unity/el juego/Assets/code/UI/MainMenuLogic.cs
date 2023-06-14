@@ -44,15 +44,18 @@ public class MainMenuLogic : MonoBehaviour
     public void SetVolume(float value)
     {
         PlayerPrefs.SetFloat("volume", value);
+        PlayerPrefs.Save();
     }
 
     public void SetIlumination(bool value)
     {
         PlayerPrefs.SetInt("ilumination", value? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     public void SetDecoration(bool value)
     {
         PlayerPrefs.SetInt("decoration", value? 1 : 0);
+        PlayerPrefs.Save();
     }
 }

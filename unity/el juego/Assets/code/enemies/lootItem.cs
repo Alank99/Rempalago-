@@ -66,7 +66,7 @@ public class lootItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "PlayerPickup"){
-            Debug.Log("Player picked up a buff");
+            Debug.Log("Player picked up a buff of: " + attachedBuff.type.ToString());
             var player = other.transform.parent.parent.gameObject.GetComponent<playerController>();
             player.addBuff(attachedBuff);
             Destroy(this.gameObject);

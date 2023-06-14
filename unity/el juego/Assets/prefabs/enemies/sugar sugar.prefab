@@ -229,6 +229,8 @@ MonoBehaviour:
   damage: 5
   lootPrefab: {fileID: 6803901021863575671, guid: 156296e30f4aa87c4a2f9f9f6e225134, type: 3}
   coinPrefab: {fileID: 635767273146167135, guid: 53c1df9981a949445928fec34d1df060, type: 3}
+  equippedWeapon: {fileID: 0}
+  manager: {fileID: 0}
   id: 2
   invertAnimation: 1
   distance: 20

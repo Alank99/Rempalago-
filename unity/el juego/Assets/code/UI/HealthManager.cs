@@ -35,6 +35,8 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+
+        Debug.Log("Volume:" + PlayerPrefs.GetFloat("volume") + " ilumination:" + PlayerPrefs.GetInt("ilumination") + " decoration:" + PlayerPrefs.GetInt("decoration"));
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (PlayerPrefs.GetInt("ilumination") != 1)
             iluminacion.SetActive(true);
