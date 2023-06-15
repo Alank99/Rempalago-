@@ -84,12 +84,13 @@
 }
 
 
+
 /*canvas*/
-canvas{
+/* canvas{
   flex-grow: 1;
   max-width: 30%; 
   max-height: 600px;
-}
+} */
 
 *,
 *::before,
