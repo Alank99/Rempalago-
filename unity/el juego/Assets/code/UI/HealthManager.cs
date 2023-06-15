@@ -39,7 +39,11 @@ public class HealthManager : MonoBehaviour
         Debug.Log("Volume:" + PlayerPrefs.GetFloat("volume") + " ilumination:" + PlayerPrefs.GetInt("ilumination") + " decoration:" + PlayerPrefs.GetInt("decoration"));
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (PlayerPrefs.GetInt("ilumination") == 1)
+        {
+            this.GetComponentInChildren<Light2D>().intensity = 0.3f;
+            this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 10f;
             iluminacion.SetActive(true);
+        }
         else
         {
             this.GetComponentInChildren<Light2D>().intensity = 1f;
