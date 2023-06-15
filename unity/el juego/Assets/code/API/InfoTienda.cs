@@ -60,9 +60,9 @@ public class InfoTienda : MonoBehaviour
         espada_vender = weapons.list[a];
         balero_vender = weapons.list[b];
         trompo_vender = weapons.list[c];
-        two.text = espada_vender.name + "\n$" + espada_vender.damage * 10;
-        four.text = balero_vender.name + "\n$" + balero_vender.damage * 10;
-        six.text = trompo_vender.name + "\n$" + trompo_vender.damage * 10;
+        two.text = espada_vender.name + "\n$" + espada_vender.damage * multiplicador_precio;
+        four.text = balero_vender.name + "\n$" + balero_vender.damage * multiplicador_precio;
+        six.text = trompo_vender.name + "\n$" + trompo_vender.damage * multiplicador_precio;
     }
 
     IEnumerator QueryData(string EP)

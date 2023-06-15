@@ -11,7 +11,7 @@ public class charroHand : charroHealth//MonoBehaviour
 
     void Start()
     {
-        salud = 20;
+        salud = 40;
         Tirar_dado();
     }
 

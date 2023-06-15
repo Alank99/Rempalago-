@@ -230,13 +230,21 @@ public class HealthManager : MonoBehaviour
 
     public void update_weapon(int weapon_id, int type)
     {
-        change.set_damage(weapon_id, type);
-        if (type == 0)
+        if (type == 0 && weapon_id > player_info.espada)
+        {
+            change.set_damage(weapon_id, type);
             player_info.espada = weapon_id;
-        else if (type == 1)
+        }
+        else if (type == 1 && weapon_id > player_info.balero)
+        {
+            change.set_damage(weapon_id, type);
             player_info.balero = weapon_id;
-        else if (type == 2)
+        }
+        else if (type == 2 && weapon_id > player_info.trompo)
+        {
+            change.set_damage(weapon_id, type);
             player_info.trompo = weapon_id;
+        }
     }
 
     public void save_to_sql(int id)
