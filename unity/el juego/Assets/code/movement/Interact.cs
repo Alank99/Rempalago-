@@ -20,6 +20,7 @@ public class Interact : MonoBehaviour
     [SerializeField] Sprite ajolote;
     [SerializeField] Sprite alex;
     [SerializeField] Sprite Cami;
+    [SerializeField] Sprite charro;
 
     [Header("Interact")]
     [SerializeField] GameObject note1;
@@ -41,6 +42,16 @@ public class Interact : MonoBehaviour
     void Start()
     {
         saves = GameObject.FindGameObjectsWithTag("SavePoint");
+    }
+
+    public void charroTalk()
+    {
+        this.gameObject.GetComponent<HealthManager>().final_save();
+        text_dialog.text = "Me has vencido, pero volveré a intentarlo...";
+        name_dialog.text = "Charro";
+        dialog_image.sprite = charro;
+        dialog_box.SetActive(true);
+        StartCoroutine(Waiter(dialog_box));
     }
 
     public void OnInteract()

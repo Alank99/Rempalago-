@@ -39,7 +39,11 @@ public class HealthManager : MonoBehaviour
         Debug.Log("Volume:" + PlayerPrefs.GetFloat("volume") + " ilumination:" + PlayerPrefs.GetInt("ilumination") + " decoration:" + PlayerPrefs.GetInt("decoration"));
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
         if (PlayerPrefs.GetInt("ilumination") == 1)
+        {
+            this.GetComponentInChildren<Light2D>().intensity = 0.3f;
+            this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 10f;
             iluminacion.SetActive(true);
+        }
         else
         {
             this.GetComponentInChildren<Light2D>().intensity = 1f;
@@ -243,6 +247,14 @@ public class HealthManager : MonoBehaviour
         player_info.money = CoinCounter.instance.currentCoins;
         StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
         StartCoroutine(SaveGame("playthroughs/update/" + player_info.player_id + "/" + (int)(Time.time - startTime) + "/0"));
+        startTime = Time.time;
+    }
+
+    public void final_save()
+    {
+        player_info.money = CoinCounter.instance.currentCoins;
+        StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
+        StartCoroutine(SaveGame("playthroughs/update/" + player_info.player_id + "/" + (int)(Time.time - startTime) + "/1"));
         startTime = Time.time;
     }
 

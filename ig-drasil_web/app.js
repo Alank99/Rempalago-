@@ -13,7 +13,7 @@ import * as weapons from './endpointWeapons.js'
 import * as views from './endpointVistas.js'
 
 const app = express()
-const hostname = '127.0.0.1'
+const hostname = 'fredhut.com'
 const port = 5000
 
 app.use(express.json())
@@ -22,9 +22,9 @@ app.use(express.static('./public'))
 async function connectToDB()
 {
     return await mysql.createConnection({
-        host:'172.18.240.1',
-        user:'requester',
-        password:'Arbolitos',
+        host:'localhost',
+        user:'kimera',
+        password:'Kimera123',
         database:'game'
     })
 }
