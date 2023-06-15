@@ -38,7 +38,7 @@ public class HealthManager : MonoBehaviour
 
         Debug.Log("Volume:" + PlayerPrefs.GetFloat("volume") + " ilumination:" + PlayerPrefs.GetInt("ilumination") + " decoration:" + PlayerPrefs.GetInt("decoration"));
         AudioListener.volume = PlayerPrefs.GetFloat("volume");
-        if (PlayerPrefs.GetInt("ilumination") != 1)
+        if (PlayerPrefs.GetInt("ilumination") == 1)
             iluminacion.SetActive(true);
         else
         {
@@ -46,7 +46,7 @@ public class HealthManager : MonoBehaviour
             this.GetComponentInChildren<Light2D>().pointLightOuterRadius = 30f;
             iluminacion.SetActive(false);
         }
-        if (PlayerPrefs.GetInt("decoration") != 1)
+        if (PlayerPrefs.GetInt("decoration") == 1)
             decoracion.SetActive(true);
         else
             decoracion.SetActive(false);
@@ -210,7 +210,7 @@ public class HealthManager : MonoBehaviour
         change.set_damage(player_info.balero, 1);
         change.set_damage(player_info.trompo, 2);
         this.GetComponent<playerController>().has_dash = player_info.dash;
-        this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
+        //this.transform.position = new Vector3(PlayerPrefs.GetInt("pos_x"), PlayerPrefs.GetInt("pos_y"), 0);
     }
 
     public void update_attack(float newattack)
@@ -237,7 +237,8 @@ public class HealthManager : MonoBehaviour
 
     public void save_to_sql(int id)
     {
-        StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
+        //PlayerPrefs.SetInt("checkpoint", id);
+        //StartCoroutine(GetCheckpoint("player/last-checkpoint/" + player_info.player_id));
         player_info.checkpoint_id = id;
         player_info.money = CoinCounter.instance.currentCoins;
         StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
@@ -301,8 +302,7 @@ public class HealthManager : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success) {
                 string jsonString = "{\"list\":" + www.downloadHandler.text + "}";
                 checkpoint check = JsonUtility.FromJson<checkpointList>(jsonString).list[0];
-                PlayerPrefs.SetInt("pos_x", check.position_x);
-                PlayerPrefs.SetInt("pos_y", check.position_y);
+                this.transform.position = new Vector3(check.position_x, check.position_y, 0);
             }
             else {
                 Debug.Log("Error: " + www.error);

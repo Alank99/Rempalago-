@@ -52,9 +52,14 @@ public class Trompo : MonoBehaviour
     /// </summary>
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "charro_hand")
         {
-            col.gameObject.GetComponent<genericMonster>().takeDamage((int)(SpinSpeed * MaxDamage));
+            try {
+                col.gameObject.GetComponent<genericMonster>().takeDamage((int)(SpinSpeed * MaxDamage));
+            }
+            catch{
+                col.gameObject.GetComponent<charroHealth>().takeDamage((int)(SpinSpeed * MaxDamage));
+            }
             SpinSpeed -= SpinLoss;
         }
     }

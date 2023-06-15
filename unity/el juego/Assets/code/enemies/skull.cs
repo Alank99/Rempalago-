@@ -28,6 +28,7 @@ public class skull : genericMonster
 
     public void Start() {
         player = GameObject.FindWithTag("Player");
+        audioSource = this.GetComponent<AudioSource>();
         targetPos = player.transform.position;
         salud = 2;
         damage = 10;

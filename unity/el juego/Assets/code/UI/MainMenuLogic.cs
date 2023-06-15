@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuLogic : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject optionsMenu;
+
+    public Toggle ilumToggle;
+    public Toggle decorToggle;
     // Start is called before the first frame update
     void Start()
     {
+        ilumToggle.onValueChanged.AddListener((value) =>{SetIlumination(value);});
+        decorToggle.onValueChanged.AddListener((value) =>{SetDecoration(value);});
         mainMenu = GameObject.Find("MainMenuCanvas");
         optionsMenu = GameObject.Find("OptionsCanvas");
 
