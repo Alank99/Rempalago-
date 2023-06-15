@@ -1,3 +1,5 @@
+const url = 'http://localhost:5000/api/'
+
 /**
  * @param {number} alpha Indicated the transparency of the color
  * @returns {string} A string of the form 'rgba(240, 50, 123, 1.0)' that represents a color
@@ -22,7 +24,7 @@ function getColor(value, range){
 // Speedrun data
 try
 {
-    const speedrun_response = await fetch('http://localhost:5000/api/vistas/topTimes/20',{
+    const speedrun_response = await fetch(url + 'vistas/topTimes/20',{
         method: 'GET'
     })
 
@@ -72,7 +74,7 @@ catch(error)
 // Best Weapons data
 try
 {
-    const response = await fetch('http://localhost:5000/api/vistas/topWeapons/100',{
+    const response = await fetch(url + 'vistas/topWeapons/100',{
         method: 'GET'
     })
 
@@ -98,16 +100,60 @@ try
         const ctx = document.getElementById('weapons').getContext('2d');
         const chart = new Chart(ctx, 
             {
+                type: 'pie',
+                data: {
+                    labels: names,
+                    datasets: [{
+                        data : kills
+                    }]
+                }
+            })
+    }
+}
+catch(error)
+{
+    console.log(error)
+}
+
+// Active users data
+try
+{
+    const response = await fetch(url + 'vistas/new/20',{
+        method: 'GET'
+    })
+
+    console.log('Got a response correctly')
+
+    if(response.ok)
+    {
+        console.log('Response is ok. Converting to JSON.')
+
+        let results = await response.json()
+
+        console.log(results)
+        console.log('Data converted correctly. Plotting chart.')
+
+        const values = Object.values(results)
+        
+        // In this case, we just separate the data into different arrays using the map method of the values array. This creates new arrays that hold only the data that we need.
+        const names = values.map(e => e['Date'])
+        const type = values.map(e => getColor(e['newPlayers'], [0, results.at(0).newPlayers]))
+        const borders = values.map(e => 'rgba(0, 0, 0, 1.0)')
+        const plays = values.map(e => e['newPlayers'])
+        
+        const ctx_speedrun = document.getElementById('new').getContext('2d');
+        const pieChart = new Chart(ctx_speedrun, 
+            {
                 type: 'bar',
                 data: {
                     labels: names,
                     datasets: [
                         {
-                            label: 'Número de derrotas con arma',
+                            label: 'Número de nuevos usuarios por dia',
                             backgroundColor: type,
                             borderColor: borders,
                             borderWidth: 2,
-                            data: kills
+                            data: plays
                         }
                     ]
                 }
@@ -122,7 +168,7 @@ catch(error)
 // Active users data
 try
 {
-    const response = await fetch('http://localhost:5000/api/vistas/active',{
+    const response = await fetch(url + 'vistas/active',{
         method: 'GET'
     })
 
