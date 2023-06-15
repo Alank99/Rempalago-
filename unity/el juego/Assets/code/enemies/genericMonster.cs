@@ -66,6 +66,9 @@ public abstract class genericMonster : MonoBehaviour
               //  StartCoroutine("randomFly");
               //  break;
         }
+
+        equippedWeapon = GameObject.FindWithTag("weapon").GetComponent<Image>();
+        manager = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
     }
 
     /// <summary>
@@ -206,6 +209,7 @@ public abstract class genericMonster : MonoBehaviour
 
     IEnumerator dieDelay() {
         yield return new WaitForSecondsRealtime(1);
+        Debug.Log("I'm Dead");
         Destroy(this.gameObject);
     }
 

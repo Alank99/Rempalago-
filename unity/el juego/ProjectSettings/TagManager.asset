@@ -16,6 +16,7 @@ TagManager:
   - SavePoint
   - PlayerPickup
   - charro_hand
+  - weapon
   layers:
   - Default
   - TransparentFX

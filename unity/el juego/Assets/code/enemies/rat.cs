@@ -25,6 +25,7 @@ public class rat : genericMonster
     public void Start() {
         player = GameObject.FindWithTag("Player");
         targetPos = player.transform.position;
+        salud = 5;
         damage = 10;
     }
 

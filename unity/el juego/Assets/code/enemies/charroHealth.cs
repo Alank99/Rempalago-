@@ -59,7 +59,8 @@ public class charroHealth : MonoBehaviour
 
     public void takeDamage(int damage){
         salud -= damage;
-        SpriteRenderer sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        Debug.Log("I have been hit! " + salud);
+        SpriteRenderer sprite = this.GetComponent<SpriteRenderer>();
         sprite.color = Color.red;
         StartCoroutine(colorChange(sprite, 0.2f));
         if (salud <= 0){
