@@ -11,7 +11,7 @@ public class charroHand : charroHealth//MonoBehaviour
 
     void Start()
     {
-        salud = 2;
+        salud = 20;
         Tirar_dado();
     }
 
@@ -27,16 +27,12 @@ public class charroHand : charroHealth//MonoBehaviour
         switch (dado)
         {
             case 0:
-                StartCoroutine(Update_patterns(new int[] { 0, 1, 0, 2, 0})); //funciona
+                StartCoroutine(Update_patterns(new int[] { 0, 1, 0}));
                 break;
             case 1:
-                StartCoroutine(Update_patterns(new int[] { 0, 2, 0, 1, 0})); //se traba
+                StartCoroutine(Update_patterns(new int[] { 0, 2, 0, 2, 0, 1, 0, 1, 0})); //el chiste de esta corrutina es que la primera parte de la pelea sea más retadora, sim embargo, tiene un patrón muy fijo
                 break;
-            /*
-            case 2:
-                StartCoroutine(Update_patterns(new int[] { 0, 2, 3, 1, 0})); //se traba
-                break;
-            */
+            
         }
     }
 
@@ -48,7 +44,6 @@ public class charroHand : charroHealth//MonoBehaviour
         
         foreach(int i in patternPoints) 
         {
-            Debug.Log("Going to " + i);
             while (Vector2.Distance(transform.position, patrolPoints[i].position) > d_away)
             {
                 transform.position = Vector3.MoveTowards(transform.position, patrolPoints[i].position, moveSpeed * Time.deltaTime);
@@ -56,7 +51,7 @@ public class charroHand : charroHealth//MonoBehaviour
             }
             
         }
-        
+
         Tirar_dado();
     }
 
