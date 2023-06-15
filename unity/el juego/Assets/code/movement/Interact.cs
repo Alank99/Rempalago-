@@ -52,6 +52,16 @@ public class Interact : MonoBehaviour
         name_dialog.text = "Charro";
         dialog_image.sprite = charro;
         dialog_box.SetActive(true);
+        StartCoroutine(final_speech());
+    }
+
+    IEnumerator final_speech()
+    {
+        yield return new WaitForSeconds(5f);
+        text_dialog.text = "¿Y mi mamá? El Charro nunca la tuvo, realmente está perdida... Te extraño mami...";
+        name_dialog.text = "Alex";
+        dialog_image.sprite = alex;
+        dialog_box.SetActive(true);
         StartCoroutine(Waiter(dialog_box));
     }
 
