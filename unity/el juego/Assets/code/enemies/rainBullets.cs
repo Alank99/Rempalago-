@@ -18,9 +18,9 @@ public class rainBullets : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
     [SerializeField] float delay;
-    [SerializeField] float limit_a;
+    [SerializeField] float limit_a; // The bullets will fall between the limits a (left) and b (right)
     [SerializeField] float limit_b;
-    [SerializeField] float limit_c;
+    [SerializeField] float limit_c; // The bullets will fall from the limit c (top)
 
     // Start is called before the first frame update
     void Start()

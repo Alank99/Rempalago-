@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public abstract class genericMonster : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public abstract class genericMonster : MonoBehaviour
     [Header("Loot references")]
     public GameObject lootPrefab;
     public GameObject coinPrefab;
+    public Image equippedWeapon;
+    public HealthManager manager;
     public int id;
 
     [Header("End of genericMonster")]
@@ -151,22 +154,22 @@ public abstract class genericMonster : MonoBehaviour
                switch (drop.name)
                 {
                     case "elote":
-                        dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.maxSpeed, drop.modifier / 100, 10f));
                         break;
                     case "pan de muerto":
-                        dropItems.Add(new buff(buffTypes.speed, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.speed, drop.modifier / 100, 10f));
                         break;
                     case "mazapan":
-                        dropItems.Add(new buff(buffTypes.damage, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.damage, drop.modifier / 50, 10f));
                         break;
                     case "oblea":
-                        dropItems.Add(new buff(buffTypes.dash, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.dash, drop.modifier / 100, 10f));
                         break;
                     case "Borrachito":
-                        dropItems.Add(new buff(buffTypes.jump, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.jump, drop.modifier / 100, 10f));
                         break;
                     case "concha":
-                        dropItems.Add(new buff(buffTypes.health, drop.modifier / 10, 10f));
+                        dropItems.Add(new buff(buffTypes.health, drop.modifier / 100, 10f));
                         break;
                     case "coin":
                         dropItems.Add(new buff(buffTypes.coin, drop.modifier, 10f));
@@ -190,12 +193,45 @@ public abstract class genericMonster : MonoBehaviour
         var amount = 10f;
         rb.AddForce(new Vector2(Random.Range(-1,1) * amount, amount), ForceMode2D.Impulse);
         rb.AddTorque(Random.Range(-1, 1) * amount);
+        
+        if (equippedWeapon.sprite.name == "espada")
+            StartCoroutine(UpdateWeaponKills("weapons/kill-enemy/" +  manager.player_info.espada));
+        else if (equippedWeapon.sprite.name == "balero")
+            StartCoroutine(UpdateWeaponKills("weapons/kill-enemy/" +  manager.player_info.balero));
+        else if (equippedWeapon.sprite.name == "trompo")
+            StartCoroutine(UpdateWeaponKills("weapons/kill-enemy/" +  manager.player_info.trompo));
+
         StartCoroutine(dieDelay());
     }
 
     IEnumerator dieDelay() {
         yield return new WaitForSecondsRealtime(1);
         Destroy(this.gameObject);
+    }
+
+    IEnumerator UpdateWeaponKills(string EP)
+    {
+        // converts newUser to JSON
+        string jsonData = JsonUtility.ToJson("");
+
+        // POST request
+        using (UnityWebRequest www = UnityWebRequest.Put(info.url + EP, jsonData))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // request
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                //Debug.Log("Guardado exitoso de la info del arma");
+            }
+            else
+            {
+                Debug.Log("Error en el guardado: " + www.error);
+            }
+        }
     }
 
     public void takeDamage(int damage){

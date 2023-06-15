@@ -7,6 +7,9 @@ public class skull : genericMonster
 
     public float distance;
 
+    [SerializeField] private AudioSource audioSource;
+
+
     public GameObject player;
     public override void updateWalkMovement() {
 
@@ -32,11 +35,13 @@ public class skull : genericMonster
 
     public override void monsterHasActivated()
     {
-        //Debug.Log("Calavera activada");
+        //cuando se active active su clip de sonido
+        audioSource.Play();
     }
 
     public override void monsterHasDeactivated()
     {
-        //Debug.Log("Calavera desactivada");
+        //cuando se desactive desactive su clip de sonido
+        audioSource.Stop();
     }
 }

@@ -26,7 +26,7 @@ public class adminBackground : MonoBehaviour
             backgrounds[id].color =  new Color(1f,1f,1f,1f);
 
             while(active.color.a > 0.01f ){
-                active.color =  new Color(1f,1f,1f, active.color.a - 0.3f * Time.deltaTime);
+                active.color =  new Color(1f,1f,1f, active.color.a - 0.5f * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
 
