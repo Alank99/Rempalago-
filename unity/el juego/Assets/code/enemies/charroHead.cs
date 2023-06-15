@@ -22,6 +22,7 @@ public class charroHead : MonoBehaviour
         }
         if (!GameObject.FindWithTag("charro_hand"))
         {
+            player.GetComponent<Interact>().charroTalk();
             StartCoroutine(moveWalls(position.position));
             StartCoroutine(DelayDeath(1f));
         }

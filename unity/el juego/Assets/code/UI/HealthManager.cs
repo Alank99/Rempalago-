@@ -250,6 +250,14 @@ public class HealthManager : MonoBehaviour
         startTime = Time.time;
     }
 
+    public void final_save()
+    {
+        player_info.money = CoinCounter.instance.currentCoins;
+        StartCoroutine(SaveGame("player/update/" + player_info.player_id, player_info));
+        StartCoroutine(SaveGame("playthroughs/update/" + player_info.player_id + "/" + (int)(Time.time - startTime) + "/1"));
+        startTime = Time.time;
+    }
+
     IEnumerator SaveGame(string EP, object data)
     {
         // converts newUser to JSON
