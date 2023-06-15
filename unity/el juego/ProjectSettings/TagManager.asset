@@ -15,6 +15,7 @@ TagManager:
   - PuzzleCollider
   - SavePoint
   - PlayerPickup
+  - charro_hand
   layers:
   - Default
   - TransparentFX
