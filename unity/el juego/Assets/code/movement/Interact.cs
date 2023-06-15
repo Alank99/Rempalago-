@@ -28,6 +28,7 @@ public class Interact : MonoBehaviour
     [SerializeField] GameObject cartel2;
     [SerializeField] GameObject cami;
     [SerializeField] GameObject peligro;
+    [SerializeField] GameObject madre;
 
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
@@ -149,6 +150,15 @@ public class Interact : MonoBehaviour
             text_dialog.text = cami.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Cami";
             dialog_image.sprite = Cami;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, madre.transform.position) < distance_from_player)
+        {
+            text_dialog.text = madre.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
             dialog_box.SetActive(true);
             StartCoroutine(Waiter(dialog_box));
         }
