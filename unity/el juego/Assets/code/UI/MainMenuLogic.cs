@@ -32,7 +32,11 @@ public class MainMenuLogic : MonoBehaviour
     public void OptionsButton()
     {
         mainMenu.GetComponent<Canvas>().enabled = false; 
-        optionsMenu.GetComponent<Canvas>().enabled = true; 
+        optionsMenu.GetComponent<Canvas>().enabled = true;
+        PlayerPrefs.SetInt("ilumination", 1);
+        PlayerPrefs.SetInt("decoration", 1);
+        PlayerPrefs.SetFloat("volume", 1f);
+        PlayerPrefs.Save();
     }
 
     public void ExitGame()

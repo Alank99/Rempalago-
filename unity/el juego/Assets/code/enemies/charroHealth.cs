@@ -53,7 +53,7 @@ public class charroHealth : MonoBehaviour
     }
 
     IEnumerator dieDelay() {
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(1f);
         Destroy(this.gameObject);
     }
 

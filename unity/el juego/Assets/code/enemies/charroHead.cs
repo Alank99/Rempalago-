@@ -6,7 +6,6 @@ public class charroHead : MonoBehaviour
 {
     public GameObject player;
     public Rigidbody2D rb;
-    public charroHand charro_hand;
     public float speed;
 
     public GameObject gameObjectToSetActive;
@@ -48,13 +47,5 @@ public class charroHead : MonoBehaviour
     public void Start() {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void CheckHand()
-    {
-        if (charro_hand.salud <= 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
