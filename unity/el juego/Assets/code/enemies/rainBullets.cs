@@ -18,8 +18,9 @@ public class rainBullets : MonoBehaviour
 {
     [SerializeField] GameObject bullet;
     [SerializeField] float delay;
-    [SerializeField] float limit_a;
+    [SerializeField] float limit_a; // The bullets will fall between the limits a (left) and b (right)
     [SerializeField] float limit_b;
+    [SerializeField] float limit_c; // The bullets will fall from the limit c (top)
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,7 @@ public class rainBullets : MonoBehaviour
     void CreateBullet()
     {
         // Generate a random position in X and over the view of the camera
-        Vector3 newPos = new Vector3(Random.Range(limit_a, limit_b), 6.5f, 0);
+        Vector3 newPos = new Vector3(Random.Range(limit_a, limit_b), limit_c, 0);
 
         // Create a copy of the bullet prefab
         Instantiate(bullet, newPos, Quaternion.identity);

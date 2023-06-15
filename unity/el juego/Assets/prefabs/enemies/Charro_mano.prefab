@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8249292554755122402}
   - component: {fileID: 1823267914320091872}
   - component: {fileID: 2931410471920187691}
+  - component: {fileID: 6321306457319679486}
   m_Layer: 0
   m_Name: Charro_mano
   m_TagString: Untagged
@@ -153,3 +154,18 @@ MonoBehaviour:
   patrolPoints: []
   moveSpeed: 10
   d_away: 1
+--- !u!114 &6321306457319679486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412988339343320897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1b16aa0e02ba74a8d22e420ced5658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterTargetMethod: 0
+  damage: 10
+  invertAnimation: 0

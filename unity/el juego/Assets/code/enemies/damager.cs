@@ -14,4 +14,5 @@ public class damager : MonoBehaviour
             HealthManager.healthSingleton.receiveDamage(damage);
         }
     }
+
 }
