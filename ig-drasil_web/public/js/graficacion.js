@@ -1,4 +1,4 @@
-const url = 'http://localhost:5000/api/'
+const url = 'https://fredhut.com/api/'
 
 /**
  * @param {number} alpha Indicated the transparency of the color
