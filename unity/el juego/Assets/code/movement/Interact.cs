@@ -30,6 +30,7 @@ public class Interact : MonoBehaviour
     [SerializeField] GameObject cami;
     [SerializeField] GameObject peligro;
     [SerializeField] GameObject madre;
+    [SerializeField] GameObject pendiente;
 
     [Header("Unlockables")]
     [SerializeField] GameObject dash_unlock;
@@ -132,6 +133,16 @@ public class Interact : MonoBehaviour
         {
             sobre1.SetActive(false);
             text_dialog.text = sobre1.GetComponent<NPC>().dialogo_npc;
+            name_dialog.text = "Alex";
+            dialog_image.sprite = alex;
+            dialog_box.SetActive(true);
+            StartCoroutine(Waiter(dialog_box));
+        }
+
+        if (Vector3.Distance(transform.position, pendiente.transform.position) < distance_from_player)
+        {
+            pendiente.SetActive(false);
+            text_dialog.text = pendiente.GetComponent<NPC>().dialogo_npc;
             name_dialog.text = "Alex";
             dialog_image.sprite = alex;
             dialog_box.SetActive(true);
