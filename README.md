@@ -22,6 +22,6 @@
 
 [Link a Trello](https://trello.com/b/hLOBSsiz/principal)
 
-[Link a la página principal] (https://fredhut.com/)
+[Link a la página principal](https://fredhut.com/)
 
-[Link al video final] (https://youtu.be/52tSAUuKAnc)
+[Link al video final](https://youtu.be/52tSAUuKAnc)
