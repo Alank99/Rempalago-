@@ -44,7 +44,7 @@ try
         // In this case, we just separate the data into different arrays using the map method of the values array. This creates new arrays that hold only the data that we need.
         const names = values.map(e => e['UserName'])
         const speedrun_colors = values.map(e => getColor(e['Time'], [0, results.at(-1).Time]))
-        const speedrun_borders = values.map(e => 'rgba(0, 0, 0, 1.0)')
+        const speedrun_borders = values.map(e => 'rgba(0, 0, 255, 1.0)')
         const speedrun_completion = values.map(e => e['Time'])
         
         const ctx_speedrun = document.getElementById('speedrun').getContext('2d');
