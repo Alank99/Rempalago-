@@ -20,14 +20,13 @@ public class WeaponHitbox : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         damage = Mathf.RoundToInt(weapon_attack + manager.player_info.attack);
-        if (col.CompareTag("Enemy") || col.CompareTag("charro_hand"))
+        if (col.gameObject.tag == "Enemy")
         {
-            try {
-            col.GetComponent<genericMonster>().takeDamage(damage);
-            }
-            catch{
-            col.GetComponent<charroHealth>().takeDamage(damage);
-            }
+            col.gameObject.GetComponent<genericMonster>().takeDamage(damage);
+        }
+        if (col.gameObject.tag == "charro_hand")
+        {
+            col.gameObject.GetComponent<charroHealth>().takeDamage(damage);
         }
     }
 }
